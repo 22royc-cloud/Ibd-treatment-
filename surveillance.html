@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Surveillance">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Surveillance & CRC Screening</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-polyp:checked ~ main #p-polyp,
+#t-screen:checked ~ main #p-screen,
+#t-special:checked ~ main #p-special,
+#t-info:checked ~ main #p-info{display:block}
+#t-polyp:checked ~ .tabbar label[for="t-polyp"],
+#t-screen:checked ~ .tabbar label[for="t-screen"],
+#t-special:checked ~ .tabbar label[for="t-special"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-screen:checked ~ .topbar .filters,
+#t-special:checked ~ .topbar .filters,
+#t-info:checked ~ .topbar .filters{display:none}
+
+.g-ad{--ac:var(--c-tnf)} .g-ser{--ac:var(--c-il23)} .g-pm{--ac:var(--c-immuno)}
+.g-q{--ac:var(--c-jak)} .g-norm{--ac:var(--c-integrin)}
+.pg-ad i{background:var(--c-tnf)} .pg-ser i{background:var(--c-il23)}
+.pg-pm i{background:var(--c-immuno)} .pg-q i{background:var(--c-jak)}
+.pg-norm i{background:var(--c-integrin)} .pg-diff i{background:var(--c-s1p)}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.35;letter-spacing:-.01em}
+.ints{display:flex;gap:8px;margin-top:10px}
+.int{flex:1;min-width:0;background:var(--card2);border:1px solid var(--ring);border-radius:9px;
+  padding:8px 10px}
+.int span{display:block;font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--ink-3);font-weight:700;margin-bottom:2px}
+.int b{font-size:14px;font-weight:700;line-height:1.25;display:block}
+.int.alt{border-color:var(--c-s1p)}
+.int.alt b{color:var(--c-s1p)}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.differs .find-t::after{content:"differs";font-size:9px;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--c-s1p);border:1px solid var(--c-s1p);border-radius:4px;
+  padding:1px 5px;margin-left:7px;vertical-align:2px;white-space:nowrap}
+.pref{font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid;margin-left:6px;vertical-align:2px}
+.p-preferred{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.p-alternative{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.p-last-resort{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+#g-diff:checked ~ main .find:not(.differs){display:none}
+#g-diff:checked ~ .topbar .pill.pg-diff{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#g-diff:checked ~ .topbar .pill.pg-diff i{box-shadow:0 0 0 1.5px var(--page)}
+#g-all:checked ~ .topbar .pill[for="g-all"]{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#g-ad:checked ~ main .find:not(.g-ad){display:none}
+#g-ad:checked ~ .topbar .pill.pg-ad{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#g-ad:checked ~ .topbar .pill.pg-ad i{box-shadow:0 0 0 1.5px var(--page)}
+#g-ser:checked ~ main .find:not(.g-ser){display:none}
+#g-ser:checked ~ .topbar .pill.pg-ser{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#g-ser:checked ~ .topbar .pill.pg-ser i{box-shadow:0 0 0 1.5px var(--page)}
+#g-pm:checked ~ main .find:not(.g-pm){display:none}
+#g-pm:checked ~ .topbar .pill.pg-pm{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#g-pm:checked ~ .topbar .pill.pg-pm i{box-shadow:0 0 0 1.5px var(--page)}
+#g-q:checked ~ main .find:not(.g-q){display:none}
+#g-q:checked ~ .topbar .pill.pg-q{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#g-q:checked ~ .topbar .pill.pg-q i{box-shadow:0 0 0 1.5px var(--page)}
+#g-norm:checked ~ main .find:not(.g-norm){display:none}
+#g-norm:checked ~ .topbar .pill.pg-norm{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#g-norm:checked ~ .topbar .pill.pg-norm i{box-shadow:0 0 0 1.5px var(--page)}
+.find.miss{display:none !important}
+@media (min-width:900px){#p-polyp{column-count:2;column-gap:14px}
+  #p-polyp .find,#p-polyp .notice{break-inside:avoid;-webkit-column-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-polyp" class="ctl" checked>
+<input type="radio" name="tab" id="t-screen" class="ctl">
+<input type="radio" name="tab" id="t-special" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+<input type="radio" name="grp" id="g-all" class="ctl" checked>
+<input type="radio" name="grp" id="g-ad" class="ctl">
+<input type="radio" name="grp" id="g-ser" class="ctl">
+<input type="radio" name="grp" id="g-pm" class="ctl">
+<input type="radio" name="grp" id="g-q" class="ctl">
+<input type="radio" name="grp" id="g-norm" class="ctl">
+<input type="radio" name="grp" id="g-diff" class="ctl">
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Surveillance &amp; Screening</div>
+    <div class="tb-note">Aug 2026</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search finding, size, interval…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="scrollrow">
+    <label class="pill" for="g-all">All findings<span class="ct">22</span></label>
+    <label class="pill pg-ad" for="g-ad"><i></i>Adenomas<span class="ct">7</span></label><label class="pill pg-ser" for="g-ser"><i></i>Serrated<span class="ct">9</span></label><label class="pill pg-pm" for="g-pm"><i></i>Piecemeal<span class="ct">2</span></label><label class="pill pg-q" for="g-q"><i></i>Quality<span class="ct">3</span></label><label class="pill pg-norm" for="g-norm"><i></i>Normal<span class="ct">1</span></label>
+    <label class="pill pg-diff" for="g-diff"><i></i>Where they differ<span class="ct">9</span></label>
+  </div>
+  <div class="hint"><span id="cnt"></span> USMSTF and ESGE side by side</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane searchable" id="p-polyp">
+  <div class="notice"><b>Everything below assumes the examination was good enough to count.</b> Complete to the caecum, preparation adequate to see lesions above 5 mm, complete resection, and an endoscopist meeting adenoma detection standards. If any of those is in doubt, the quality cards at the bottom override the finding-based interval.</div>
+  <div class="notice"><b>Two guidelines, shown side by side.</b> USMSTF (ACG, AGA and ASGE together, 2020) and ESGE (2020) genuinely disagree in places — most sharply about small low-risk adenomas, where ESGE removes surveillance entirely. Cards where they differ are marked. Follow whichever your service has adopted, but know that the difference is real and deliberate.</div>
+  <div class="find card g-norm">
+  <div class="find-t">Normal colonoscopy — no polyps</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>10 years</b></div>
+    <div class="int"><span>ESGE</span><b>10 years</b></div>
+  </div>
+  <div class="find-n">Assumes a complete, well-prepared examination by an endoscopist with an adequate adenoma detection rate. In an organised screening programme, ESGE returns the patient to that programme rather than to a fixed 10-year colonoscopy.</div>
+</div>
+<div class="find card g-ser">
+  <div class="find-t">≤ 20 hyperplastic polyps &lt; 10 mm, rectum or sigmoid</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>10 years</b></div>
+    <div class="int"><span>ESGE</span><b>Return to screening</b></div>
+  </div>
+  <div class="find-n">Strong recommendation, moderate quality. Distal small hyperplastic polyps carry no meaningful metachronous risk.</div>
+</div>
+<div class="find card g-ser">
+  <div class="find-t">≤ 20 hyperplastic polyps &lt; 10 mm, proximal to sigmoid</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>10 years</b></div>
+    <div class="int"><span>ESGE</span><b>Return to screening</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality. Proximal location alone does not shorten the interval, but be sure they are not misclassified sessile serrated lesions.</div>
+</div>
+<div class="find card g-ser differs">
+  <div class="find-t">Hyperplastic polyp ≥ 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3–5 years</b></div>
+    <div class="int alt"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">A hyperplastic polyp of this size is often a sessile serrated lesion on review. ESGE treats any serrated polyp ≥ 10 mm as high risk.</div>
+</div>
+<div class="find card g-ad differs">
+  <div class="find-t">1–2 tubular adenomas &lt; 10 mm, low-grade dysplasia</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>7–10 years</b></div>
+    <div class="int alt"><span>ESGE</span><b>Return to screening</b></div>
+  </div>
+  <div class="find-n">The single most under-applied recommendation in practice. USMSTF lengthened this from 5–10 to 7–10 years in 2020; ESGE removed surveillance altogether. Adherence studies keep finding these patients booked at 3–5 years.</div>
+</div>
+<div class="find card g-ad differs">
+  <div class="find-t">3–4 tubular adenomas &lt; 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3–5 years</b></div>
+    <div class="int alt"><span>ESGE</span><b>Return to screening</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality on the US side. ESGE places up to 4 small low-grade adenomas in the low-risk group — a genuine transatlantic disagreement, not a rounding difference.</div>
+</div>
+<div class="find card g-ad">
+  <div class="find-t">5–10 tubular adenomas &lt; 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">Strong recommendation, moderate quality. ESGE reaches the same answer through its "≥ 5 adenomas" high-risk criterion.</div>
+</div>
+<div class="find card g-ad differs">
+  <div class="find-t">&gt; 10 adenomas at one examination</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>1 year</b></div>
+    <div class="int alt"><span>ESGE</span><b>3 years + genetics</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality. Both societies would think about a polyposis syndrome here — consider germline testing, particularly under age 60 or with a suggestive family history.</div>
+</div>
+<div class="find card g-ad">
+  <div class="find-t">Adenoma ≥ 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">Strong recommendation, high quality. The clearest and least disputed line in the whole table.</div>
+</div>
+<div class="find card g-ad differs">
+  <div class="find-t">Adenoma with villous or tubulovillous histology</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int alt"><span>ESGE</span><b>Return to screening if &lt; 10 mm and low grade</b></div>
+  </div>
+  <div class="find-n">A real divergence. USMSTF treats villous histology as advanced regardless of size; ESGE explicitly disregards the villous component for adenomas under 10 mm with low-grade dysplasia, on the grounds that it is poorly reproducible between pathologists.</div>
+</div>
+<div class="find card g-ad">
+  <div class="find-t">Adenoma with high-grade dysplasia</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">Strong recommendation, moderate quality. Agreed on both sides of the Atlantic.</div>
+</div>
+<div class="find card g-ser differs">
+  <div class="find-t">1–2 sessile serrated lesions &lt; 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>5–10 years</b></div>
+    <div class="int alt"><span>ESGE</span><b>Return to screening</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality.</div>
+</div>
+<div class="find card g-ser differs">
+  <div class="find-t">3–4 sessile serrated lesions &lt; 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3–5 years</b></div>
+    <div class="int alt"><span>ESGE</span><b>Return to screening</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality.</div>
+</div>
+<div class="find card g-ser">
+  <div class="find-t">5–10 sessile serrated lesions &lt; 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality. At this number, start thinking about serrated polyposis syndrome — check the criteria on the Special tab.</div>
+</div>
+<div class="find card g-ser">
+  <div class="find-t">Sessile serrated lesion ≥ 10 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality.</div>
+</div>
+<div class="find card g-ser">
+  <div class="find-t">Sessile serrated lesion with dysplasia</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality. Dysplasia in a serrated lesion is a marker of accelerated progression — make sure the resection was complete.</div>
+</div>
+<div class="find card g-ser">
+  <div class="find-t">Traditional serrated adenoma</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>3 years</b></div>
+    <div class="int"><span>ESGE</span><b>3 years</b></div>
+  </div>
+  <div class="find-n">Weak recommendation, very low quality. Uncommon, and higher risk than its size suggests.</div>
+</div>
+<div class="find card g-pm differs">
+  <div class="find-t">Piecemeal resection of an adenoma ≥ 20 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>6 months</b></div>
+    <div class="int alt"><span>ESGE</span><b>3–6 months, then 12 months</b></div>
+  </div>
+  <div class="find-n">Strong recommendation, moderate quality. This is a site check, not a surveillance colonoscopy — the question is residual tissue at the scar. ESGE adds a further look at 12 months after that early check to catch late recurrence, and recommends virtual chromoendoscopy of the scar rather than routine biopsies.</div>
+</div>
+<div class="find card g-pm differs">
+  <div class="find-t">Piecemeal resection of a sessile serrated lesion ≥ 20 mm</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>6 months</b></div>
+    <div class="int alt"><span>ESGE</span><b>3–6 months, then 12 months</b></div>
+  </div>
+  <div class="find-n">Strong recommendation, moderate quality. Serrated lesions are flat, pale and easy to under-resect at the margin — the scar check matters more here, not less.</div>
+</div>
+<div class="find card g-q">
+  <div class="find-t">Inadequate bowel preparation</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>Repeat within 1 year</b></div>
+    <div class="int"><span>ESGE</span><b>Repeat within 1 year</b></div>
+  </div>
+  <div class="find-n">If the preparation was not adequate to detect lesions &gt; 5 mm, the examination does not count and none of the intervals above apply. Document the Boston score by segment — any segment scoring &lt; 2 is inadequate. Do not simply record the finding-based interval as if the examination had been clean.</div>
+</div>
+<div class="find card g-q">
+  <div class="find-t">Incomplete colonoscopy — caecum not reached</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>Repeat or CT colonography</b></div>
+    <div class="int"><span>ESGE</span><b>Repeat or CT colonography</b></div>
+  </div>
+  <div class="find-n">Complete the examination before assigning any interval. A repeat colonoscopy, CT colonography or colon capsule are all reasonable depending on why the first attempt failed.</div>
+</div>
+<div class="find card g-q">
+  <div class="find-t">Resection completeness uncertain</div>
+  <div class="ints">
+    <div class="int"><span>USMSTF</span><b>Early site check</b></div>
+    <div class="int"><span>ESGE</span><b>Early site check</b></div>
+  </div>
+  <div class="find-n">If you are not confident the lesion was completely removed, book a targeted site check rather than a full-interval surveillance. The commonest cause of "interval cancer" at a previous polyp site is incomplete resection, not fast biology.</div>
+</div>
+</section>
+
+<section class="pane" id="p-screen">
+  <h2>Average-risk screening</h2>
+  <p class="lede">No family history, no IBD, no known syndrome, no symptoms. A symptomatic patient is not being screened — they are being investigated, and none of this applies.</p>
+
+  <div class="cols">
+  <div class="blk bl" style="--bc:var(--c-integrin)"><div class="cond">When to start</div>
+    <h4>Age 45</h4>
+    <p>ACG makes this a conditional recommendation at 45–49 and a strong one from 50; the ACS 2026 update and USPSTF both start at 45. Earlier onset disease has been rising for two decades, which is what moved the threshold.</p></div>
+  <div class="blk bl" style="--bc:var(--c-jak)"><div class="cond">When to stop</div>
+    <h4>Age 75, then individualise</h4>
+    <p>Continue to 75 if life expectancy exceeds 10 years. Between 76 and 85 the decision turns on comorbidity, prior screening history and the patient’s own preference. ACS 2026 recommends against screening beyond 85.</p></div>
+  </div>
+
+  <h3 class="sub">Test options</h3>
+  <div class="tdm">
+  <div class="r"><div class="ag">Colonoscopy <span class="pref p-preferred">Preferred</span></div>
+    <div class="kv"><span>Interval</span><span><b>Every 10 years</b></span></div>
+    <div class="kv"><span>Note</span><span>The only test that both detects and prevents. ACG names it one of two first-line options. A complete, well-prepared examination by an endoscopist with an adequate adenoma detection rate is what the 10-year interval actually rests on.</span></div></div><div class="r"><div class="ag">FIT — faecal immunochemical test <span class="pref p-preferred">Preferred</span></div>
+    <div class="kv"><span>Interval</span><span><b>Annually</b></span></div>
+    <div class="kv"><span>Note</span><span>ACG’s co-first-line. One sample, no dietary restriction. Its effectiveness depends entirely on being repeated every year and on a positive result reaching colonoscopy — that is where programmes usually fail, not at the test.</span></div></div><div class="r"><div class="ag">Multi-target stool DNA <span class="pref p-alternative">Alternative</span></div>
+    <div class="kv"><span>Interval</span><span><b>Every 3 years</b></span></div>
+    <div class="kv"><span>Note</span><span>Higher single-test sensitivity for cancer than FIT, lower specificity — more false positives, and therefore more colonoscopies.</span></div></div><div class="r"><div class="ag">Multi-target stool RNA <span class="pref p-alternative">Alternative</span></div>
+    <div class="kv"><span>Interval</span><span><b>Every 3 years</b></span></div>
+    <div class="kv"><span>Note</span><span>Added to the ACS 2026 guideline. Similar positioning to stool DNA.</span></div></div><div class="r"><div class="ag">CT colonography <span class="pref p-alternative">Alternative</span></div>
+    <div class="kv"><span>Interval</span><span><b>Every 5 years</b></span></div>
+    <div class="kv"><span>Note</span><span>Reasonable when colonoscopy is declined or incomplete. Extracolonic findings are common and generate their own workload.</span></div></div><div class="r"><div class="ag">Flexible sigmoidoscopy <span class="pref p-alternative">Alternative</span></div>
+    <div class="kv"><span>Interval</span><span><b>Every 5–10 years</b></span></div>
+    <div class="kv"><span>Note</span><span>Proven mortality benefit, but blind to the proximal colon — which is where serrated pathway lesions concentrate.</span></div></div><div class="r"><div class="ag">Blood-based cell-free DNA <span class="pref p-last-resort">Last resort</span></div>
+    <div class="kv"><span>Interval</span><span><b>Every 3 years</b></span></div>
+    <div class="kv"><span>Note</span><span>Approved and now named in the ACS 2026 guideline, but explicitly <b>only for people who decline the preferred tests</b>. Sensitivity for advanced precancerous lesions is poor, so it detects cancer rather than preventing it. Better than no screening; not equivalent to FIT or colonoscopy.</span></div></div><div class="r"><div class="ag">Colon capsule <span class="pref p-alternative">Alternative</span></div>
+    <div class="kv"><span>Interval</span><span><b>Every 5 years</b></span></div>
+    <div class="kv"><span>Note</span><span>An ACG alternative where available. A positive study still requires colonoscopy.</span></div></div>
+  </div>
+  <div class="notice"><b>Any positive non-colonoscopy test needs a colonoscopy</b> — ideally within 6 months. A positive FIT that never reaches colonoscopy is worse than no FIT, because it has consumed the patient’s belief that they were screened.</div>
+  <div class="notice"><b>The best test is the one that gets done.</b> Both ACG and ACS say a version of this. Offering a choice raises uptake more than arguing for the theoretically superior test.</div>
+
+  <h3 class="sub">Family history</h3>
+  <div class="blk"><h4>One first-degree relative with CRC or an advanced polyp diagnosed &lt; 60</h4>
+    <p><b>Start:</b> Start at age 40, or 10 years before the youngest case — whichever is earlier<br><b>Then:</b> Colonoscopy every 5 years</p></div><div class="blk"><h4>One first-degree relative diagnosed ≥ 60</h4>
+    <p><b>Start:</b> Start at age 40<br><b>Then:</b> Then follow average-risk intervals</p></div><div class="blk"><h4>Two or more first-degree relatives, any age</h4>
+    <p><b>Start:</b> Start at age 40, or 10 years before the youngest case<br><b>Then:</b> Colonoscopy every 5 years · consider genetic evaluation</p></div><div class="blk"><h4>Second-degree relatives only</h4>
+    <p><b>Start:</b> Average-risk timing<br><b>Then:</b> Average-risk intervals</p></div>
+  <div class="notice">These apply to CRC <b>or a documented advanced adenoma</b> in the relative — worth asking about explicitly, since patients rarely volunteer a polyp history. Any suggestion of a syndrome — very early onset, multiple primaries, a cluster of Lynch-spectrum cancers — moves the patient out of this table and into genetic evaluation.</div>
+</section>
+
+<section class="pane" id="p-special">
+  <h2>Special situations</h2>
+
+  <h3 class="sub">IBD — colitis surveillance</h3>
+  <p class="lede">First surveillance colonoscopy <b>8 years after symptom onset</b> (ECCO says 6–8), or <b>immediately at diagnosis of PSC</b>. Extent is defined by the maximum ever documented, endoscopically or histologically — not by what the colon looks like today.</p>
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">High risk — annual</div>
+    <ul><li>Primary sclerosing cholangitis — from the moment PSC is diagnosed, regardless of colitis extent, activity or duration</li><li>Colonic stricture within the past 5 years</li><li>Dysplasia within the past 5 years in a patient who has declined colectomy</li><li>First-degree relative with CRC diagnosed under 50</li><li>Extensive colitis with severe active inflammation</li></ul></div><div class="risk" style="--bc:var(--c-jak)">
+    <div class="risk-h">Intermediate risk — every 3 years</div>
+    <ul><li>Extensive colitis with mild or moderate active inflammation</li><li>Post-inflammatory polyps</li><li>First-degree relative with CRC diagnosed at 50 or older</li></ul></div><div class="risk" style="--bc:var(--c-integrin)">
+    <div class="risk-h">Low risk — every 5 years</div>
+    <ul><li>Colitis affecting less than half the colon</li><li>Extensive colitis with no or minimal inflammation</li></ul></div><div class="risk" style="--bc:var(--ink-3)">
+    <div class="risk-h">No surveillance needed</div>
+    <ul><li>Proctitis alone</li><li>No evidence of colonic inflammation</li><li>Crohn’s disease affecting less than one-third of the colon</li></ul></div>
+  <div class="notice"><b>Technique.</b> Pan-colonic dye chromoendoscopy with targeted biopsies is preferred; high-definition white light with targeted biopsies is an accepted alternative. If neither is available, take 2–4 random biopsies every 10 cm. Surveillance should be done in remission where possible — active inflammation makes dysplasia both harder to see and harder to call.</div>
+  <div class="notice"><b>A note on modern risk.</b> The BSG 2025 guideline puts IBD-associated CRC risk at roughly 1.4–1.7 times the population baseline — far lower than the historical figures that shaped older protocols, largely because inflammation is now better controlled. It moves toward a calculated multivariable risk rather than the single worst risk factor, and allows surveillance to stop after repeated negative examinations without inflammation, or above age 75.</div>
+
+  <h3 class="sub">Hereditary syndromes</h3>
+  <div class="blk"><h4>Lynch syndrome</h4><p>Colonoscopy <b>every 1–2 years</b>, starting at <b>age 20–25</b> — or 2–5 years before the earliest CRC in the family, whichever is earlier.</p>
+    <p style="margin-top:8px">MLH1 and MSH2/EPCAM carriers start at 20–25. For MSH6 and PMS2, where cancers occur later, most guidelines allow starting at 30–35 unless the family history says otherwise. Interval-shortening to annual is reasonable in confirmed carriers.</p></div><div class="blk"><h4>Classic FAP</h4><p><b>Annual</b> colonoscopy or flexible sigmoidoscopy from <b>puberty</b> (about age 10–12).</p>
+    <p style="margin-top:8px">Colectomy is indicated for cancer, significant symptoms, or when multiple adenomas &gt; 6 mm can no longer be adequately controlled endoscopically. Duodenal and ampullary surveillance runs in parallel.</p></div><div class="blk"><h4>Attenuated FAP</h4><p><b>Annual colonoscopy</b> — not sigmoidoscopy — from the late teens.</p>
+    <p style="margin-top:8px">Polyps are fewer and right-sided, so a sigmoidoscopy misses the disease.</p></div><div class="blk"><h4>MUTYH-associated polyposis</h4><p><b>Annual colonoscopy</b>, managed as for attenuated FAP, from about age 25–30.</p>
+    <p style="margin-top:8px">Biallelic carriers. Monoallelic carriers have at most a modest risk increase and are generally managed by family history.</p></div><div class="blk"><h4>Serrated polyposis syndrome</h4><p><b>Colonoscopy every 1–3 years</b>, removing all polyps &gt; 5 mm.</p>
+    <p style="margin-top:8px"><b>WHO criteria — either one:</b> ≥ 5 serrated lesions proximal to the rectum, all ≥ 5 mm, with ≥ 2 that are ≥ 10 mm; <i>or</i> &gt; 20 serrated lesions of any size distributed through the colon, with ≥ 5 proximal to the rectum. Counted cumulatively over multiple examinations. First-degree relatives should be screened. Routine germline testing is not recommended.</p></div>
+  <div class="notice"><b>When to think of a syndrome:</b> CRC under 50 · more than 10 cumulative adenomas · any serrated polyposis criteria met · a Lynch-spectrum cluster in the family (colorectal, endometrial, ovarian, gastric, small bowel, urothelial, biliary, brain, sebaceous) · deficient mismatch repair or microsatellite instability on tumour testing. Universal MMR/MSI testing of all colorectal cancers is the standard of care.</div>
+
+  <h3 class="sub">After resection of colorectal cancer</h3>
+  <div class="blk"><h4>The clearing examination</h4>
+    <p>A high-quality complete colonoscopy <b>before surgery</b>, or <b>within 6 months after</b> if the tumour was obstructing. Synchronous cancers are found in 3–5% — this examination is not optional.</p></div>
+  <div class="blk"><h4>Then</h4>
+    <p><b>1 year</b> after resection → <b>3 years</b> later → <b>5 years</b> after that. Shorten if high-risk lesions are found along the way.</p></div>
+  <div class="blk"><h4>Endoscopically resected pT1 cancer</h4>
+    <p>Low-risk T1 with clear margins follows the same schedule as any resected CRC. High-risk histology — lymphovascular invasion, poor differentiation, deep submucosal invasion, positive margin — is a surgical discussion, not a surveillance one.</p></div>
+  <div class="notice"><b>Stop at 80</b>, or earlier if life expectancy is limited by comorbidity. This applies to post-cancer and post-polypectomy surveillance alike.</div>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>About this page</h2>
+  <p class="lede">Intervals for asymptomatic surveillance and screening in adults.</p>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Surveillance intervals are recommendations built on population data; they do not override a specific concern about a specific patient. Verify against whichever guideline your service has formally adopted.</div>
+  <div class="notice"><b>Why two columns.</b> USMSTF and ESGE reach different answers for low-risk findings — most importantly, ESGE returns patients with 1–4 small low-grade adenomas to routine screening with no surveillance at all, while USMSTF books them at 7–10 or 3–5 years. Showing one number would hide a real and deliberate disagreement. Pick the guideline your unit follows and apply it consistently.</div>
+  <div class="notice"><b>The recurring theme in the adherence literature</b> is that surveillance is done <i>too often</i>, not too rarely — particularly for one or two small tubular adenomas. Over-surveillance consumes the capacity needed for the people who actually benefit.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>ADR</b> — adenoma detection rate</div>
+    <div><b>CRC</b> — colorectal cancer</div>
+    <div><b>CTC</b> — CT colonography</div>
+    <div><b>FAP</b> — familial adenomatous polyposis</div>
+    <div><b>FIT</b> — faecal immunochemical test</div>
+    <div><b>HGD / LGD</b> — high- / low-grade dysplasia</div>
+    <div><b>HP</b> — hyperplastic polyp</div>
+    <div><b>MMR / MSI</b> — mismatch repair / microsatellite instability</div>
+    <div><b>PSC</b> — primary sclerosing cholangitis</div>
+    <div><b>SSL</b> — sessile serrated lesion</div>
+    <div><b>TSA</b> — traditional serrated adenoma</div>
+    <div><b>USMSTF</b> — US Multi-Society Task Force on Colorectal Cancer (ACG + AGA + ASGE)</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">US Multi-Society Task Force consensus update on follow-up after colonoscopy and polypectomy (Gastroenterology / GIE 2020) · ESGE post-polypectomy colonoscopy surveillance guideline (Endoscopy 2020) · ACG clinical guidelines on colorectal cancer screening (2021) · American Cancer Society CRC screening guideline update (CA Cancer J Clin 2026) · ECCO guidelines on IBD and malignancies (JCC 2023) and the BSG colorectal surveillance in IBD guideline (Gut 2025) · ACG clinical guideline on genetic testing and management of hereditary GI cancer syndromes, with WHO 2019 criteria for serrated polyposis · ESGE/ESDO guideline on endoscopic surveillance after resection for colorectal cancer (Endoscopy 2019). Current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-polyp"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Post-polypectomy</label>
+  <label for="t-screen"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Screening</label>
+  <label for="t-special"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Special</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Info</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),cards=document.querySelectorAll('.searchable .find'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>
