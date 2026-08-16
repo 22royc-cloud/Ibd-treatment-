@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hepatitis C">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Hepatitis C — Treatment & Monitoring</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-dx:checked ~ main #p-dx,
+#t-treat:checked ~ main #p-treat,
+#t-drugs:checked ~ main #p-drugs,
+#t-special:checked ~ main #p-special,
+#t-monitor:checked ~ main #p-monitor{display:block}
+#t-dx:checked ~ .tabbar label[for="t-dx"],
+#t-treat:checked ~ .tabbar label[for="t-treat"],
+#t-drugs:checked ~ .tabbar label[for="t-drugs"],
+#t-special:checked ~ .tabbar label[for="t-special"],
+#t-monitor:checked ~ .tabbar label[for="t-monitor"]{color:var(--c-tnf)}
+#t-treat:checked ~ .topbar .filters,
+#t-special:checked ~ .topbar .filters,
+#t-monitor:checked ~ .topbar .filters{display:none}
+
+.pattern{font-size:13px;color:var(--ink-1);margin-top:9px;padding:9px 11px;border-radius:9px;
+  background:var(--card2);border:1px solid var(--ring);line-height:1.6}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.35;letter-spacing:-.01em}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.miss,.card.miss{display:none !important}
+.risk ul{padding-top:10px}
+.blk .cond{text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600}
+@media (min-width:900px){
+  #p-dx,#p-drugs,#p-special{column-count:2;column-gap:14px}
+  #p-dx .find,#p-dx .notice,#p-drugs .card,#p-drugs .notice,#p-special .blk{
+    break-inside:avoid;-webkit-column-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-dx" class="ctl" checked>
+<input type="radio" name="tab" id="t-treat" class="ctl">
+<input type="radio" name="tab" id="t-drugs" class="ctl">
+<input type="radio" name="tab" id="t-special" class="ctl">
+<input type="radio" name="tab" id="t-monitor" class="ctl">
+
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Hepatitis C</div>
+    <div class="tb-note">Aug 2026</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search pattern, drug, duration…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="hint"><span id="cnt"></span> Searches test patterns and regimen cards</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane searchable" id="p-dx">
+  <div class="notice"><b>Screen everyone once.</b> One-time opt-out testing for all adults 18 and over, in <b>every</b> pregnancy, and annually in people who inject drugs and in men with HIV who have sex with men. Antibody with <b>reflex RNA on the same sample</b> — a second visit for confirmation is where most patients are lost.</div>
+  <div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Anti-HCV negative</div>
+    <div class="pattern"><b>No evidence of infection</b></div>
+    <div class="find-n">No further testing unless there was exposure within the last 6 months, or the patient is immunocompromised or on haemodialysis — in whom antibody can be falsely negative. In those cases go straight to HCV RNA.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">Anti-HCV positive · HCV RNA <b>detectable</b></div>
+    <div class="pattern"><b>Current infection — treat</b></div>
+    <div class="find-n">This is the diagnosis. Genotype is no longer needed for most patients on the simplified pathway. Move to pre-treatment assessment.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Anti-HCV positive · HCV RNA <b>undetectable</b></div>
+    <div class="pattern"><b>Past infection, cleared</b></div>
+    <div class="find-n">Spontaneously cleared or previously cured. <b>Not immune</b> — reinfection is entirely possible. If ongoing exposure risk, repeat RNA annually. Antibody stays positive for life and is not a marker of protection.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">Anti-HCV positive · RNA undetectable, but recent exposure</div>
+    <div class="pattern"><b>Repeat before concluding</b></div>
+    <div class="find-n">Viraemia in acute infection fluctuates and can be intermittently undetectable. Repeat the RNA in 3–6 months before calling it cleared.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-s1p)">
+    <div class="find-t">Anti-HCV negative · HCV RNA detectable</div>
+    <div class="pattern"><b>Acute infection or immunocompromise</b></div>
+    <div class="find-n">Seroconversion takes up to 12 weeks. Also seen in advanced HIV, haemodialysis and agammaglobulinaemia. Treat as current infection.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">Point-of-care HCV RNA positive</div>
+    <div class="pattern"><b>Diagnosis confirmed — no second test needed</b></div>
+    <div class="find-n">Fingerstick RNA testing gives a result within about an hour and removes the return visit that loses most patients between diagnosis and treatment. This is what makes single-visit test-and-treat possible.</div>
+  </div>
+  <div class="notice"><b>Genotype is mostly history.</b> With pangenotypic regimens it is not needed on the simplified pathway. It still matters in two places: genotype 3 with compensated cirrhosis being given sofosbuvir/velpatasvir, which needs baseline NS5A resistance testing, and genotype 3 with cirrhosis being retreated, which needs ribavirin added.</div>
+</section>
+
+<section class="pane" id="p-treat">
+  <h2>The simplified algorithm</h2>
+  <p class="lede">For treatment-naive adults, HCV treatment is now two decisions: is the patient eligible for the simplified pathway, and do they have cirrhosis. Everything else follows.</p>
+
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">First — is the simplified pathway off the table?</div>
+    <ul><li>Prior HCV treatment of any kind<small>Go to the Retreat section — the regimen and duration are different</small></li><li>Decompensated cirrhosis — Child-Pugh ≥ 7, or any prior decompensation<small><b>Protease inhibitors are contraindicated.</b> Specialist management</small></li><li>HBsAg positive<small>HBV reactivation risk — boxed warning on every DAA. Needs concurrent HBV management</small></li><li>Pregnancy<small>DAAs are not established as safe in pregnancy; defer or refer</small></li><li>Known or suspected hepatocellular carcinoma<small>Specialist management</small></li><li>Prior liver transplantation<small>Specialist management — immunosuppressant interactions</small></li><li>End-stage renal disease on the cirrhosis pathway<small>Regimens still work without dose adjustment, but this sits outside the simplified algorithm</small></li></ul>
+  </div>
+  <div class="notice">If none of those apply, the patient is on the simplified pathway — regardless of genotype, viral load or degree of fibrosis short of cirrhosis.</div>
+
+  <h3 class="sub">Then — cirrhosis or not</h3>
+  <div class="cols">
+  <div class="blk bl" style="--bc:var(--c-integrin)"><div class="cond">No cirrhosis · FIB-4 ≤ 3.25 and no other evidence</div>
+    <h4>8 or 12 weeks</h4>
+    <p><b>Glecaprevir/pibrentasvir — 8 weeks</b>, three tablets daily with food<br>or<br><b>Sofosbuvir/velpatasvir — 12 weeks</b>, one tablet daily</p></div>
+  <div class="blk bl" style="--bc:var(--c-jak)"><div class="cond">Compensated cirrhosis · Child-Pugh A, CTP &lt; 7</div>
+    <h4>8 or 12 weeks — the same regimens</h4>
+    <p><b>Glecaprevir/pibrentasvir — 8 weeks</b>, all genotypes<br>or<br><b>Sofosbuvir/velpatasvir — 12 weeks</b>; genotype 3 needs baseline NS5A resistance testing first</p></div>
+  </div>
+  <div class="notice"><b>How cirrhosis is decided here:</b> presumed present if <b>FIB-4 &gt; 3.25</b>, or if elastography, non-invasive serology, imaging, clinical findings or a previous biopsy say so. FIB-4 uses only age, AST, ALT and platelets — there is no excuse for not calculating it.</div>
+
+  <h3 class="sub">Pre-treatment workup</h3>
+  <div class="blk"><h4>Within 6 months of starting — everyone</h4>
+    <ul><li>CBC</li><li>Hepatic function panel — AST, ALT, bilirubin, albumin</li><li>eGFR</li><li>Quantitative HCV RNA</li><li>HIV testing</li><li><b>HBsAg, anti-HBc and anti-HBs</b></li><li>Pregnancy test where relevant</li><li>FIB-4 calculation</li></ul></div>
+<div class="blk"><h4>Additionally, if cirrhosis is present</h4>
+    <ul><li>INR and Child-Pugh score</li><li>Liver ultrasound within 6 months</li><li>Genotype if using sofosbuvir/velpatasvir — genotype 3 needs baseline NS5A resistance testing</li><li>Endoscopy for varices per standard practice</li></ul></div>
+<div class="blk"><h4>Always</h4>
+    <ul><li><b>Full medication reconciliation</b> including over-the-counter, herbal and recreational drugs</li><li>Formal drug–drug interaction check</li><li>Alcohol assessment</li><li>Reinfection risk and harm-reduction discussion</li></ul></div>
+
+  <h3 class="sub">Retreatment after DAA failure</h3>
+  <div class="blk bl" style="--bc:var(--c-il23)"><h4>After almost any first failure</h4>
+    <p><b>Sofosbuvir/velpatasvir/voxilaprevir for 12 weeks</b>, all genotypes, with or without compensated cirrhosis. Add weight-based ribavirin for <b>genotype 3 with cirrhosis</b>.</p></div>
+  <div class="blk"><h4>Alternative for genotypes 1, 2, 4, 5, 6</h4>
+    <p>Glecaprevir/pibrentasvir for <b>16 weeks</b> — but not for genotype 3 with prior sofosbuvir or NS5A exposure.</p></div>
+  <div class="blk"><h4>Multiple failures, or failure of sofosbuvir/velpatasvir/voxilaprevir</h4>
+    <p>Specialist referral. Options include sofosbuvir/velpatasvir/voxilaprevir with ribavirin for 24 weeks, or combining classes. Resistance testing has a role here, unlike in first retreatment.</p></div>
+  <div class="notice"><b>Resistance testing is not routine before first retreatment.</b> Three drug classes with distinct mechanisms overcome the substitutions that matter, and trials have not shown baseline NS5A resistance to reduce success.</div>
+</section>
+
+<section class="pane searchable" id="p-drugs">
+  <details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Glecaprevir / pibrentasvir</span>
+<span class="sm-brand">Mavyret · Maviret · NS3/4A protease + NS5A inhibitor</span>
+<span class="sm-sum"><b>3 tablets once daily</b> · 8 weeks, treatment-naive</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">300 mg / 120 mg — three tablets once daily, with food</span></div></div>
+<div class="row"><div class="rk">Duration</div><div class="rv"><b>Treatment-naive, genotypes 1–6, with or without compensated cirrhosis: 8 weeks.</b><br>Prior interferon/ribavirin or sofosbuvir exposure: 8 weeks without cirrhosis, 12 weeks with cirrhosis · genotype 3: 16 weeks.<br>NS5A-inhibitor experienced: 16 weeks.</div></div>
+<div class="row"><div class="rk">Renal impairment</div><div class="rv"><b>No dose adjustment at any stage of chronic kidney disease, including dialysis.</b> Often the preferred pangenotypic option in advanced renal disease.</div></div>
+<div class="row"><div class="rk">Contraindicated / avoid</div><div class="rv"><b>Contraindicated</b> in Child-Pugh B or C, or any history of decompensation — and with atazanavir or rifampin.<br><b>Not recommended</b> with carbamazepine, efavirenz, St John's wort, darunavir or lopinavir with ritonavir, atorvastatin, lovastatin or simvastatin.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>The 8-week course in compensated cirrhosis is well established. <b>Must be taken with food</b> — absorption falls substantially without it. Watch for rhabdomyolysis if colchicine is co-prescribed.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Sofosbuvir / velpatasvir</span>
+<span class="sm-brand">Epclusa · NS5B polymerase + NS5A inhibitor</span>
+<span class="sm-sum"><b>1 tablet once daily</b> · 12 weeks</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">400 mg / 100 mg — one tablet once daily, with or without food</span></div></div>
+<div class="row"><div class="rk">Duration</div><div class="rv"><b>Treatment-naive, genotypes 1–6, without cirrhosis or with compensated cirrhosis: 12 weeks.</b><br>Decompensated cirrhosis: 12 weeks <b>with ribavirin</b>, or 24 weeks without if ribavirin cannot be used.</div></div>
+<div class="row"><div class="rk">Renal impairment</div><div class="rv">No dose adjustment at any stage, including dialysis — FDA-approved for eGFR below 30 since 2019. The old prohibition on sofosbuvir in severe renal impairment no longer applies.</div></div>
+<div class="row"><div class="rk">Contraindicated / avoid</div><div class="rv"><b>Amiodarone — do not co-administer.</b> Severe symptomatic bradycardia, including fatal cases and cases requiring pacing. If unavoidable, inpatient cardiac monitoring for 48 hours then daily heart rate checks for 2 weeks.<br><b>Not recommended</b> with rifampin, St John's wort, carbamazepine, phenytoin or phenobarbital.<br><b>Proton pump inhibitors:</b> avoid if possible; if essential, take Epclusa with food 4 hours before omeprazole 20 mg. Antacids separated by 4 hours.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>The only pangenotypic option usable in decompensated cirrhosis, because it contains no protease inhibitor. Genotype 3 with compensated cirrhosis needs baseline NS5A resistance testing before choosing it.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Sofosbuvir / velpatasvir / voxilaprevir</span>
+<span class="sm-brand">Vosevi · the retreatment regimen</span>
+<span class="sm-sum"><b>1 tablet once daily</b> · 12 weeks — retreatment</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">400 mg / 100 mg / 100 mg — one tablet once daily, with food</span></div></div>
+<div class="row"><div class="rk">Duration</div><div class="rv"><b>12 weeks</b> for DAA-experienced patients, all genotypes, with or without compensated cirrhosis.<br>Genotype 3 <b>with cirrhosis</b>: add weight-based ribavirin.</div></div>
+<div class="row"><div class="rk">Renal impairment</div><div class="rv">No dose adjustment required.</div></div>
+<div class="row"><div class="rk">Contraindicated / avoid</div><div class="rv">Contains a protease inhibitor — <b>contraindicated in decompensated cirrhosis</b>. Same amiodarone and inducer warnings as sofosbuvir/velpatasvir. Not with rifampin.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Three drug classes with distinct mechanisms, which is why baseline resistance testing has not been shown to change outcomes. This is the answer after almost any first DAA failure.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-jak)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Elbasvir / grazoprevir</span>
+<span class="sm-brand">Zepatier · genotypes 1 and 4 only</span>
+<span class="sm-sum"><b>1 tablet once daily</b> · 12 weeks · GT 1 and 4</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">50 mg / 100 mg — one tablet once daily</span></div></div>
+<div class="row"><div class="rk">Duration</div><div class="rv">12 weeks for genotypes 1 and 4. Genotype 1a requires baseline NS5A resistance testing; if substitutions are present, extend to 16 weeks with ribavirin.</div></div>
+<div class="row"><div class="rk">Renal impairment</div><div class="rv">No dose adjustment, including dialysis.</div></div>
+<div class="row"><div class="rk">Contraindicated / avoid</div><div class="rv">Contraindicated in Child-Pugh B or C. Contains a protease inhibitor.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Not pangenotypic, so it has largely been displaced by the two first-line regimens. Still used where formulary or cost dictates, particularly in renal disease with genotype 1 or 4.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-immuno)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Ribavirin</span>
+<span class="sm-brand">adjunct only</span>
+<span class="sm-sum"><b>Weight-based</b> · Adjunct in specific settings</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">1000 mg/day if under 75 kg, 1200 mg/day if 75 kg or more</span>, divided twice daily with food.<br>In Child-Pugh C, start at <span class="hi">600 mg/day</span> and titrate up as tolerated.</div></div>
+<div class="row"><div class="rk">Duration</div><div class="rv">Matches the DAA course — usually 12 weeks.</div></div>
+<div class="row"><div class="rk">Renal impairment</div><div class="rv">Dose reduction required with impaired renal function; avoid if CrCl is very low.</div></div>
+<div class="row"><div class="rk">Contraindicated / avoid</div><div class="rv"><b>Teratogenic.</b> Effective contraception for both partners during treatment and for 6 months after. Contraindicated in pregnancy and in significant anaemia or haemoglobinopathy.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Its remaining roles are narrow: decompensated cirrhosis, and genotype 3 with cirrhosis being retreated. Haemolytic anaemia is dose-limiting — check haemoglobin at weeks 2 and 4 and then monthly.</div>
+</div>
+</details>
+  <div class="notice"><b>Boxed warning on every DAA:</b> hepatitis B reactivation, in some cases fulminant and fatal. Test HBsAg, anti-HBc and anti-HBs before treatment in every patient, without exception.</div>
+  <div class="notice"><b>Check interactions formally, every time.</b> The University of Liverpool HEP Drug Interactions database is the reference the guidelines point to. The recurring offenders are amiodarone, anticonvulsants, rifampicin, St John's wort, statins, proton pump inhibitors and antiretrovirals — but patients rarely volunteer herbal products unless asked directly.</div>
+</section>
+
+<section class="pane" id="p-special">
+  <h2>Special populations</h2>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Decompensated cirrhosis — Child-Pugh B or C</h4>
+    <div class="cond" style="margin:6px 0 8px"><b>No protease inhibitors.</b> That rules out glecaprevir/pibrentasvir, sofosbuvir/velpatasvir/voxilaprevir and elbasvir/grazoprevir.</div>
+    <p>Use <b>sofosbuvir/velpatasvir plus weight-based ribavirin for 12 weeks</b>, or sofosbuvir/velpatasvir alone for 24 weeks if ribavirin cannot be tolerated. Manage in a centre with transplant access. With MELD above 20 or severe portal hypertension, transplantation may serve the patient better than antiviral therapy first — treating can improve liver function enough to lose transplant priority without restoring enough function to live well, the so-called MELD purgatory.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>HBV coinfection</h4>
+    <div class="cond" style="margin:6px 0 8px"><b>Boxed warning on every DAA.</b> HBV reactivation during or after HCV treatment has caused fulminant hepatitis, hepatic failure and death.</div>
+    <p>Test <b>HBsAg, anti-HBc and anti-HBs</b> in everyone before starting. HBsAg-positive patients need HBV antiviral prophylaxis or treatment alongside. Anti-HBc-positive but HBsAg-negative patients need ALT and HBV DNA monitoring during and after therapy. This is the single most important safety check before writing the prescription.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>HIV coinfection</h4>
+    <div class="cond" style="margin:6px 0 8px">Cure rates match HIV-negative patients. The difficulty is entirely drug interactions.</div>
+    <p>Check the antiretroviral regimen formally. Glecaprevir/pibrentasvir is contraindicated with atazanavir and not recommended with efavirenz or ritonavir-boosted darunavir or lopinavir. Tenofovir DF exposure rises with some regimens — monitor renal function. Do not stop or alter antiretrovirals to accommodate the DAA without the HIV team.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Chronic kidney disease, including dialysis</h4>
+    <div class="cond" style="margin:6px 0 8px">Both first-line pangenotypic regimens work without dose adjustment at every stage.</div>
+    <p>Glecaprevir/pibrentasvir achieved 97–98% SVR12 in CKD stage 3b–5. Sofosbuvir/velpatasvir reached about 95% in haemodialysis patients and has been FDA-approved below eGFR 30 since 2019. In kidney transplant candidates, timing relative to transplant is a transplant-centre decision — an HCV-viraemic donor organ may be an option.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Pregnancy and breastfeeding</h4>
+    <div class="cond" style="margin:6px 0 8px">DAAs are not established as safe in pregnancy. Screen in <b>every</b> pregnancy.</div>
+    <p>Defer treatment until after delivery in most cases, and ribavirin is absolutely contraindicated. Vertical transmission is around 5%; it is not an indication for caesarean section, and breastfeeding is not contraindicated unless nipples are cracked or bleeding. Test the infant — HCV RNA from 2 months of age, or antibody after 18 months.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>People who inject drugs</h4>
+    <div class="cond" style="margin:6px 0 8px"><b>Active injecting is not a reason to withhold treatment.</b> Cure rates are comparable.</div>
+    <p>Treat, and pair it with harm reduction: syringe services, opioid agonist therapy, and naloxone. Reinfection happens and is not a treatment failure — retreat. Annual HCV RNA testing while risk continues.</p></div>
+<div class="blk bl" style="--bc:var(--c-s1p)">
+    <h4>Acute HCV infection</h4>
+    <div class="cond" style="margin:6px 0 8px">Spontaneous clearance occurs in roughly 20–30%, usually within 6 months.</div>
+    <p>Current guidance favours treating without waiting, using the same regimens and durations, rather than the older practice of a 6-month observation period. Early treatment prevents onward transmission, which matters most in the networks where acute infection is being diagnosed.</p></div>
+</section>
+
+<section class="pane" id="p-monitor">
+  <h2>Monitoring</h2>
+  <p class="lede">The striking feature of modern HCV care is how little monitoring it needs. Resist the urge to add tests that no longer change anything.</p>
+  <div class="tdm">
+  <div class="r"><div class="ag">Before treatment</div>
+    <div class="kv"><span>What</span><span>Bloods within 6 months (3 months if cirrhotic), FIB-4, HBV and HIV serology, pregnancy test, medication review and interaction check</span></div></div><div class="r"><div class="ag">During treatment — no cirrhosis</div>
+    <div class="kv"><span>What</span><span><b>No routine laboratory monitoring is required.</b> That is a deliberate feature of the simplified algorithm, not an omission. Exceptions: check glucose in diabetes, since insulin requirements can fall, and monitor INR if on warfarin.</span></div></div><div class="r"><div class="ag">During treatment — compensated cirrhosis</div>
+    <div class="kv"><span>What</span><span>Watch clinically for decompensation. Any jaundice, ascites, encephalopathy or rising bilirubin, AST or ALT means stopping and seeking specialist input.</span></div></div><div class="r"><div class="ag">On ribavirin</div>
+    <div class="kv"><span>What</span><span>Haemoglobin at weeks 2 and 4, then monthly.</span></div></div><div class="r"><div class="ag">12 weeks or more after finishing</div>
+    <div class="kv"><span>What</span><span><b>Quantitative HCV RNA and a hepatic panel.</b> Undetectable RNA at 12 weeks is SVR12 — cure.</span></div></div><div class="r"><div class="ag">If SVR achieved, F0–F2</div>
+    <div class="kv"><span>What</span><span>No further liver follow-up needed. Discharge, with reinfection counselling.</span></div></div><div class="r"><div class="ag">If SVR achieved, advanced fibrosis or cirrhosis</div>
+    <div class="kv"><span>What</span><span><b>Ultrasound every 6 months indefinitely, with or without AFP.</b> Cure lowers HCC risk but does not remove it. Continue variceal surveillance per standard practice.</span></div></div><div class="r"><div class="ag">Ongoing exposure risk</div>
+    <div class="kv"><span>What</span><span><b>HCV RNA annually</b> — antibody testing is useless after treatment, since it stays positive. Reinfection means retreatment, not blame.</span></div></div>
+  </div>
+
+  <div class="notice"><b>SVR12 is cure.</b> Late relapse after a documented SVR12 is very rare; a positive RNA afterwards in someone with ongoing exposure is far more likely reinfection than relapse. Distinguishing them changes what you do next — retreat either way, but address the exposure too.</div>
+  <div class="notice"><b>The commonest post-cure error</b> is discharging a patient with cirrhosis. Cure reduces HCC risk substantially but never to zero, and those patients need six-monthly ultrasound for life. The mirror error is keeping F0–F2 patients under surveillance they do not need.</div>
+
+  <h3 class="sub">About this page</h3>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults, non-transplant setting. Verify against the current label and your local formulary. Decompensated cirrhosis, pregnancy, transplantation and multiple DAA failures all warrant specialist involvement rather than a protocol.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>CTP</b> — Child-Turcotte-Pugh score</div>
+    <div><b>DAA</b> — direct-acting antiviral</div>
+    <div><b>FIB-4</b> — fibrosis-4 index (age, AST, ALT, platelets)</div>
+    <div><b>G/P</b> — glecaprevir/pibrentasvir</div>
+    <div><b>NS3/4A · NS5A · NS5B</b> — viral protein targets of the drug classes</div>
+    <div><b>RAS</b> — resistance-associated substitution</div>
+    <div><b>SOF/VEL</b> — sofosbuvir/velpatasvir</div>
+    <div><b>SVR12</b> — sustained virologic response 12 weeks after treatment, i.e. cure</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">AASLD/IDSA HCV guidance — testing and linkage, simplified treatment algorithms for treatment-naive adults with and without compensated cirrhosis, retreatment, decompensated cirrhosis and renal impairment sections, at hcvguidelines.org · FDA prescribing information for Mavyret, Epclusa, Vosevi and Zepatier · University of Liverpool HEP drug interaction resource. Current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-dx"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Diagnose</label>
+  <label for="t-treat"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Treat</label>
+  <label for="t-drugs"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Regimens</label>
+  <label for="t-special"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Special</label>
+  <label for="t-monitor"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Monitor</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),
+      cards=document.querySelectorAll('.searchable .find, .searchable .card'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>

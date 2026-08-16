@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hepatitis B">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Hepatitis B — Treatment & Monitoring</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-sero:checked ~ main #p-sero,
+#t-treat:checked ~ main #p-treat,
+#t-drugs:checked ~ main #p-drugs,
+#t-monitor:checked ~ main #p-monitor,
+#t-more:checked ~ main #p-more{display:block}
+#t-sero:checked ~ .tabbar label[for="t-sero"],
+#t-treat:checked ~ .tabbar label[for="t-treat"],
+#t-drugs:checked ~ .tabbar label[for="t-drugs"],
+#t-monitor:checked ~ .tabbar label[for="t-monitor"],
+#t-more:checked ~ .tabbar label[for="t-more"]{color:var(--c-tnf)}
+#t-treat:checked ~ .topbar .filters,
+#t-monitor:checked ~ .topbar .filters,
+#t-more:checked ~ .topbar .filters{display:none}
+
+.pattern{font-size:13px;color:var(--ink-1);margin-top:9px;padding:9px 11px;border-radius:9px;
+  background:var(--card2);border:1px solid var(--ring);line-height:1.6}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.35;letter-spacing:-.01em}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.miss,.card.miss{display:none !important}
+.risk ul{padding-top:8px}
+@media (min-width:900px){
+  #p-sero,#p-drugs{column-count:2;column-gap:14px}
+  #p-sero .find,#p-sero .notice,#p-drugs .card,#p-drugs .notice{break-inside:avoid;-webkit-column-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-sero" class="ctl" checked>
+<input type="radio" name="tab" id="t-treat" class="ctl">
+<input type="radio" name="tab" id="t-drugs" class="ctl">
+<input type="radio" name="tab" id="t-monitor" class="ctl">
+<input type="radio" name="tab" id="t-more" class="ctl">
+
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Hepatitis B</div>
+    <div class="tb-note">Aug 2026</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search pattern, drug, threshold…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="hint"><span id="cnt"></span> Searches serology patterns and drug cards</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane searchable" id="p-sero">
+  <div class="notice"><b>Order these together.</b> HBsAg, anti-HBs and anti-HBc are the minimum panel — anti-HBc is the one that gets left off and the one that identifies reactivation risk. Add HBeAg, anti-HBe and quantitative HBV DNA once HBsAg is positive.</div>
+  <div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">Acute hepatitis B</div>
+    <div class="pattern">HBsAg <b>+</b> · anti-HBc IgM <b>+</b> · anti-HBs <b>−</b> · HBV DNA usually high</div>
+    <div class="find-n">Most immunocompetent adults clear it. Antivirals are <b>not</b> routinely indicated — treat only severe or fulminant disease (coagulopathy, jaundice beyond 4 weeks, or acute liver failure) or a protracted course. Repeat HBsAg at 6 months: still positive means chronic infection.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-tnf)">
+    <div class="find-t">Chronic hepatitis B infection</div>
+    <div class="pattern">HBsAg <b>+</b> for &gt; 6 months · anti-HBc IgG <b>+</b> · anti-HBs <b>−</b></div>
+    <div class="find-n">The starting point for everything on the Treat tab. Next steps: HBeAg and anti-HBe, quantitative HBV DNA, ALT, fibrosis assessment, HDV and HIV serology, HAV immunity, and liver ultrasound.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Resolved past infection</div>
+    <div class="pattern">HBsAg <b>−</b> · anti-HBs <b>+</b> · anti-HBc <b>+</b></div>
+    <div class="find-n">Immune through natural infection. Not infectious in ordinary contact, but <b>the virus persists as cccDNA in hepatocytes</b> — this patient can still reactivate under immunosuppression. That is why anti-HBc is part of pre-biologic screening, not just HBsAg.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Vaccinated</div>
+    <div class="pattern">HBsAg <b>−</b> · anti-HBs <b>+</b> (≥ 10 mIU/mL) · anti-HBc <b>−</b></div>
+    <div class="find-n">Immunity from vaccine, never infected. No reactivation risk. The absent anti-HBc is what distinguishes this from resolved infection.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">Isolated anti-HBc</div>
+    <div class="pattern">HBsAg <b>−</b> · anti-HBs <b>−</b> · anti-HBc <b>+</b></div>
+    <div class="find-n">Three possibilities: resolved infection with waned anti-HBs (commonest), a false positive, or occult HBV infection. Check HBV DNA. <b>Treat as at risk of reactivation</b> before immunosuppression — this is the pattern people miss. Consider vaccinating and checking the anti-HBs response: a brisk anamnestic rise favours past infection.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-s1p)">
+    <div class="find-t">Occult HBV infection</div>
+    <div class="pattern">HBsAg <b>−</b> · anti-HBc <b>+</b> · HBV DNA <b>detectable</b> (usually &lt; 200 IU/mL)</div>
+    <div class="find-n">Relevant to reactivation risk, to blood and organ donation, and to HCC risk in advanced fibrosis. Not usually treated in its own right.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Susceptible — never infected, not immune</div>
+    <div class="pattern">HBsAg <b>−</b> · anti-HBs <b>−</b> · anti-HBc <b>−</b></div>
+    <div class="find-n"><b>Vaccinate.</b> Particularly before starting immunosuppression, and in every patient with chronic liver disease.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-steroid)">
+    <div class="find-t">HBeAg-positive chronic infection — EASL phase 1</div>
+    <div class="pattern">HBeAg <b>+</b> · HBV DNA <b>&gt; 10⁷ IU/mL</b> · ALT <b>normal</b> · minimal fibrosis · HBsAg high</div>
+    <div class="find-n">The old "immune tolerant" phase. Highly infectious but little liver injury. <b>AASLD 2025 recommends against treating under age 40</b>, and shared decision-making above 40 or with ≥ F2 fibrosis or grade ≥ 2 inflammation — a change from previous observation-only advice.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">HBeAg-positive chronic hepatitis — EASL phase 2</div>
+    <div class="pattern">HBeAg <b>+</b> · HBV DNA <b>10⁴–10⁷ IU/mL</b> · ALT <b>elevated</b> · moderate–severe activity</div>
+    <div class="find-n">The immune-active phase. <b>Treat.</b> This is where fibrosis accumulates.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">HBeAg-negative chronic infection — EASL phase 3</div>
+    <div class="pattern">HBeAg <b>−</b> · anti-HBe <b>+</b> · HBV DNA <b>&lt; 2,000 IU/mL</b> · ALT <b>normal</b> · qHBsAg &lt; 1,000 IU/mL</div>
+    <div class="find-n">The old "inactive carrier". Best prognosis of any chronic phase, but not a discharge: 1–3% per year lose HBsAg, and a minority revert to active hepatitis. Keep monitoring, and still consider HCC surveillance if other risk factors are present.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">HBeAg-negative chronic hepatitis — EASL phase 4</div>
+    <div class="pattern">HBeAg <b>−</b> · anti-HBe <b>+</b> · HBV DNA <b>&gt; 2,000 IU/mL</b> · ALT <b>elevated</b>, often fluctuating</div>
+    <div class="find-n"><b>Treat.</b> Fluctuating ALT and DNA mean a single normal set of results does not exclude this — serial testing over 6–12 months is what makes the diagnosis.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">Indeterminate — the "grey zone"</div>
+    <div class="pattern">Does not fit cleanly into any phase — e.g. DNA 2,000–20,000 with normal ALT, or DNA &lt; 2,000 with raised ALT</div>
+    <div class="find-n">Roughly <b>40%</b> of patients sit here. EASL 2025 discourages the "grey zone" label and asks for a personalised assessment instead; AASLD 2025 suggests treatment through shared decision-making, favouring it with age &gt; 40, male sex, or platelets &lt; 180,000. Do not simply keep observing indefinitely — that is the trap this category creates.</div>
+  </div>
+  <div class="notice"><b>The ALT upper limit that matters.</b> AASLD uses <b>35 U/L for men and 25 U/L for women</b> — well below most laboratory reference ranges. Using the lab's printed ULN systematically under-diagnoses active disease, particularly in women.</div>
+</section>
+
+<section class="pane" id="p-treat">
+  <h2>Who to treat</h2>
+  <p class="lede">Both AASLD/IDSA and EASL published major updates in 2025, and both moved in the same direction: <b>treat more people, earlier</b>. If your practice is anchored to the 2017–2018 criteria, this is the part that has changed.</p>
+
+  <div class="notice"><b>EASL 2025, in one line:</b> in principle every HBsAg-positive person with detectable HBV DNA is a candidate for therapy — the decision is then shaped by DNA level, ALT, fibrosis stage and HCC risk, not by phase labels.</div>
+  <div class="notice"><b>AASLD 2025 mnemonic — FAST:</b> <b>F</b>ibrosis, <b>A</b>ge and <b>S</b>ex determine <b>T</b>reatment. It exists to catch the patients the old phase-based criteria excluded, particularly the 40% who never fitted a phase cleanly.</div>
+
+  <h3 class="sub">Treat</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Cirrhosis — compensated or decompensated</h4><div class="cond">Any detectable HBV DNA</div><p>Treat, regardless of ALT and regardless of how low the DNA is. In decompensated disease, start immediately and use entecavir or TDF — <b>never interferon</b>, and TAF is not recommended in Child-Pugh B or C.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>HBV DNA &gt; 2,000 IU/mL with ALT above the upper limit of normal</h4><div class="cond">HBeAg-positive or negative</div><p>The classic immune-active indication. Confirm on at least two occasions 3–6 months apart unless there is jaundice or decompensation, in which case do not wait.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>HBV DNA &gt; 2,000 IU/mL with significant fibrosis</h4><div class="cond">≥ F2, or LSM above the local threshold</div><p>Treat even if the ALT is normal. Fibrosis outranks ALT.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Advanced fibrosis or LSM &gt; 8 kPa with any detectable HBV DNA</h4><div class="cond">EASL 2025, weak recommendation</div><p>A lowering of the bar compared with 2017.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Extrahepatic manifestations</h4><div class="cond">Vasculitis, glomerulonephritis, polyarteritis nodosa</div><p>Treat regardless of DNA and ALT.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Immunosuppression planned or ongoing</h4><div class="cond">See the More tab for the risk tiers</div><p>Prophylaxis, not treatment of liver disease — different indication, same drugs.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Pregnancy with HBV DNA &gt; 200,000 IU/mL</h4><div class="cond">From week 28</div><p>TDF is the agent with the most pregnancy safety data. Add HBIG plus vaccine to the newborn within 12 hours of birth regardless.</p></div>
+
+  <h3 class="sub">Consider — shared decision-making</h3>
+  <div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Immune-tolerant phase — HBeAg-positive, very high DNA, normal ALT</h4><div class="cond">AASLD 2025</div><p><b>Under 40:</b> recommended against treating. <b>Over 40, or ≥ F2 fibrosis or grade ≥ 2 inflammation:</b> shared decision-making, leaning toward treatment. The rationale for treating earlier is reduced HBV DNA integration and clonal hepatocyte expansion; the counterweight is decades of daily medication.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Indeterminate phase</h4><div class="cond">AASLD 2025, conditional</div><p>Suggest treatment through shared decision-making in HBeAg-negative patients without cirrhosis. Factors that push toward treating: age over 40, male sex, platelets under 180,000, family history of HCC, persistent low-level ALT elevation.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Persistently low DNA (&lt; 2,000) with persistently raised ALT</h4><div class="cond">EASL 2025, weak</div><p>Consider treatment — but first exclude the other causes of a raised ALT, which in 2026 usually means metabolic dysfunction-associated steatotic liver disease or alcohol.</p></div>
+
+  <h3 class="sub">Do not treat — monitor</h3>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Acute hepatitis B in an immunocompetent adult</h4><div class="cond">Uncomplicated</div><p>Over 95% clear it spontaneously. Treat only severe, fulminant or protracted disease. Recheck HBsAg at 6 months.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>HBeAg-negative chronic infection — inactive carrier</h4><div class="cond">DNA &lt; 2,000, normal ALT, no fibrosis</div><p>Monitor rather than treat. Reassess at least annually, and reconsider if the DNA climbs, the ALT rises, or fibrosis appears.</p></div>
+
+  <div class="notice"><b>Before starting, complete the picture:</b> HDV serology in every HBsAg-positive patient at least once · HIV and HCV · HAV immunity and vaccination · fibrosis staging by elastography or non-invasive score · baseline ultrasound · family history of HCC · alcohol and metabolic risk · and screening plus vaccination of household and sexual contacts.</div>
+</section>
+
+<section class="pane searchable" id="p-drugs">
+  <details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Entecavir</span>
+<span class="sm-brand">Baraclude · nucleoside analogue</span>
+<span class="sm-sum"><b>0.5 mg once daily</b> · On an empty stomach</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">0.5 mg once daily</span> in nucleos(t)ide-naive adults<br><span class="hi">1 mg once daily</span> if lamivudine-refractory, known lamivudine or telbivudine resistance, <b>or decompensated liver disease</b></div></div>
+<div class="row"><div class="rk">Food</div><div class="rv"><b>Empty stomach</b> — at least 2 hours after a meal and 2 hours before the next. Food substantially reduces absorption, and this is the commonest reason for an unexplained failure to suppress.</div></div>
+<div class="row"><div class="rk">Renal adjustment</div><div class="rv">CrCl ≥ 50: no change · 30–49: 0.25 mg daily (or 0.5 mg every 48 h) · 10–29: 0.15 mg daily (or 0.5 mg every 72 h) · &lt; 10 or dialysis: 0.05 mg daily (or 0.5 mg weekly), given after dialysis. Doses for the 1 mg indication are doubled accordingly.</div></div>
+<div class="row"><div class="rk">When to choose it</div><div class="rv">Excellent first-line choice. High barrier to resistance in naive patients — but a <b>low</b> barrier if there is prior lamivudine exposure, where tenofovir is the better switch. Preferred over TAF in decompensated cirrhosis.</div></div>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>No renal or bone toxicity signal, which makes it the natural choice in chronic kidney disease or osteoporosis when tenofovir is unattractive. Lactic acidosis is a class warning, rare in practice.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Tenofovir disoproxil fumarate</span>
+<span class="sm-brand">TDF · Viread · nucleotide analogue</span>
+<span class="sm-sum"><b>300 mg once daily</b> · Most pregnancy data</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">300 mg once daily</span>, with or without food</div></div>
+<div class="row"><div class="rk">Food</div><div class="rv">No food requirement.</div></div>
+<div class="row"><div class="rk">Renal adjustment</div><div class="rv">CrCl ≥ 50: no change · 30–49: 300 mg every 48 h · 10–29: 300 mg every 72–96 h · haemodialysis: 300 mg every 7 days, after dialysis. Monitor creatinine and serum phosphate.</div></div>
+<div class="row"><div class="rk">When to choose it</div><div class="rv"><b>The agent of choice in pregnancy</b> — the largest safety dataset. Also first choice after lamivudine exposure, and in HIV coinfection as part of a full antiretroviral regimen. Effectively no resistance described after more than a decade of use.</div></div>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Dose-related proximal tubular dysfunction and reduced bone mineral density with long exposure. Check creatinine, eGFR, phosphate and urine protein at baseline and periodically; consider a DEXA scan with other risk factors. If nephrotoxicity or bone loss appears, switching to TAF usually resolves it.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Tenofovir alafenamide</span>
+<span class="sm-brand">TAF · Vemlidy · nucleotide prodrug</span>
+<span class="sm-sum"><b>25 mg once daily</b> · With food</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">25 mg once daily</span></div></div>
+<div class="row"><div class="rk">Food</div><div class="rv"><b>Must be taken with food.</b></div></div>
+<div class="row"><div class="rk">Renal adjustment</div><div class="rv">No adjustment down to <b>CrCl 15</b>. On chronic haemodialysis, give after the session. <b>Not recommended in end-stage renal disease off dialysis.</b></div></div>
+<div class="row"><div class="rk">When to choose it</div><div class="rv">Same antiviral potency as TDF at a tenth of the systemic tenofovir exposure, so markedly less renal and bone effect. Preferred where kidney or bone health is a concern. <b>Not recommended in decompensated cirrhosis (Child-Pugh B or C)</b> — use entecavir or TDF there.</div></div>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Less pregnancy data than TDF, so TDF remains the choice for preventing mother-to-child transmission. Modest rises in LDL cholesterol and weight compared with TDF.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Peginterferon alfa-2a</span>
+<span class="sm-brand">Pegasys · immunomodulator</span>
+<span class="sm-sum"><b>180 µg SC weekly</b> · Finite 48-week course</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv"><span class="hi">180 µg subcutaneously once weekly for 48 weeks</span></div></div>
+<div class="row"><div class="rk">Food</div><div class="rv">Not applicable.</div></div>
+<div class="row"><div class="rk">Renal adjustment</div><div class="rv">Dose reduction with significant renal impairment; avoid with CrCl &lt; 30.</div></div>
+<div class="row"><div class="rk">When to choose it</div><div class="rv">The only <b>finite</b> course, and the only agent offering a realistic chance of HBsAg loss. Best candidates: young, HBeAg-positive, genotype A, high ALT, low HBV DNA, low quantitative HBsAg, no cirrhosis. Chosen far less often than it used to be.</div></div>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>Absolutely contraindicated in decompensated cirrhosis, autoimmune disease, uncontrolled psychiatric illness, and pregnancy.</b> Flu-like symptoms, cytopenias, thyroid dysfunction and depression are common and often limit the course. Needs frequent monitoring throughout.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-jak)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Lamivudine · adefovir · telbivudine</span>
+<span class="sm-brand">largely historical</span>
+<span class="sm-sum"><b>Not first line</b> · Resistance</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv">Not recommended for new starts.</div></div>
+<div class="row"><div class="rk">Food</div><div class="rv">—</div></div>
+<div class="row"><div class="rk">Renal adjustment</div><div class="rv">—</div></div>
+<div class="row"><div class="rk">When to choose it</div><div class="rv">Superseded. Lamivudine resistance reaches roughly <b>70% at 5 years</b>, and adefovir is both weak and nephrotoxic. You will still meet patients on them: switching an established lamivudine-experienced patient to <b>tenofovir</b> is the standard move, not to entecavir.</div></div>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Lamivudine still appears in some reactivation-prophylaxis protocols. Current guidance prefers entecavir, TDF or TAF even for short prophylactic courses.</div>
+</div>
+</details>
+  <div class="notice"><b>Boxed warning, all nucleos(t)ide analogues:</b> stopping therapy can cause a severe acute exacerbation of hepatitis B. Monitor liver function for at least several months after any discontinuation, and be ready to restart. This is not theoretical — post-withdrawal flares cause decompensation and death.</div>
+</section>
+
+<section class="pane" id="p-monitor">
+  <h2>Monitoring</h2>
+
+  <h3 class="sub">On treatment</h3>
+  <div class="tdm">
+    <div class="r"><div class="ag">HBV DNA</div>
+      <div class="kv"><span>Interval</span><span><b>Every 3 months until undetectable, then every 3–6 months</b></span></div>
+      <div class="kv"><span>Note</span><span>A DNA that fails to fall, or rises by more than 1 log after suppression, means non-adherence far more often than resistance. Ask about adherence and about entecavir being taken with food before ordering resistance testing.</span></div></div>
+    <div class="r"><div class="ag">ALT</div>
+      <div class="kv"><span>Interval</span><span><b>Every 3–6 months</b></span></div></div>
+    <div class="r"><div class="ag">Quantitative HBsAg</div>
+      <div class="kv"><span>Interval</span><span><b>Annually</b></span></div>
+      <div class="kv"><span>Note</span><span>Falling levels, especially below 100 IU/mL, identify the small group who may eventually stop therapy.</span></div></div>
+    <div class="r"><div class="ag">Renal function and phosphate — TDF</div>
+      <div class="kv"><span>Interval</span><span><b>Baseline, then every 3–6 months</b></span></div>
+      <div class="kv"><span>Note</span><span>Creatinine, eGFR, serum phosphate, urine protein and glucose. Consider DEXA with other bone risk factors.</span></div></div>
+    <div class="r"><div class="ag">HBeAg and anti-HBe</div>
+      <div class="kv"><span>Interval</span><span><b>Every 6–12 months while HBeAg-positive</b></span></div></div>
+  </div>
+
+  <h3 class="sub">Untreated patients — EASL 2025</h3>
+  <div class="tdm">
+    <div class="r"><div class="ag">HBeAg-positive</div>
+      <div class="kv"><span>ALT &amp; DNA</span><span><b>Every 6 months</b></span></div>
+      <div class="kv"><span>HBsAg</span><span>Every 12 months</span></div>
+      <div class="kv"><span>Fibrosis</span><span>Every 12–24 months</span></div></div>
+    <div class="r"><div class="ag">HBeAg-negative · DNA &lt; 2,000</div>
+      <div class="kv"><span>ALT &amp; DNA</span><span><b>Every 12 months</b></span></div>
+      <div class="kv"><span>Fibrosis</span><span>Every 2–3 years</span></div></div>
+    <div class="r"><div class="ag">HBeAg-negative · DNA 2,000–20,000</div>
+      <div class="kv"><span>ALT &amp; DNA</span><span><b>Every 6 months</b></span></div>
+      <div class="kv"><span>Fibrosis</span><span>Every 12–24 months</span></div></div>
+    <div class="r"><div class="ag">Newly diagnosed, any phase</div>
+      <div class="kv"><span>First year</span><span><b>Every 3–6 months</b>, then settle into the intervals above</span></div>
+      <div class="kv"><span>Why</span><span>One set of results cannot distinguish an inactive carrier from a fluctuating HBeAg-negative hepatitis. The first year is what makes that call.</span></div></div>
+  </div>
+
+  <h3 class="sub">Stopping treatment</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)"><h4>The 2025 position: mostly, don't</h4>
+    <p>AASLD 2025 <b>conditionally recommends against stopping nucleos(t)ide analogue therapy until HBsAg loss</b> — a deliberate move away from the previous willingness to stop after seroconversion or a period of suppression. Most patients are on treatment indefinitely.</p></div>
+  <div class="blk"><h4>If stopping is nevertheless considered</h4>
+    <p>Restrict it to non-cirrhotic patients meeting strict criteria: <b>quantitative HBsAg &lt; 100 IU/mL</b>, <b>at least 2 years of undetectable HBV DNA</b>, and for HBeAg-positive patients, seroconversion followed by at least 12 months of consolidation. Never stop in cirrhosis.</p></div>
+  <div class="blk bl" style="--bc:var(--c-immuno)"><h4>If therapy stops, watch closely</h4>
+    <p>ALT and HBV DNA <b>monthly for the first 3–6 months</b>, then every 3 months. Relapse is common and flares can be severe. Have a restart threshold agreed in advance rather than deciding in the middle of one.</p></div>
+  <div class="blk"><h4>Functional cure</h4>
+    <p>Sustained HBsAg loss with HBV DNA below the limit of quantification, at least 24 weeks off therapy. Anti-HBs is not required. It happens in well under 1% per year on nucleos(t)ide analogues — which is precisely why the finite-therapy pipeline exists.</p></div>
+
+  <h3 class="sub">HCC surveillance</h3>
+  <div class="notice"><b>Ultrasound every 6 months, with or without AFP.</b> The interval is 6 months in every group below — the question is only who is included.</div>
+  <div class="risk" style="--bc:var(--c-immuno)"><div class="risk-h">Surveillance indicated</div>
+    <ul>
+      <li><b>Any cirrhosis</b>, compensated or not — including after HBV DNA becomes undetectable<small>Suppression reduces HCC risk but does not abolish it</small></li>
+      <li><b>Advanced fibrosis</b> — F3 or LSM above roughly 8–10 kPa</li>
+      <li><b>HBV–HDV coinfection</b>, regardless of cirrhosis</li>
+      <li><b>HBV–HIV coinfection</b> from about age 30</li>
+      <li><b>Family history of HCC in a first-degree relative</b></li>
+      <li>Asian men over 40 and Asian women over 50 · people of African origin from around age 20</li>
+      <li>Continue after <b>HBsAg loss</b> in men over 40 and women over 50, and in anyone with established cirrhosis</li>
+    </ul></div>
+  <div class="notice">Risk scores such as PAGE-B and REACH-B can refine the decision in non-cirrhotic patients, but no guideline mandates one. Age, cirrhosis, DNA level, family history, genotype and metabolic comorbidity are the drivers.</div>
+</section>
+
+<section class="pane" id="p-more">
+  <h2>Reactivation, pregnancy &amp; coinfection</h2>
+
+  <h3 class="sub">Reactivation before immunosuppression</h3>
+  <div class="notice"><b>Screen everyone before starting any immunosuppressive or biologic therapy</b> — HBsAg, anti-HBc <i>and</i> anti-HBs. Screening on HBsAg alone misses the anti-HBc-positive patient, who is the one who reactivates on rituximab. This applies directly to the biologics on the IBD page.</div>
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">HBsAg-positive · high-risk drug</div>
+    <div style="padding:11px 14px 0"><b style="font-size:13.5px">Antiviral prophylaxis — strong recommendation</b></div>
+    <ul><li>B-cell depleting agents — rituximab, ofatumumab, obinutuzumab</li><li>CAR-T cell therapy</li><li>Anthracyclines</li><li>Anti-TNF agents</li><li>Anti-IL-6 — tocilizumab</li><li>Ustekinumab, secukinumab</li><li>Tyrosine kinase and JAK inhibitors</li><li>Corticosteroids at moderate–high dose for more than 1 month</li><li>TACE for liver cancer</li><li>DAA therapy in HBV/HCV coinfection</li></ul>
+    <div style="padding:0 14px 13px;font-size:12.5px;color:var(--ink-2);line-height:1.5">Start before, or at the same time as, the immunosuppression — not after. Reported reactivation rates in HBsAg-positive patients on anti-TNF reach roughly 330 per 1000.</div>
+  </div>
+<div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">HBsAg-negative · anti-HBc-positive · B-cell depleting agent</div>
+    <div style="padding:11px 14px 0"><b style="font-size:13.5px">Antiviral prophylaxis — strong recommendation</b></div>
+    <ul><li>Rituximab and other anti-CD20 agents</li><li>CAR-T cell therapy</li><li>Haematopoietic stem cell transplant</li></ul>
+    <div style="padding:0 14px 13px;font-size:12.5px;color:var(--ink-2);line-height:1.5">The one situation where past, resolved infection carries the same weight as active infection. Reactivation here can be fulminant.</div>
+  </div>
+<div class="risk" style="--bc:var(--c-jak)">
+    <div class="risk-h">HBsAg-negative · anti-HBc-positive · moderate-risk drug</div>
+    <div style="padding:11px 14px 0"><b style="font-size:13.5px">Prophylaxis suggested — conditional</b></div>
+    <ul><li>Anti-TNF agents</li><li>Immune checkpoint inhibitors</li><li>Ustekinumab, secukinumab</li><li>JAK inhibitors</li><li>Prolonged corticosteroids</li></ul>
+    <div style="padding:0 14px 13px;font-size:12.5px;color:var(--ink-2);line-height:1.5">A genuine judgement call. Prophylaxis is low-cost and low-risk; the alternative is disciplined monitoring that in practice often lapses. If you choose monitoring, commit to it in writing.</div>
+  </div>
+<div class="risk" style="--bc:var(--c-integrin)">
+    <div class="risk-h">Low-risk exposure</div>
+    <div style="padding:11px 14px 0"><b style="font-size:13.5px">Monitoring alone — conditional</b></div>
+    <ul><li>Azathioprine, 6-mercaptopurine, methotrexate</li><li>Intra-articular corticosteroids</li><li>Short corticosteroid courses under 1 week</li><li>Traditional DMARDs in an anti-HBc-positive, HBsAg-negative patient</li></ul>
+    <div style="padding:0 14px 13px;font-size:12.5px;color:var(--ink-2);line-height:1.5">Check ALT and HBV DNA every 1–3 months during and after treatment, and start antivirals the moment either rises. Monitoring is only safer than prophylaxis if it actually happens.</div>
+  </div>
+  <div class="notice"><b>Which drug, and for how long.</b> Use <b>entecavir, TDF or TAF</b> — not lamivudine, even for short courses. Continue for <b>at least 6 months</b> after the immunosuppression ends, extended to <b>12 months</b> after B-cell depleting agents. Patients who meet independent treatment criteria simply stay on therapy.</div>
+
+  <h3 class="sub">Pregnancy</h3>
+  <div class="blk"><h4>Preventing mother-to-child transmission</h4>
+    <p>Check HBV DNA in the second trimester. If it exceeds <b>200,000 IU/mL</b>, start <b>TDF at week 28</b> and continue to delivery or a few weeks after. TDF has the most safety data in pregnancy; TAF is an alternative where TDF is unsuitable.</p></div>
+  <div class="blk"><h4>The newborn</h4>
+    <p><b>HBIG plus the first hepatitis B vaccine dose within 12 hours of birth</b>, regardless of maternal viral load, then complete the vaccine series. This alone prevents most transmission; antivirals close the residual gap at high viral loads. Check the infant's HBsAg and anti-HBs at 9–12 months.</p></div>
+  <div class="blk"><h4>Other practical points</h4>
+    <p>Breastfeeding is not contraindicated, including on TDF. Caesarean section is not indicated to prevent transmission. Postpartum ALT flares occur in up to a quarter of women — check ALT and DNA at about 6 and 12 weeks after delivery, whether or not antivirals were used.</p></div>
+
+  <h3 class="sub">Coinfection</h3>
+  <div class="blk bl" style="--bc:var(--c-il23)"><h4>Hepatitis D</h4>
+    <p><b>Test every HBsAg-positive patient for anti-HDV at least once.</b> It is the most aggressive form of chronic viral hepatitis, and it is routinely missed because nobody sends the test. Confirm a positive antibody with HDV RNA. Bulevirtide is available in Europe; refer to a specialist centre.</p></div>
+  <div class="blk bl" style="--bc:var(--c-il23)"><h4>HIV</h4>
+    <p>Every HBV patient needs an HIV test before starting antivirals. Coinfected patients need a <b>full antiretroviral regimen containing tenofovir plus emtricitabine or lamivudine</b> — never HBV monotherapy, which selects HIV resistance.</p></div>
+  <div class="blk bl" style="--bc:var(--c-il23)"><h4>Hepatitis C</h4>
+    <p>HBV can reactivate during direct-acting antiviral therapy for HCV. Check HBsAg and anti-HBc before starting DAAs; HBsAg-positive patients need prophylaxis or treatment alongside.</p></div>
+
+  <h3 class="sub">Prevention</h3>
+  <div class="notice"><b>Vaccinate</b> all susceptible household and sexual contacts, and screen them. Vaccinate every patient with chronic liver disease against hepatitis A and B. In immunocompromised patients and those on dialysis, check anti-HBs after the series and use higher-dose or adjuvanted schedules.</div>
+
+  <h3 class="sub" style="margin-top:28px">About this page</h3>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults, non-transplant setting. Verify doses against the current local label. Decompensated cirrhosis, pregnancy and transplant candidacy all warrant hepatology involvement rather than a protocol.</div>
+  <div class="notice"><b>Both major guidelines changed in 2025</b> and broadened treatment eligibility in the same direction. Where AASLD/IDSA and EASL differ in emphasis, this page says so; where they agree, only one number is given.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>anti-HBc / anti-HBs / anti-HBe</b> — antibody to core, surface and e antigen</div>
+    <div><b>cccDNA</b> — covalently closed circular DNA, the persistent viral reservoir</div>
+    <div><b>DAA</b> — direct-acting antiviral (for hepatitis C)</div>
+    <div><b>HBeAg / HBsAg</b> — hepatitis B e and surface antigen</div>
+    <div><b>HBIG</b> — hepatitis B immune globulin</div>
+    <div><b>HDV</b> — hepatitis delta virus</div>
+    <div><b>LSM</b> — liver stiffness measurement</div>
+    <div><b>NA</b> — nucleos(t)ide analogue</div>
+    <div><b>qHBsAg</b> — quantitative HBsAg</div>
+    <div><b>TAF / TDF</b> — tenofovir alafenamide / disoproxil fumarate</div>
+    <div><b>ULN</b> — upper limit of normal</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">AASLD/IDSA practice guideline on the treatment of chronic hepatitis B (Hepatology, November 2025) · EASL clinical practice guidelines on the management of hepatitis B virus infection (J Hepatol, May 2025) · AGA clinical practice guideline on the prevention and treatment of hepatitis B virus reactivation in at-risk individuals (Gastroenterology 2025) · FDA prescribing information for entecavir, tenofovir disoproxil fumarate, tenofovir alafenamide and peginterferon alfa-2a. Current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-sero"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Serology</label>
+  <label for="t-treat"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Treat</label>
+  <label for="t-drugs"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Drugs</label>
+  <label for="t-monitor"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Monitor</label>
+  <label for="t-more"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>More</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),
+      cards=document.querySelectorAll('.searchable .find, .searchable .card'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>

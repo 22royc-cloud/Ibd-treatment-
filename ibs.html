@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IBS">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Irritable Bowel Syndrome</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-dx:checked ~ main #p-dx,
+#t-test:checked ~ main #p-test,
+#t-tx:checked ~ main #p-tx,
+#t-refract:checked ~ main #p-refract,
+#t-info:checked ~ main #p-info{display:block}
+#t-dx:checked ~ .tabbar label[for="t-dx"],
+#t-test:checked ~ .tabbar label[for="t-test"],
+#t-tx:checked ~ .tabbar label[for="t-tx"],
+#t-refract:checked ~ .tabbar label[for="t-refract"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-dx:checked ~ .topbar .filters,
+#t-refract:checked ~ .topbar .filters,
+#t-info:checked ~ .topbar .filters{display:none}
+
+.pattern{font-size:12.5px;color:var(--ink-2);margin-top:9px;padding:8px 11px;border-radius:9px;
+  background:var(--card2);border:1px solid var(--ring);line-height:1.5}
+.pattern b{color:var(--ink-1)}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.4;letter-spacing:-.01em}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.miss,.card.miss{display:none !important}
+.xmark{color:var(--c-immuno);font-weight:800;text-transform:uppercase;font-size:10.5px;
+  letter-spacing:.06em;border:1px solid var(--c-immuno);border-radius:4px;padding:1px 5px;
+  margin-right:5px;vertical-align:2px}
+.tagl.strong{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.cond{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.split{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.restrict{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.against{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.find-t .tagl{margin-left:4px;vertical-align:2px}
+#s-c:checked ~ main .find.sub-d{display:none}
+#s-d:checked ~ main .find.sub-c{display:none}
+#s-all:checked ~ main .seg label[for="s-all"],
+#s-c:checked   ~ main .seg label[for="s-c"],
+#s-d:checked   ~ main .seg label[for="s-d"]{background:var(--card);color:var(--ink-1);
+  box-shadow:0 1px 3px rgba(0,0,0,.13);font-weight:700}
+@media (min-width:900px){
+  #p-test,#p-tx,#p-refract{column-count:2;column-gap:14px}
+  #p-test .find,#p-test .notice,#p-tx .find,#p-tx .notice,#p-refract .blk{
+    break-inside:avoid;-webkit-column-break-inside:avoid}
+  #p-tx .seg{column-span:all}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-dx" class="ctl" checked>
+<input type="radio" name="tab" id="t-test" class="ctl">
+<input type="radio" name="tab" id="t-tx" class="ctl">
+<input type="radio" name="tab" id="t-refract" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+<input type="radio" name="sub" id="s-all" class="ctl" checked>
+<input type="radio" name="sub" id="s-c" class="ctl">
+<input type="radio" name="sub" id="s-d" class="ctl">
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Irritable Bowel Syndrome</div>
+    <div class="tb-note">Aug 2026</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search test, drug, dose…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="hint"><span id="cnt"></span> Searches the testing and treatment cards</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane" id="p-dx">
+  <h2>Making the diagnosis</h2>
+  <p class="lede">IBS is a <b>positive clinical diagnosis</b>, made on the symptom pattern with limited testing — not a label applied once everything else has been excluded. ACG found the positive strategy reaches effective treatment faster and costs less, at high certainty.</p>
+
+  <div class="blk bl" style="--bc:var(--c-s1p)">
+    <div class="cond">New — released May 2026</div>
+    <h4>Rome V</h4>
+    <p>Recurrent abdominal <b>pain or discomfort</b> — discomfort is back after being removed in Rome IV — on at least <b>3 days per month</b>, associated with two or more of: related to defaecation · a change in stool frequency · a change in stool form. Symptoms must be <b>intermittent rather than continuous</b>, which is what separates IBS from centrally mediated abdominal pain syndrome.</p>
+    <p style="margin-top:9px">Rome V also splits <b>clinical</b> criteria from <b>research</b> criteria for the first time. The clinical version asks whether symptoms are <b>bothersome</b> — interfering with daily activities or prompting the patient to seek help — and suggests a minimum duration of about <b>8 weeks</b> rather than 6 months.</p>
+  </div>
+  <div class="blk bl" style="--bc:var(--c-tnf)">
+    <div class="cond">Rome IV — 2016, still in use in most services</div>
+    <h4>The stricter version</h4>
+    <p>Recurrent abdominal <b>pain</b> (discomfort excluded) on at least <b>1 day per week</b> in the last 3 months, with two or more of the same three features, and symptom onset at least <b>6 months</b> before diagnosis.</p>
+  </div>
+  <div class="notice"><b>Why this matters practically.</b> Lowering the threshold from weekly pain to three days a month, and readmitting discomfort, roughly <b>doubles measured IBS prevalence</b> — from around 4% under Rome IV to about 9% under Rome V. Patients who did not formally qualify before now do. Know which criteria your service, and any trial you are reading, is using.</p></div>
+
+  <h3 class="sub">Subtype — it determines the treatment</h3>
+  <p class="lede">Based on the Bristol stool scale, counting only <b>days with abnormal bowel movements</b>. Ask the patient to record a stool diary for two weeks; recall is unreliable.</p>
+  <div class="cols">
+  <div class="blk bl" style="--bc:var(--c-jak)"><h4>IBS-C</h4><p>More than 25% of abnormal stools are Bristol 1–2, and fewer than 25% are Bristol 6–7.</p></div>
+  <div class="blk bl" style="--bc:var(--c-il23)"><h4>IBS-D</h4><p>More than 25% are Bristol 6–7, and fewer than 25% are Bristol 1–2.</p></div>
+  <div class="blk bl" style="--bc:var(--c-steroid)"><h4>IBS-M</h4><p>More than 25% in <i>both</i> directions.</p></div>
+  <div class="blk bl" style="--bc:var(--c-tnf)"><h4>IBS-U</h4><p>Meets IBS criteria but the stool pattern fits none of the above.</p></div>
+  </div>
+
+  <h3 class="sub">Alarm features — none of this applies if any are present</h3>
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">Investigate rather than diagnose IBS</div>
+    <ul><li>Age of onset 50 or over<small>The single most useful discriminator</small></li><li>Rectal bleeding or melaena<small>Unless clearly from haemorrhoids or an anal fissure</small></li><li>Unintentional weight loss</li><li>Nocturnal symptoms — waking from sleep to pass stool or with pain<small>Functional symptoms respect sleep; organic disease does not</small></li><li>Family history of colorectal cancer, IBD or coeliac disease</li><li>Iron deficiency anaemia, or any abnormal blood test</li><li>Abdominal or rectal mass, or any abnormal examination finding</li><li>Progressive, unremitting symptoms rather than a relapsing–remitting course</li><li>Recent onset in an older patient with no prior history</li></ul>
+  </div>
+
+  <div class="notice"><b>Say the diagnosis out loud.</b> A confident, explained, positive diagnosis is itself an intervention — it reduces further testing, improves symptoms and improves satisfaction. Explain it as a real disorder of gut–brain signalling with altered motility and visceral hypersensitivity, not as "nothing found". "Your tests are all normal" is heard as "I don't believe you".</div>
+</section>
+
+<section class="pane searchable" id="p-test">
+  <div class="notice"><b>The whole point of limited testing</b> is that a positive diagnosis plus a small panel is as safe as an exhaustive workup, and considerably faster and cheaper. Each additional normal test buys diminishing reassurance and raises the patient's suspicion that something is being missed.</div>
+  <div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Coeliac serology — tTG-IgA with total IgA</div>
+    <div class="pattern"><b>Strong · moderate quality</b></div>
+    <div class="find-n">In everyone with IBS and diarrhoea. Coeliac disease is several times more common in this population, and it is the diagnosis you cannot afford to miss. Total IgA must be sent alongside — selective IgA deficiency renders the tTG falsely negative, and it is over-represented in coeliac disease.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Faecal calprotectin and CRP</div>
+    <div class="pattern"><b>Strong · moderate to very low quality</b></div>
+    <div class="find-n">In patients with diarrhoea and no alarm features, to exclude inflammatory bowel disease. A normal calprotectin in this setting has a high negative predictive value and is what allows you to avoid colonoscopy in a young patient.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Complete blood count</div>
+    <div class="pattern"><b>Standard practice</b></div>
+    <div class="find-n">Anaemia converts an IBS presentation into something else.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-tnf)">
+    <div class="find-t">Anorectal physiology testing</div>
+    <div class="pattern"><b>Consensus recommendation</b></div>
+    <div class="find-n">For symptoms suggesting a pelvic floor disorder, or constipation refractory to standard treatment. Anorectal manometry with balloon expulsion identifies dyssynergic defaecation — which does not respond to laxatives or secretagogues, but does respond to biofeedback. This is the commonest reversible cause of "refractory IBS-C".</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t"><span class="xmark">Do not</span> Routine colonoscopy under age 45 without alarm features</div>
+    <div class="pattern"><b>Conditional against · low quality</b></div>
+    <div class="find-n">The yield is very low, and a normal colonoscopy does not reassure the patient for long. Reserve it for alarm features, or a raised risk of microscopic colitis — female, age 50 or over, autoimmune disease, weight loss, nocturnal or severe watery diarrhoea, or diarrhoea for less than 12 months.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t"><span class="xmark">Do not</span> Routine stool testing for enteric pathogens</div>
+    <div class="pattern"><b>Conditional against · low quality</b></div>
+    <div class="find-n">Not in everyone. Test when there is a relevant exposure or travel history, or when the illness began acutely after an enteric infection.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t"><span class="xmark">Do not</span> Food allergy and food sensitivity testing</div>
+    <div class="pattern"><b>Consensus against</b></div>
+    <div class="find-n">IgG food panels, hair analysis and similar have no diagnostic validity and generate needless dietary restriction. The exception is a genuinely reproducible reaction to a specific food, which deserves proper allergy assessment.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t"><span class="xmark">Do not</span> Routine testing for SIBO, pancreatic insufficiency or carbohydrate intolerance</div>
+    <div class="pattern"><b>BSG — against in typical IBS</b></div>
+    <div class="find-n">Breath testing for small intestinal bacterial overgrowth remains contentious and is not part of the standard workup. Faecal elastase and lactose or fructose breath tests belong to specific clinical suspicions, not to the routine panel.</div>
+  </div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t"><span class="xmark">Do not</span> Routine thyroid function, imaging or repeat testing in stable disease</div>
+    <div class="pattern"><b>Low yield</b></div>
+    <div class="find-n">Once a positive diagnosis is made and initial tests are normal, repeating them because symptoms persist rewards neither of you. Re-investigate for a change in pattern or a new alarm feature — not for continuing symptoms.</div>
+  </div>
+</section>
+
+<section class="pane searchable" id="p-tx">
+  <div class="notice"><b>Three societies, three slightly different answers.</b> ACG 2021, AGA 2022 and BSG 2021 largely agree, but differ on antispasmodics, PEG and SSRIs. Where they diverge, both positions are shown — the disagreement is usually about which question was asked, not about the underlying data.</div>
+
+  <div class="seg" style="margin:12px 0 14px">
+    <label for="s-all">All</label>
+    <label for="s-c">IBS-C</label>
+    <label for="s-d">IBS-D</label>
+  </div>
+
+  <div class="find card sub-all" style="--ac:var(--c-integrin)">
+    <div class="find-t">Soluble fibre — psyllium or ispaghula <span class="tagl strong">Strong for</span></div>
+    <div class="pattern">ACG strong · moderate quality</div>
+    <div class="find-n">Start low, around 3–4 g/day, and build up over weeks — going in fast causes bloating and the patient abandons it. <b>Insoluble fibre such as wheat bran makes IBS worse</b> and should be actively stopped. This distinction is the whole recommendation.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-integrin)">
+    <div class="find-t">Low FODMAP diet <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">ACG conditional · very low quality</div>
+    <div class="find-n">A <b>limited</b> trial, in three phases: strict restriction for 4–6 weeks, then systematic reintroduction to find the individual triggers, then long-term personalisation. It is not a permanent diet. Dietitian-led delivery works considerably better than a handout, and indefinite restriction risks nutritional deficiency and disordered eating.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-integrin)">
+    <div class="find-t">Peppermint oil <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">ACG conditional · low quality</div>
+    <div class="find-n">Enteric-coated, before meals. Cheap, well tolerated, and worth trying early. Heartburn is the usual limitation — the enteric coating exists to reduce it.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-integrin)">
+    <div class="find-t">Tricyclic antidepressants <span class="tagl strong">Strong for</span></div>
+    <div class="pattern">ACG strong · moderate quality</div>
+    <div class="find-n">The single most useful drug class across IBS. <b>Amitriptyline 10 mg at night</b>, titrated slowly to 30–50 mg as tolerated. Prescribed as a <b>gut–brain neuromodulator, not an antidepressant</b> — say so explicitly, or the patient will read the leaflet and stop. The anticholinergic effect makes them particularly suited to IBS-D and unhelpful in IBS-C.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-integrin)">
+    <div class="find-t">Gut-directed psychotherapy — CBT and hypnotherapy <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">ACG conditional · very low quality</div>
+    <div class="find-n">Gut-directed hypnotherapy and IBS-specific CBT have durable effects, including in refractory disease. Offer them as a treatment for a gut disorder, not as an implication that the symptoms are imagined — how this is framed determines whether the patient accepts it.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-integrin)">
+    <div class="find-t">Exercise and sleep <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">BSG</div>
+    <div class="find-n">Regular physical activity improves global symptoms and is one of the few interventions with no downside.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-jak)">
+    <div class="find-t">Antispasmodics — hyoscine, dicyclomine <span class="tagl split">Societies differ</span></div>
+    <div class="pattern">ACG conditional AGAINST · AGA conditional FOR · BSG first-line</div>
+    <div class="find-n">A genuine three-way disagreement. ACG advises against the agents available in the US on the strength of the trial data; AGA and BSG both support them for pain and cramping. In practice they are cheap, familiar and useful as needed for cramping — a reasonable early trial while acknowledging thin evidence.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-immuno)">
+    <div class="find-t">Probiotics <span class="tagl against">Recommended against</span></div>
+    <div class="pattern">ACG conditional AGAINST · very low quality</div>
+    <div class="find-n">The trials are numerous, small, heterogeneous in strain and dose, and mostly commercially sponsored. There is no basis for recommending a particular product. Patients will ask; the honest answer is that the evidence does not support a specific recommendation.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-immuno)">
+    <div class="find-t">Faecal microbiota transplantation <span class="tagl against">Recommended against</span></div>
+    <div class="pattern">ACG strong AGAINST · very low quality</div>
+    <div class="find-n">Not a treatment for IBS outside a trial.</div>
+  </div>
+<div class="find card sub-c" style="--ac:var(--c-integrin)">
+    <div class="find-t">Linaclotide <span class="tagl strong">Strong for</span></div>
+    <div class="pattern">ACG strong · high quality · AGA strong</div>
+    <div class="find-n">A guanylate cyclase-C agonist. The best-evidenced drug in IBS-C, and the only IBS drug with a strong recommendation from both societies at high certainty. Improves pain as well as bowel habit — which laxatives do not. Diarrhoea is the dose-limiting effect; take on an empty stomach 30 minutes before the first meal.</div>
+  </div>
+<div class="find card sub-c" style="--ac:var(--c-integrin)">
+    <div class="find-t">Plecanatide <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">ACG strong (class) · AGA conditional</div>
+    <div class="find-n">Same mechanism as linaclotide, possibly with less diarrhoea. Reasonable if linaclotide is not tolerated.</div>
+  </div>
+<div class="find card sub-c" style="--ac:var(--c-integrin)">
+    <div class="find-t">Lubiprostone <span class="tagl strong">Strong for</span></div>
+    <div class="pattern">ACG strong · moderate quality</div>
+    <div class="find-n">A chloride channel activator. <b>8 µg twice daily with food</b> for IBS-C — note this is a lower dose than for chronic idiopathic constipation. Nausea is the main limitation and is reduced by taking it with food.</div>
+  </div>
+<div class="find card sub-c" style="--ac:var(--c-integrin)">
+    <div class="find-t">Tenapanor <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">AGA conditional</div>
+    <div class="find-n">An NHE3 inhibitor — a different mechanism again, useful when the secretagogues fail or are not tolerated.</div>
+  </div>
+<div class="find card sub-c" style="--ac:var(--c-jak)">
+    <div class="find-t">Tegaserod <span class="tagl restrict">Restricted use</span></div>
+    <div class="pattern">ACG · restricted population</div>
+    <div class="find-n">A 5-HT4 agonist, reintroduced with restrictions after withdrawal for cardiovascular safety. <b>Women under 65 with no more than one cardiovascular risk factor and no history of ischaemic events</b>, who have failed secretagogues.</div>
+  </div>
+<div class="find card sub-c" style="--ac:var(--c-jak)">
+    <div class="find-t">Polyethylene glycol <span class="tagl split">Societies differ</span></div>
+    <div class="pattern">ACG conditional AGAINST · AGA conditional FOR</div>
+    <div class="find-n">The societies differ because they are answering different questions. PEG reliably improves stool frequency and consistency but <b>does not improve abdominal pain</b>, and ACG judges global symptoms. Useful, cheap, and worth using for the constipation — just do not expect it to treat the pain, and do not stop there if pain is the dominant complaint.</div>
+  </div>
+<div class="find card sub-d" style="--ac:var(--c-integrin)">
+    <div class="find-t">Rifaximin <span class="tagl strong">Strong for</span></div>
+    <div class="pattern">ACG strong · moderate quality · AGA conditional</div>
+    <div class="find-n"><b>550 mg three times daily for 14 days.</b> A two-week course with benefit lasting months in responders. <b>Up to two retreatment courses</b> are supported for those who responded initially and then relapsed. Minimally absorbed, so systemic effects are few.</div>
+  </div>
+<div class="find card sub-d" style="--ac:var(--c-integrin)">
+    <div class="find-t">Eluxadoline <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">ACG conditional · moderate quality · AGA conditional</div>
+    <div class="find-n"><b>100 mg twice daily</b>, or 75 mg twice daily if not tolerated or with mild–moderate hepatic impairment. <b>Absolutely contraindicated after cholecystectomy</b> and in those drinking more than three alcoholic drinks daily — pancreatitis and sphincter of Oddi spasm. Asking about the gallbladder before prescribing is not optional.</div>
+  </div>
+<div class="find card sub-d" style="--ac:var(--c-jak)">
+    <div class="find-t">Loperamide <span class="tagl cond">Conditional for</span></div>
+    <div class="pattern">AGA conditional · very low quality</div>
+    <div class="find-n">Improves stool frequency and consistency, <b>not pain</b>. Best used pre-emptively before a meal or an outing rather than reactively. BSG places it first-line for diarrhoea; ACG did not find evidence for global symptom benefit.</div>
+  </div>
+<div class="find card sub-d" style="--ac:var(--c-jak)">
+    <div class="find-t">Alosetron <span class="tagl restrict">Restricted use</span></div>
+    <div class="pattern">ACG conditional · restricted</div>
+    <div class="find-n">A 5-HT3 antagonist. <b>0.5 mg twice daily, increased to 1 mg twice daily after 4 weeks</b> if needed. Restricted to <b>women with severe IBS-D refractory to conventional therapy</b> because of ischaemic colitis and severe constipation. Effective when appropriately targeted.</div>
+  </div>
+<div class="find card sub-d" style="--ac:var(--c-jak)">
+    <div class="find-t">Bile acid sequestrants <span class="tagl split">Societies differ</span></div>
+    <div class="pattern">ACG conditional AGAINST · widely used</div>
+    <div class="find-n">ACG advises against them for global IBS-D symptoms on insufficient evidence. But bile acid diarrhoea accounts for a substantial share of what is labelled IBS-D, and in that group sequestrants work well. The better framing: this is not an IBS treatment, it is treatment of a mimic — see the Refractory tab.</div>
+  </div>
+<div class="find card sub-all" style="--ac:var(--c-immuno)">
+    <div class="find-t">SSRIs <span class="tagl against">Recommended against</span></div>
+    <div class="pattern">AGA conditional AGAINST · low quality</div>
+    <div class="find-n">AGA advises against them for both IBS-C and IBS-D. BSG still permits them second-line in primary care. Where an SSRI is genuinely indicated for coexisting anxiety or depression, treat that on its own merits — just do not expect it to treat the bowel symptoms.</div>
+  </div>
+</section>
+
+<section class="pane" id="p-refract">
+  <h2>When it isn't working</h2>
+  <p class="lede">Before escalating treatment, revisit the diagnosis. A meaningful proportion of "refractory IBS" is a different condition that responds well to its own treatment.</p>
+  <div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Bile acid diarrhoea</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Up to a quarter to a third of people labelled IBS-D</div>
+    <p>Watery, urgent, often postprandial diarrhoea; worse after cholecystectomy, ileal resection or Crohn's. Test with SeHCAT retention where available, or serum 7αC4 or FGF19. A therapeutic trial of colestyramine is a reasonable pragmatic alternative. <b>The most commonly missed diagnosis in this whole area.</b></p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Microscopic colitis</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Chronic watery diarrhoea with a normal-looking colon</div>
+    <p>Suspect in women aged 50 or over, autoimmune disease, nocturnal or severe watery diarrhoea, recent onset, or use of PPIs, NSAIDs or SSRIs. Diagnosis requires <b>colonoscopy with random biopsies from right and left colon</b> — the mucosa looks normal, so the endoscopist must be told what is being looked for.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Coeliac disease</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Several times more prevalent than in the general population</div>
+    <p>Serology must be taken on a gluten-containing diet. If the patient has already excluded gluten, either reintroduce before testing or check HLA-DQ2/DQ8 to exclude it.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Inflammatory bowel disease</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Calprotectin is the screening test</div>
+    <p>A raised calprotectin in a young patient with diarrhoea warrants colonoscopy, not a repeat calprotectin.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Dyssynergic defaecation</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">The commonest reversible cause of refractory IBS-C</div>
+    <p>Straining, incomplete evacuation, digitation, a sensation of blockage. Does not respond to laxatives or secretagogues; does respond to <b>biofeedback</b>, with good durable results. Diagnose with anorectal manometry and balloon expulsion.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Carbohydrate malabsorption</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Lactose, fructose, sorbitol</div>
+    <p>Often revealed by the reintroduction phase of a low FODMAP diet, which is a more useful test than breath testing.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Medication effects</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Frequently overlooked</div>
+    <p>Metformin, magnesium, PPIs, SSRIs, NSAIDs, opioids — opioid-induced constipation and narcotic bowel syndrome are their own entities and will not respond to IBS treatment while the opioid continues.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Gynaecological disease</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Endometriosis in particular</div>
+    <p>Cyclical symptoms, dyspareunia, or pain that tracks the menstrual cycle. Endometriosis is commonly misdiagnosed as IBS for years.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Giardiasis and other chronic infection</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Where the exposure fits</div>
+    <p>Consider with relevant travel, well water or contact history, particularly if the onset was abrupt.</p></div>
+<div class="blk bl" style="--bc:var(--c-s1p)">
+    <h4>Centrally mediated abdominal pain syndrome</h4>
+    <div class="cond" style="text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ink-1);font-weight:600;margin:6px 0 8px">Continuous, not related to defaecation</div>
+    <p>Rome V explicitly distinguishes this from IBS: pain that is <b>continuous</b> rather than intermittent and not clearly tied to bowel function is a different disorder needing a different approach — neuromodulators and psychological therapy rather than gut-targeted drugs.</p></div>
+
+  <h3 class="sub">If the diagnosis still holds</h3>
+  <div class="blk"><h4>Escalate deliberately</h4>
+    <p>Optimise the first-line measures properly before adding drugs — soluble fibre titrated slowly, a dietitian-led FODMAP trial with a real reintroduction phase, and a neuromodulator at an adequate dose for an adequate time. Most "failed" treatment is under-dosed or abandoned early.</p></div>
+  <div class="blk"><h4>Add a brain–gut therapy</h4>
+    <p>Gut-directed hypnotherapy and IBS-specific CBT have the best evidence in refractory disease, including delivered remotely. This is where the largest untapped benefit usually sits.</p></div>
+  <div class="blk"><h4>Reconsider severity and comorbidity</h4>
+    <p>Severe IBS travels with anxiety, depression, fibromyalgia, chronic fatigue and a history of adverse life events. Treating the bowel alone will not move a patient whose central sensitisation is the dominant process. Multidisciplinary care beats sequential monotherapy.</p></div>
+  <div class="notice"><b>Do not keep re-investigating.</b> Once the diagnosis is secure and initial tests were normal, repeating them because symptoms persist is a well-described trap: it reinforces the patient's belief that something has been missed and delays effective treatment. Re-investigate for a <b>change</b> in the pattern or a new alarm feature — not for persistence.</div>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>Follow-up &amp; the long view</h2>
+  <div class="blk"><h4>Set the expectation early</h4>
+    <p>IBS is chronic and relapsing–remitting. The goal is control and function, not cure. Patients told this at the outset cope far better than those who expect eradication and interpret every flare as failure.</p></div>
+  <div class="blk"><h4>Review at 4–8 weeks after any change</h4>
+    <p>Long enough to judge fibre, a FODMAP trial or a neuromodulator; short enough that a patient who is getting nowhere is not left for months.</p></div>
+  <div class="blk"><h4>The relationship is part of the treatment</h4>
+    <p>Continuity, taking the symptoms seriously, and an explanation the patient can repeat to their family do measurable work. This is one of the few areas where the consultation itself is as effective as the prescription.</p></div>
+
+  <h3 class="sub">About this page</h3>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults. Drug availability differs substantially between countries — tegaserod, alosetron, eluxadoline and tenapanor are not available everywhere, and some antispasmodics available in Europe are not licensed in the US. Check your local formulary.</div>
+  <div class="notice"><b>On Rome V.</b> The criteria were released in May 2026 and services will adopt them at different rates. Both versions are shown because the difference changes who qualifies for the diagnosis, and because trials you read for the next few years will use Rome IV.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>CAPS</b> — centrally mediated abdominal pain syndrome</div>
+    <div><b>CBT</b> — cognitive behavioural therapy</div>
+    <div><b>DGBI</b> — disorder of gut–brain interaction</div>
+    <div><b>FODMAP</b> — fermentable oligo-, di-, monosaccharides and polyols</div>
+    <div><b>IBS-C / D / M / U</b> — with constipation / diarrhoea / mixed / unclassified</div>
+    <div><b>SeHCAT</b> — selenium homocholic acid taurine retention test</div>
+    <div><b>SIBO</b> — small intestinal bacterial overgrowth</div>
+    <div><b>tTG-IgA</b> — tissue transglutaminase IgA antibody</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">ACG clinical guideline on the management of irritable bowel syndrome (Am J Gastroenterol 2021) · AGA clinical practice guidelines on the pharmacological management of IBS with constipation and IBS with diarrhoea (Gastroenterology 2022) · British Society of Gastroenterology guidelines on the management of irritable bowel syndrome (Gut 2021) · Rome Foundation Rome V criteria for disorders of gut–brain interaction, released May 2026, and the Rome IV criteria they replace. Current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-dx"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Diagnose</label>
+  <label for="t-test"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Testing</label>
+  <label for="t-tx"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Treat</label>
+  <label for="t-refract"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Refractory</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Follow-up</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),
+      cards=document.querySelectorAll('.searchable .find'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>
