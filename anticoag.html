@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Anticoag / Endo">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Anticoagulants & Endoscopy</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-plan:checked ~ main #p-plan,
+#t-drugs:checked ~ main #p-drugs,
+#t-bleed:checked ~ main #p-bleed,
+#t-info:checked ~ main #p-info{display:block}
+#t-plan:checked ~ .tabbar label[for="t-plan"],
+#t-drugs:checked ~ .tabbar label[for="t-drugs"],
+#t-bleed:checked ~ .tabbar label[for="t-bleed"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-plan:checked ~ .topbar .filters,
+#t-bleed:checked ~ .topbar .filters,
+#t-info:checked ~ .topbar .filters{display:none}
+
+#k-ac:checked ~ main .card:not(.k-ac){display:none}
+#k-ap:checked ~ main .card:not(.k-ap){display:none}
+#k-all:checked ~ .topbar .seg label[for="k-all"],
+#k-ac:checked  ~ .topbar .seg label[for="k-ac"],
+#k-ap:checked  ~ .topbar .seg label[for="k-ap"]{background:var(--card);color:var(--ink-1);
+  box-shadow:0 1px 3px rgba(0,0,0,.13);font-weight:700}
+#p-drugs{padding-top:12px}
+@media (min-width:900px){#p-drugs{column-count:2;column-gap:14px}
+  #p-drugs .card{break-inside:avoid;-webkit-column-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-plan" class="ctl" checked>
+<input type="radio" name="tab" id="t-drugs" class="ctl">
+<input type="radio" name="tab" id="t-bleed" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+<input type="radio" name="kind" id="k-all" class="ctl" checked>
+<input type="radio" name="kind" id="k-ac" class="ctl">
+<input type="radio" name="kind" id="k-ap" class="ctl">
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Anticoagulants &amp; Endoscopy</div>
+    <div class="tb-note">Aug 2026</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+  <input id="q" type="search" placeholder="Search drug, hold time, procedure…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+</div>
+  <div class="seg">
+    <label for="k-all">All<span class="ct">10</span></label>
+    <label for="k-ac">Anticoagulants<span class="ct">5</span></label>
+    <label for="k-ap">Antiplatelets<span class="ct">4</span></label>
+  </div>
+  <div class="hint"><span id="cnt"></span> Tap a drug for the full plan</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane" id="p-plan">
+  <h2>Three questions, in order</h2>
+  <p class="lede">Almost every periprocedural decision falls out of these three answers. Work through them in this sequence — the procedure comes first, because a low-risk procedure ends the conversation.</p>
+
+  <div class="blk"><div class="n">1</div><h4>How much does the procedure bleed?</h4>
+    <p>If it is a low-risk procedure, nothing is stopped. No anticoagulant, no antiplatelet, no exceptions worth the trouble. Most of the interruptions that happen in practice are for procedures that never needed one.</p></div>
+  <div class="blk"><div class="n">2</div><h4>How much does the patient clot?</h4>
+    <p>This only matters once you know the procedure is high risk. It decides whether a warfarin patient needs bridging, and whether a P2Y12 inhibitor may be stopped at all.</p></div>
+  <div class="blk"><div class="n">3</div><h4>Which drug, and what is the renal function?</h4>
+    <p>Then the hold time follows mechanically. Renal function changes the answer only for dabigatran, and at the extremes for the others.</p></div>
+
+  <h3 class="sub">Procedure bleeding risk</h3>
+  <div class="cols">
+  <div class="risk" style="--bc:var(--c-integrin)">
+    <div class="risk-h">Low risk — change nothing</div>
+    <ul><li>Diagnostic OGD or colonoscopy, including biopsies<small>Biopsy does not change the risk category</small></li><li>Diagnostic flexible sigmoidoscopy ± biopsy</li><li>ERCP with stent placement or balloon dilatation of a papillary stricture, <b>without</b> sphincterotomy</li><li>Biliary or pancreatic stenting</li><li>Device-assisted enteroscopy without polypectomy</li><li>EUS <b>without</b> sampling or intervention</li><li>Oesophageal, enteral or colonic stent insertion</li><li>Capsule endoscopy</li></ul>
+  </div>
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">High risk — interruption is on the table</div>
+    <ul><li>Polypectomy — any technique, any size<small>See the cold-snare note below</small></li><li>EMR and ESD<small>ESD carries the highest delayed-bleeding risk of anything on this list</small></li><li>Ampullectomy<small>The one procedure where even aspirin is individualised</small></li><li>ERCP with sphincterotomy<small>Balloon sphincteroplasty without sphincterotomy is lower risk</small></li><li>EUS with FNA/FNB or any EUS-guided intervention</li><li>PEG or PEJ placement</li><li>Oesophageal, enteral or colonic stricture dilatation</li><li>Variceal band ligation or sclerotherapy</li><li>Tumour ablation, RFA, APC</li><li>Pneumatic dilatation for achalasia, POEM</li></ul>
+  </div>
+  </div>
+  <div class="notice"><b>Cold snare, small polyps.</b> Cold snare polypectomy of polyps ≤ 10 mm is the grey zone. A meta-analysis found a pooled delayed bleeding rate of 1.6% when antithrombotics were continued — acceptable for diminutive polyps on aspirin or warfarin, but the same analysis found the risk rises with DOACs and with multiple agents. If you know in advance that only diminutive polyps are expected, continuing is defensible; if you may meet a large or pedunculated lesion, plan as for a high-risk procedure.</div>
+  <div class="notice"><b>Very high risk.</b> ESD, large or piecemeal EMR, and ampullectomy sit above the rest. Meta-analysis data suggest delaying resumption of antithrombotics to about a week after ESD reduces delayed bleeding without a measurable thrombotic cost. Decide the restart plan with the resecting endoscopist, not by protocol.</div>
+
+  <h3 class="sub">Thrombotic risk — anticoagulated patients</h3>
+  <div class="risk" style="--bc:var(--c-tnf)">
+    <div class="risk-h">High thrombotic risk if any of these</div>
+    <ul><li>Prosthetic <b>metal</b> heart valve in the mitral position<small>Any mitral mechanical valve is high risk</small></li><li>Prosthetic metal valve in the aortic position <b>with</b> an additional risk factor<small>AF, prior thromboembolism, LV dysfunction, hypercoagulable state</small></li><li>AF with a mechanical valve, or AF with mitral stenosis</li><li>AF with stroke or TIA within the last <b>3 months</b></li><li>AF with a prior stroke/TIA <b>plus</b> ≥ 3 of: heart failure, hypertension, age &gt; 75, diabetes</li><li>Venous thromboembolism within the last <b>3 months</b></li><li>Severe thrombophilia — antiphospholipid syndrome, protein C/S or antithrombin deficiency</li></ul>
+  </div>
+  <div class="notice">Everything else — including most non-valvular AF, and VTE more than 3 months old — counts as <b>low</b> thrombotic risk, and does not need bridging.</div>
+
+  <h3 class="sub">Thrombotic risk — antiplatelet patients</h3>
+  <div class="risk" style="--bc:var(--c-il23)">
+    <div class="risk-h">Do not stop a P2Y12 inhibitor if any of these</div>
+    <ul><li>Drug-eluting coronary stent within <b>12 months</b><small>Newer-generation stents in high-bleeding-risk patients may allow 1–6 months — ask cardiology</small></li><li>Bare-metal coronary stent within <b>1 month</b></li><li>Acute coronary syndrome within <b>90 days</b></li><li>Recent carotid or peripheral arterial stent<small>Discuss with the implanting service</small></li></ul>
+  </div>
+  <div class="notice"><b>The practical rule for stents:</b> defer an elective high-risk procedure until the mandatory dual-therapy window has passed — 12 months after a drug-eluting stent, 1 month after a bare-metal stent, and beyond 90 days after an ACS. Newer-generation drug-eluting stents allow shorter windows in patients at high bleeding risk, but that call belongs to cardiology, in writing, not to an assumption.</div>
+</section>
+
+<section class="pane searchable" id="p-drugs">
+  <details class="card k-ac" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Warfarin</span>
+<span class="sm-brand">Coumadin · vitamin K antagonist</span>
+<span class="sm-sum"><b>Low-risk:</b> Continue for low-risk<br><b>High-risk:</b> Stop 5 days for high-risk</span>
+<span class="badges"><span class="b cl">Anticoagulant</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Effective half-life 36–42 h · INR-guided</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Continue at the usual dose.</span> Check the INR within the week before — it must be in the therapeutic range. If it is above range, delay and correct rather than proceeding.</div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Stop 5 days before.</span> Check the INR on the morning of the procedure; proceed if <b>&lt; 1.5</b>.</div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv"><span class="hi">Stop 5 days before and bridge with LMWH.</span> Start therapeutic LMWH 2 days after the last warfarin dose. Give the last LMWH dose <b>≥ 24 h</b> before the procedure — omit the morning dose on the day. Restart warfarin the evening of the procedure and continue LMWH until the INR is back in range.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">No renal dose adjustment, but clearance falls with age, malnutrition, heart failure and liver disease — those patients often need longer than 5 days.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">The evening of the procedure</span>, at the usual maintenance dose. No loading dose. Recheck the INR within a week.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Bridging is the most over-used manoeuvre here. In non-valvular AF the BRIDGE trial showed bridging <b>increases major bleeding without reducing thromboembolism</b> — restrict it to the high-risk list. Beware interactions started around the procedure: antibiotics, azoles and amiodarone all raise the INR.</div>
+</div>
+</details>
+<details class="card k-ac" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Apixaban</span>
+<span class="sm-brand">Eliquis · direct factor Xa inhibitor</span>
+<span class="sm-sum"><b>Low-risk:</b> Omit the morning dose<br><b>High-risk:</b> Last dose 3 days before</span>
+<span class="badges"><span class="b cl">Anticoagulant</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Half-life 12 h · ~27% renal clearance · twice daily</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Omit the morning dose on the day of the procedure.</span> No other change. (BSG/ESGE. The PAUSE protocol is very slightly more conservative: also omit the day before.)</div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Last dose 3 days before the procedure</span> — i.e. no drug on the two days before, and none on the day itself.</div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv">Same omission schedule. <b>Bridging is not required and not recommended</b> for DOACs — their rapid onset makes it unnecessary. If the thrombotic risk is extreme, the question is whether to defer the procedure, not whether to bridge.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">CrCl 30–50: no change to the schedule above. <b>CrCl &lt; 30</b>: not well studied — extend the interval and involve haematology.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">24 h</span> after a low-risk procedure · <span class="hi">48–72 h</span> after a high-risk one, once haemostasis is secure. After ESD or a large EMR, consider longer.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>PAUSE validated this simple no-testing, no-bridging strategy: 30-day major bleeding 1.35% and arterial thromboembolism 0.16%. Do not check anti-Xa levels routinely.</div>
+</div>
+</details>
+<details class="card k-ac" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Rivaroxaban</span>
+<span class="sm-brand">Xarelto · direct factor Xa inhibitor</span>
+<span class="sm-sum"><b>Low-risk:</b> Omit the morning dose<br><b>High-risk:</b> Last dose 3 days before</span>
+<span class="badges"><span class="b cl">Anticoagulant</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Half-life 5–13 h · ~35% renal clearance · once daily, with food</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Omit the morning dose on the day of the procedure.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Last dose 3 days before the procedure.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv">Same schedule; <b>no bridging</b>. Defer the procedure if the thrombotic risk cannot tolerate the gap.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">CrCl 30–50: schedule unchanged. <b>CrCl &lt; 30</b>: extend and involve haematology.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">24 h</span> after low-risk · <span class="hi">48–72 h</span> after high-risk, once haemostasis is secure.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Taken once daily with the evening meal in most patients — confirm the actual timing before counting days, since "stop 3 days before" means something different for an evening dose. PAUSE 30-day major bleeding 1.85%.</div>
+</div>
+</details>
+<details class="card k-ac" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Edoxaban</span>
+<span class="sm-brand">Lixiana · Savaysa · direct factor Xa inhibitor</span>
+<span class="sm-sum"><b>Low-risk:</b> Omit the morning dose<br><b>High-risk:</b> Last dose 3 days before</span>
+<span class="badges"><span class="b cl">Anticoagulant</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Half-life 10–14 h · ~50% renal clearance · once daily</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Omit the morning dose on the day of the procedure.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Last dose 3 days before the procedure.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv">Same schedule; <b>no bridging</b>.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">More renally dependent than apixaban. CrCl 30–50: schedule unchanged but keep a lower threshold to extend. <b>CrCl &lt; 30</b>: haematology input.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">24 h</span> after low-risk · <span class="hi">48–72 h</span> after high-risk.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Least represented in the periprocedural trials — the schedule is extrapolated from the other factor Xa inhibitors. Note the paradoxical label warning about reduced efficacy at high creatinine clearance in AF.</div>
+</div>
+</details>
+<details class="card k-ac" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Dabigatran</span>
+<span class="sm-brand">Pradaxa · direct thrombin inhibitor</span>
+<span class="sm-sum"><b>Low-risk:</b> Omit the morning dose<br><b>High-risk:</b> 3 days — or 5 if CrCl 30–50</span>
+<span class="badges"><span class="b cl">Anticoagulant</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Half-life 12–17 h · <b>~80% renal clearance</b> · twice daily</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Omit the morning dose on the day of the procedure.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><b>CrCl &ge; 50:</b> <span class="hi">last dose 3 days before.</span><br><b>CrCl 30–50:</b> <span class="hi">last dose 5 days before.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv">Same schedule; <b>no bridging</b>.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">The one DOAC where renal function genuinely changes the plan — check the CrCl before every high-risk procedure. <b>CrCl &lt; 30</b>: contraindicated in most regions; haematology input.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">24 h</span> after low-risk · <span class="hi">48–72 h</span> after high-risk.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>The only DOAC with a specific, complete and fast antidote — idarucizumab. Dyspepsia is common and can be mistaken for the indication for the endoscopy.</div>
+</div>
+</details>
+<details class="card k-ap" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Aspirin</span>
+<span class="sm-brand">low-dose 75–100 mg · irreversible COX-1 inhibitor</span>
+<span class="sm-sum"><b>Low-risk:</b> Continue<br><b>High-risk:</b> Continue — do not stop</span>
+<span class="badges"><span class="b cl">Antiplatelet</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Irreversible — platelet function recovers over 7–10 days as new platelets appear</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Continue.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Continue for essentially everything</span>, including polypectomy, EMR, sphincterotomy and PEG. The single exception is <b>ampullectomy</b>, where stopping is individualised.</div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv"><span class="hi">Continue — absolutely.</span> Aspirin is the drug you keep when a P2Y12 inhibitor has to be stopped.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">No adjustment.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv">Not applicable if it was never stopped. If it was, restart within <span class="hi">2–3 days</span>, sooner if the indication is secondary prevention.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Stopping aspirin is a common reflex and usually the wrong one. In secondary prevention, interruption is associated with a rebound in cardiovascular events, and the endoscopic bleeding risk it removes is small. If a patient on aspirin monotherapy for <i>primary</i> prevention needs a very high-risk resection, stopping is reasonable — the indication itself is often no longer valid.</div>
+</div>
+</details>
+<details class="card k-ap" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Clopidogrel</span>
+<span class="sm-brand">Plavix · P2Y12 receptor antagonist</span>
+<span class="sm-sum"><b>Low-risk:</b> Continue<br><b>High-risk:</b> Stop 7 days · keep aspirin</span>
+<span class="badges"><span class="b cl">Antiplatelet</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Irreversible binding · prodrug · platelet recovery over 5–7 days</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Continue.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Stop 7 days before</span> (BSG/ESGE; ASGE accepts 5–7). If the patient is on dual therapy, <b>continue the aspirin</b> throughout.</div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv"><span class="hi">Do not stop it on your own.</span> Continue aspirin, and discuss with cardiology — the usual answer is to defer the procedure until the mandatory dual-therapy window has passed. If the procedure cannot wait, it proceeds on dual therapy with a plan for bleeding.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">No adjustment.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">1–2 days</span> after the procedure. No loading dose unless cardiology asks for one.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>If the patient is on clopidogrel monotherapy simply because of an old aspirin intolerance, switching to aspirin for the periprocedural window is often the cleanest solution — agree it with the prescriber first.</div>
+</div>
+</details>
+<details class="card k-ap" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Prasugrel</span>
+<span class="sm-brand">Efient · Effient · P2Y12 receptor antagonist</span>
+<span class="sm-sum"><b>Low-risk:</b> Continue<br><b>High-risk:</b> Stop 7 days · keep aspirin</span>
+<span class="badges"><span class="b cl">Antiplatelet</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Irreversible · more potent and more consistent than clopidogrel</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Continue.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Stop 7 days before.</span> Continue aspirin.</div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv">As for clopidogrel — cardiology first, defer if possible. Prasugrel is prescribed for higher-risk coronary anatomy, so the threshold to interrupt should be higher still.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">No adjustment. Contraindicated after stroke/TIA and generally avoided over age 75 or under 60 kg.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">1–2 days</span> after the procedure.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Greater platelet inhibition than clopidogrel means a correspondingly greater bleeding risk if continued — and a greater thrombotic risk if stopped. Neither direction is free.</div>
+</div>
+</details>
+<details class="card k-ap" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Ticagrelor</span>
+<span class="sm-brand">Brilinta · Brilique · reversible P2Y12 antagonist</span>
+<span class="sm-sum"><b>Low-risk:</b> Continue<br><b>High-risk:</b> Stop 3–5 days · keep aspirin</span>
+<span class="badges"><span class="b cl">Antiplatelet</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa"><b>Reversible</b> binding · half-life 7–9 h · twice daily · faster offset than the thienopyridines</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Continue.</span></div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Stop 3–5 days before.</span> Continue aspirin. The shorter interval reflects reversible binding — do not simply copy the 7-day clopidogrel rule.</div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv">Cardiology first; defer if within the mandatory dual-therapy window.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">No adjustment.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">1–2 days</span> after the procedure. Because offset and onset are both fast, the exposed window is shorter than with clopidogrel.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Missed doses matter more than with irreversible agents — twice-daily dosing means platelet inhibition falls away quickly. Dyspnoea is a common and benign side effect that is often referred to gastroenterology by mistake.</div>
+</div>
+</details>
+<details class="card k-br" style="--ac:var(--c-integrin)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">LMWH bridging</span>
+<span class="sm-brand">enoxaparin, dalteparin, tinzaparin</span>
+<span class="sm-sum"><b>Low-risk:</b> Rarely indicated<br><b>High-risk:</b> Only for high-risk warfarin patients</span>
+<span class="badges"><span class="b cl">Bridging</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Enoxaparin half-life 4–7 h · renally cleared · anti-Xa monitoring only in special cases</p>
+<div class="rows">
+<div class="row"><div class="rk">Low-risk procedure</div><div class="rv"><span class="hi">Not needed.</span> Low-risk procedures do not require interruption of warfarin at all, so there is nothing to bridge.</div></div>
+<div class="row"><div class="rk">High-risk procedure · low thrombotic risk</div><div class="rv"><span class="hi">Not needed</span> if the thrombotic risk is low — and not needed for any DOAC, at any thrombotic risk.</div></div>
+<div class="row"><div class="rk">High-risk procedure · high thrombotic risk</div><div class="rv"><span class="hi">Therapeutic-dose LMWH</span>, e.g. enoxaparin 1 mg/kg twice daily. Start 2 days after the last warfarin dose. <b>Last dose ≥ 24 h before the procedure</b> — omit the morning dose on the day. Restart 24–48 h afterwards once haemostasis is secure, and continue until the INR is therapeutic again.</div></div>
+<div class="row"><div class="rk">Renal function</div><div class="rv">CrCl &lt; 30: reduce the dose (enoxaparin 1 mg/kg once daily) or use unfractionated heparin, which is easier to stop and reverse.</div></div>
+<div class="row"><div class="rk">Restart</div><div class="rv"><span class="hi">24–48 h</span> after the procedure, guided by the bleeding risk of what was actually done rather than what was planned.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>The evidence has moved decisively against routine bridging: more bleeding, no reduction in thromboembolism. Reserve it for the specific high-risk indications, and prefer unfractionated heparin when the situation is unstable or renal function is poor.</div>
+</div>
+</details>
+</section>
+
+<section class="pane" id="p-bleed">
+  <h2>Acute GI bleeding on antithrombotics</h2>
+  <p class="lede">Resuscitation and endoscopic haemostasis do most of the work. Reversal is an adjunct for life-threatening bleeding, not a reflex — and every reversal agent buys haemostasis at the cost of thrombosis.</p>
+  <div class="blk"><div class="dh" style="color:var(--c-tnf)">Warfarin</div>
+    <p><b>4-factor PCC</b> 25–50 U/kg by INR and weight, <b>plus IV vitamin K 5–10 mg</b>. PCC works within minutes; the vitamin K is what stops the INR rebounding as the PCC is cleared — giving one without the other is a common error.</p>
+    <p style="margin-top:8px">FFP only if PCC is unavailable — slower, large volume, less complete. Do not delay endoscopy for an INR &lt; 2.5.</p></div>
+<div class="blk"><div class="dh" style="color:var(--c-tnf)">Dabigatran</div>
+    <p><b>Idarucizumab 5 g IV</b>, given as two 2.5 g bolus doses. Complete, specific and effective within minutes.</p>
+    <p style="margin-top:8px">Haemodialysis is an effective fallback — dabigatran is minimally protein-bound. Activated charcoal if the last dose was within 2–4 h.</p></div>
+<div class="blk"><div class="dh" style="color:var(--c-tnf)">Apixaban · Rivaroxaban · Edoxaban</div>
+    <p><b>4-factor PCC 50 U/kg</b> is the pragmatic first-line in most hospitals. <b>Andexanet alfa</b> is the specific agent, dosed low (400 mg bolus + 480 mg infusion) or high (800 mg + 960 mg) according to the drug, the dose and the time since the last dose.</p>
+    <p style="margin-top:8px">ISTH guidance advises <b>against</b> andexanet for GI bleeding that local endoscopic measures can control. In ANNEXA-I it achieved better haemostasis than usual care (67% vs 53%) but with roughly double the thrombotic events (10.3% vs 5.6%), and it complicates any subsequent heparin use. Reserve it, and involve haematology.</p></div>
+<div class="blk"><div class="dh" style="color:var(--c-tnf)">Antiplatelet agents</div>
+    <p>There is <b>no useful reversal agent</b>. Platelet transfusion does not improve outcomes in antiplatelet-associated bleeding and may cause harm — do not give it reflexively.</p>
+    <p style="margin-top:8px">Endoscopic haemostasis, and then getting the aspirin back on board, are what actually change outcome.</p></div>
+<div class="blk"><div class="dh" style="color:var(--c-tnf)">All patients</div>
+    <p><b>Do not give tranexamic acid</b> for acute GI bleeding. HALT-IT randomised over 12,000 patients: no reduction in death, with more venous thromboembolism and seizures.</p>
+    <p style="margin-top:8px">Resuscitate, restrict transfusion to a haemoglobin threshold of about 7–8 g/dL, treat as variceal if there is any suspicion of portal hypertension, and get to endoscopy.</p></div>
+
+  <h3 class="sub">Getting back on the drug</h3>
+  <div class="notice"><b>The under-appreciated risk is stopping, not restarting.</b> Withholding aspirin after GI bleeding in a patient on secondary prevention increases mortality. Resume aspirin as soon as haemostasis is secure — usually within 3 days, often sooner.</div>
+  <div class="notice"><b>Before stopping any antiplatelet</b> in a patient with a drug-eluting stent under a year old, a bare-metal stent under 30 days, or an ACS within 90 days: speak to cardiology first. This is the conversation that gets skipped at 3 a.m. and causes the stent thrombosis.</div>
+  <div class="notice"><b>Anticoagulants after a bleed.</b> Most patients should restart — the question is when, not whether. For a bleed with an identified and treated source, restarting within about a week is usual. Involve the prescribing team, and document the reasoning either way.</div>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>About this page</h2>
+  <p class="lede">Elective procedures in adults. Emergency management is on the bleeding tab.</p>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adult patients, elective settings unless stated. Verify against your local protocol and the current label before acting. This page does not replace discussion with cardiology or haematology where the guidelines call for it.</div>
+  <div class="notice"><b>Where the numbers come from.</b> Hold and restart intervals follow the BSG/ESGE 2021 guideline update, cross-checked against ASGE guidance and the PAUSE study protocol, which validated a no-testing, no-bridging DOAC strategy in over 3,000 patients. Where BSG/ESGE and ASGE differ, the more conservative interval is shown and the difference is noted on the drug card.</div>
+  <div class="notice"><b>Two things this page cannot decide for you.</b> Whether a stent is safe to leave unprotected — that is a cardiology decision. And whether an individual resection is worth the bleeding risk — that is yours, at the time, looking at the lesion.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>ACS</b> — acute coronary syndrome</div>
+    <div><b>AF</b> — atrial fibrillation</div>
+    <div><b>APA</b> — antiplatelet agent</div>
+    <div><b>BMS / DES</b> — bare-metal / drug-eluting stent</div>
+    <div><b>CrCl</b> — creatinine clearance</div>
+    <div><b>DAPT</b> — dual antiplatelet therapy</div>
+    <div><b>DOAC</b> — direct oral anticoagulant</div>
+    <div><b>EMR / ESD</b> — endoscopic mucosal resection / submucosal dissection</div>
+    <div><b>LMWH</b> — low molecular weight heparin</div>
+    <div><b>PCC</b> — prothrombin complex concentrate</div>
+    <div><b>POEM</b> — peroral endoscopic myotomy</div>
+    <div><b>VTE</b> — venous thromboembolism</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">BSG and ESGE guideline update on endoscopy in patients on antiplatelet or anticoagulant therapy (2021) · ASGE guideline on the management of antithrombotic agents for endoscopic procedures · PAUSE study (JAMA Intern Med 2019) · BRIDGE trial (NEJM 2015) · ANNEXA-I (NEJM 2024) and ISTH guidance on DOAC reversal · HALT-IT (Lancet 2020) · meta-analysis of cold snare polypectomy on antithrombotics (2022). Current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-plan"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Plan</label>
+  <label for="t-drugs"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Drugs</label>
+  <label for="t-bleed"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.4A6 6 0 0 1 6 13.4C6 9.4 12 3 12 3z"/></svg>Bleeding</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Info</label>
+</nav>
+
+<script>
+/* Optional enhancement only. Everything above works with this removed. */
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),cards=document.querySelectorAll('.searchable .card'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>

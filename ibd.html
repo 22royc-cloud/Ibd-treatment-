@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IBD Therapy">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>IBD Therapy — Crohn's & Colitis</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-drugs:checked ~ main #p-drugs,
+#t-lor:checked ~ main #p-lor,
+#t-asuc:checked ~ main #p-asuc,
+#t-pipe:checked ~ main #p-pipe,
+#t-info:checked ~ main #p-info{display:block}
+#t-drugs:checked ~ .tabbar label[for="t-drugs"],
+#t-lor:checked ~ .tabbar label[for="t-lor"],
+#t-asuc:checked ~ .tabbar label[for="t-asuc"],
+#t-pipe:checked ~ .tabbar label[for="t-pipe"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-lor:checked ~ .topbar .filters,
+#t-asuc:checked ~ .topbar .filters,
+#t-pipe:checked ~ .topbar .filters,
+#t-info:checked ~ .topbar .filters{display:none}
+
+.c-asa{--ac:var(--c-asa)} .c-steroid{--ac:var(--c-steroid)} .c-immuno{--ac:var(--c-immuno)}
+.c-tnf{--ac:var(--c-tnf)} .c-integrin{--ac:var(--c-integrin)} .c-il23{--ac:var(--c-il23)}
+.c-jak{--ac:var(--c-jak)} .c-s1p{--ac:var(--c-s1p)}
+.p-asa i{background:var(--c-asa)} .p-steroid i{background:var(--c-steroid)}
+.p-immuno i{background:var(--c-immuno)} .p-tnf i{background:var(--c-tnf)}
+.p-integrin i{background:var(--c-integrin)} .p-il23 i{background:var(--c-il23)}
+.p-jak i{background:var(--c-jak)} .p-s1p i{background:var(--c-s1p)}
+.tl{margin-top:14px}
+.tl-h{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3);
+  font-weight:700;margin-bottom:9px}
+.tl-bar{position:relative;height:30px}
+.tl-track{position:absolute;left:0;right:0;top:10px;height:6px;border-radius:3px;background:var(--rule)}
+.tl-ind{position:absolute;left:0;top:10px;height:6px;border-radius:3px;background:var(--ac)}
+.tl-mnt{position:absolute;right:0;top:10px;height:6px;border-radius:3px;opacity:.85;
+  background:repeating-linear-gradient(90deg,var(--ac) 0 6px,transparent 6px 11px)}
+.tl-dot{position:absolute;top:7px;width:12px;height:12px;border-radius:50%;background:var(--ac);
+  border:2px solid var(--card);margin-left:-6px}
+.tl-dot.ho{background:var(--card);border:2px solid var(--ac)}
+.tl-lab{position:absolute;top:23px;font-size:9.5px;color:var(--ink-3);white-space:nowrap;
+  margin-left:-30px;width:60px;text-align:center}
+.tl-lab.l{left:0;margin-left:0;width:auto;text-align:left}
+.tl-lab.r{right:0;margin-left:0;width:auto;text-align:right}
+.tl-key{margin-top:14px;font-size:11px;color:var(--ink-3)}
+.tl-key span{display:block;margin-bottom:4px}
+.tl-key i{display:inline-block;width:15px;height:5px;border-radius:3px;margin-right:6px;
+  vertical-align:middle;position:relative;top:-1px}
+.tl-key .ki{background:var(--ac)}
+.tl-key .km{background:repeating-linear-gradient(90deg,var(--ac) 0 5px,transparent 5px 9px)}
+#z-cd:checked ~ main .card:not(.d-CD){display:none}
+#z-uc:checked ~ main .card:not(.d-UC){display:none}
+#z-all:checked ~ .topbar .seg label[for="z-all"],
+#z-cd:checked  ~ .topbar .seg label[for="z-cd"],
+#z-uc:checked  ~ .topbar .seg label[for="z-uc"]{background:var(--card);color:var(--ink-1);
+  box-shadow:0 1px 3px rgba(0,0,0,.13);font-weight:700}
+#c-all:checked ~ .topbar .pill[for="c-all"]{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-asa:checked ~ main .card:not(.c-asa){display:none}
+#c-asa:checked ~ .topbar .pill.p-asa{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-asa:checked ~ .topbar .pill.p-asa i{box-shadow:0 0 0 1.5px var(--page)}
+#c-steroid:checked ~ main .card:not(.c-steroid){display:none}
+#c-steroid:checked ~ .topbar .pill.p-steroid{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-steroid:checked ~ .topbar .pill.p-steroid i{box-shadow:0 0 0 1.5px var(--page)}
+#c-immuno:checked ~ main .card:not(.c-immuno){display:none}
+#c-immuno:checked ~ .topbar .pill.p-immuno{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-immuno:checked ~ .topbar .pill.p-immuno i{box-shadow:0 0 0 1.5px var(--page)}
+#c-tnf:checked ~ main .card:not(.c-tnf){display:none}
+#c-tnf:checked ~ .topbar .pill.p-tnf{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-tnf:checked ~ .topbar .pill.p-tnf i{box-shadow:0 0 0 1.5px var(--page)}
+#c-integrin:checked ~ main .card:not(.c-integrin){display:none}
+#c-integrin:checked ~ .topbar .pill.p-integrin{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-integrin:checked ~ .topbar .pill.p-integrin i{box-shadow:0 0 0 1.5px var(--page)}
+#c-il23:checked ~ main .card:not(.c-il23){display:none}
+#c-il23:checked ~ .topbar .pill.p-il23{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-il23:checked ~ .topbar .pill.p-il23 i{box-shadow:0 0 0 1.5px var(--page)}
+#c-jak:checked ~ main .card:not(.c-jak){display:none}
+#c-jak:checked ~ .topbar .pill.p-jak{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-jak:checked ~ .topbar .pill.p-jak i{box-shadow:0 0 0 1.5px var(--page)}
+#c-s1p:checked ~ main .card:not(.c-s1p){display:none}
+#c-s1p:checked ~ .topbar .pill.p-s1p{background:var(--ink-1);color:var(--page);border-color:var(--ink-1)}
+#c-s1p:checked ~ .topbar .pill.p-s1p i{box-shadow:0 0 0 1.5px var(--page)}
+@media (min-width:900px){#p-drugs{column-count:2;column-gap:14px}
+  #p-drugs .card{break-inside:avoid;-webkit-column-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-drugs" class="ctl" checked>
+<input type="radio" name="tab" id="t-lor" class="ctl">
+<input type="radio" name="tab" id="t-asuc" class="ctl">
+<input type="radio" name="tab" id="t-pipe" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+<input type="radio" name="dz" id="z-all" class="ctl" checked>
+<input type="radio" name="dz" id="z-cd" class="ctl">
+<input type="radio" name="dz" id="z-uc" class="ctl">
+<input type="radio" name="cls" id="c-all" class="ctl" checked>
+<input type="radio" name="cls" id="c-asa" class="ctl">
+<input type="radio" name="cls" id="c-steroid" class="ctl">
+<input type="radio" name="cls" id="c-immuno" class="ctl">
+<input type="radio" name="cls" id="c-tnf" class="ctl">
+<input type="radio" name="cls" id="c-integrin" class="ctl">
+<input type="radio" name="cls" id="c-il23" class="ctl">
+<input type="radio" name="cls" id="c-jak" class="ctl">
+<input type="radio" name="cls" id="c-s1p" class="ctl">
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">IBD Therapy — Crohn's &amp; Colitis</div>
+    <div class="tb-note">Aug 2026</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search drug, dose, escalation…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="seg">
+    <label for="z-all">All<span class="ct">24</span></label>
+    <label for="z-cd">Crohn's<span class="ct">15</span></label>
+    <label for="z-uc">Colitis<span class="ct">19</span></label>
+  </div>
+  <div class="scrollrow">
+    <label class="pill" for="c-all">All<span class="ct">24</span></label>
+    <label class="pill p-asa" for="c-asa"><i></i>5-ASA<span class="ct">3</span></label><label class="pill p-steroid" for="c-steroid"><i></i>Corticosteroids<span class="ct">3</span></label><label class="pill p-immuno" for="c-immuno"><i></i>Immunomodulators<span class="ct">3</span></label><label class="pill p-tnf" for="c-tnf"><i></i>Anti-TNF<span class="ct">4</span></label><label class="pill p-integrin" for="c-integrin"><i></i>Anti-integrin<span class="ct">2</span></label><label class="pill p-il23" for="c-il23"><i></i>IL-23 / IL-12-23<span class="ct">4</span></label><label class="pill p-jak" for="c-jak"><i></i>JAK inhibitors<span class="ct">3</span></label><label class="pill p-s1p" for="c-s1p"><i></i>S1P modulators<span class="ct">2</span></label>
+  </div>
+  <div class="hint"><span id="cnt"></span> Tap any drug for full detail · swipe the class row for more</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane searchable" id="p-drugs">
+<details class="card c-asa d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Mesalamine (oral)</span>
+<span class="sm-brand">Lialda · Asacol HD · Pentasa · Apriso · Delzicol</span>
+<span class="sm-sum"><b>Ind:</b> 2.4–4.8 g/day PO<br><b>Mtx:</b> 2.0–2.4 g/day PO</span>
+<span class="badges"><span class="b cl">5-ASA</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Topically acting aminosalicylate; PPAR-γ agonism in colonic epithelium. First-line for mild–moderate UC; no meaningful role in Crohn's.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:28.57%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:28.57%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 2.4–4.8 g/day</span><span><i class="km"></i>Maintenance — 2.0–2.4 g/day</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">2.4–4.8 g/day PO</span>, once daily or divided<small>Once-daily dosing is as effective as divided and improves adherence. 4.8 g/day offers marginal benefit over 2.4 g in moderate disease only.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">2.0–2.4 g/day PO</span> indefinitely<small>Sustained maintenance also reduces colorectal cancer risk in long-standing colitis.</small></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO — pH-dependent, time-release or MMX delivery systems differ in release site</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 8</span> for oral; rectal therapy acts within 2 weeks</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span>Increase oral dose to <b>4.8 g/day</b> for 8 further weeks.</li><li><span class="tagl label">In label</span><b>Add rectal 5-ASA</b> — combined oral + topical is superior to either alone in left-sided and extensive disease. This is the single most under-used escalation in UC.</li><li><span class="tagl none">Caution</span>No response by week 8–16 at optimised combined dosing → <b>step up to budesonide MMX, systemic steroids or an advanced therapy</b>; do not keep escalating 5-ASA.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Check renal function at baseline, then annually (interstitial nephritis). Paradoxical 5-ASA intolerance presents as worsening diarrhoea and bleeding.</div>
+</div>
+</details>
+<details class="card c-asa d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Mesalamine (rectal)</span>
+<span class="sm-brand">Canasa suppository · Rowasa enema</span>
+<span class="sm-sum"><b>Ind:</b> 1 g supp. or 4 g enema nightly<br><b>Mtx:</b> 1 g supp. / 4 g enema 2–3×wk</span>
+<span class="badges"><span class="b cl">5-ASA</span><span class="b dz">UC</span><span class="b rt">PR</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Direct mucosal delivery. Superior to oral 5-ASA and to rectal steroids for distal disease.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:14.29%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:14.29%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:24.00%">assess wk 4</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — nightly</span><span><i class="km"></i>Maintenance — taper frequency</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>Proctitis:</b> <span class="hi">1 g suppository</span> nightly<br><b>Left-sided:</b> <span class="hi">4 g enema</span> nightly<small>Suppository reaches ~10 cm; enema reaches the splenic flexure.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">1 g suppository</span> nightly to 3×/week, or 4 g enema 2–3×/week</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PR — suppository (proctitis) or enema/foam (left-sided)</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 2–4</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span>Increase frequency back to nightly if breakthrough on intermittent dosing.</li><li><span class="tagl label">In label</span><b>Add oral 5-ASA</b> ≥ 2.0 g/day — combination beats monotherapy.</li><li><span class="tagl label">In label</span>Refractory proctitis → add rectal corticosteroid (budesonide foam 2 mg) or switch to advanced therapy; do not accept "just proctitis" as untreatable.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Adherence is the main failure mode — ask directly about it before declaring refractory disease.</div>
+</div>
+</details>
+<details class="card c-asa d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Sulfasalazine</span>
+<span class="sm-brand">Azulfidine</span>
+<span class="sm-sum"><b>Ind:</b> 4–6 g/day PO divided<br><b>Mtx:</b> 2–4 g/day PO divided</span>
+<span class="badges"><span class="b cl">5-ASA</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">5-ASA linked to sulfapyridine, cleaved by colonic bacteria. Retains a role where peripheral arthropathy coexists.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:28.57%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:28.57%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 4–6 g/day</span><span><i class="km"></i>Maintenance — 2–4 g/day</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">4–6 g/day PO</span> in divided doses, titrated up from 1 g/day</div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">2–4 g/day PO</span> divided</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO only</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 8</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span>Titrate toward 6 g/day as tolerated; sulfapyridine drives the dose-limiting toxicity.</li><li><span class="tagl none">Caution</span>Intolerance (headache, nausea, oligospermia, haemolysis) → switch to a sulfa-free mesalamine rather than abandoning 5-ASA.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Co-prescribe <b>folic acid 1 mg/day</b>. Reversible oligospermia. Monitor CBC and LFTs.</div>
+</div>
+</details>
+<details class="card c-steroid d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Prednisone / Prednisolone</span>
+<span class="sm-brand">systemic corticosteroid</span>
+<span class="sm-sum"><b>Ind:</b> 40–60 mg/day PO<br><b>Mtx:</b> none — taper &amp; stop</span>
+<span class="badges"><span class="b cl">Corticosteroids</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Broad transcriptional immunosuppression. Fast, effective for induction — and has <b>no maintenance role whatsoever</b>.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:24.00%">assess wk 2</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 40–60 mg/day</span><span><i class="km"></i>Maintenance — no maintenance role</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">40–60 mg/day PO</span> (0.75–1 mg/kg), single morning dose<small>Doses above 60 mg add toxicity, not efficacy.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><b>None.</b> Taper 5–10 mg/week to 20 mg, then 2.5–5 mg/week. Total course ≤ 8–12 weeks.</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO; switch to IV if severe or malabsorbing</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Day 7–14</span> — a steroid that has not worked in 2 weeks will not work</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl none">Caution</span><b>Do not dose-escalate.</b> Steroid failure is a signal to change strategy, not to increase the dose.</li><li><span class="tagl label">In label</span><b>Steroid-refractory</b> (no response at 2 weeks) → advanced therapy now; IV steroids and rescue pathway if severe UC.</li><li><span class="tagl label">In label</span><b>Steroid-dependent</b> (relapse on taper below 10–15 mg, or ≥ 2 courses in 12 months) → start a thiopurine, methotrexate or an advanced therapy and taper off. Repeat courses are a treatment failure.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Bone protection (Ca/vitamin D ± bisphosphonate) if > 3 months. <i>Pneumocystis</i> prophylaxis with triple immunosuppression. Screen for hyperglycaemia.</div>
+</div>
+</details>
+<details class="card c-steroid d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Budesonide MMX</span>
+<span class="sm-brand">Uceris / Cortiment</span>
+<span class="sm-sum"><b>Ind:</b> 9 mg/day PO × 8 wk<br><b>Mtx:</b> none</span>
+<span class="badges"><span class="b cl">Corticosteroids</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Colonic-release budesonide with ~90% first-pass metabolism — steroid efficacy with a fraction of the systemic exposure.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 9 mg/day × 8 wk</span><span><i class="km"></i>Maintenance — no maintenance role</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">9 mg PO once daily × 8 weeks</span>, morning<small>Preferred over systemic steroids for mild–moderate UC not controlled on 5-ASA (2025 ACG).</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><b>None.</b> Stop at 8 weeks — no taper needed.</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 4–8</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl none">Caution</span>No dose escalation above 9 mg/day.</li><li><span class="tagl label">In label</span>Failure at 8 weeks → systemic steroids or advanced therapy.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Still suppresses the HPA axis at 9 mg — not a "steroid-free" strategy for repeated courses.</div>
+</div>
+</details>
+<details class="card c-steroid d-CD">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Budesonide (ileal release)</span>
+<span class="sm-brand">Entocort EC / Ortikos</span>
+<span class="sm-sum"><b>Ind:</b> 9 mg/day PO × 8 wk<br><b>Mtx:</b> taper 6 → 3 mg, ≤ 3 months</span>
+<span class="badges"><span class="b cl">Corticosteroids</span><span class="b dz">Crohn's</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">pH/time-release in the terminal ileum and right colon. Only for mild–moderate ileocaecal Crohn's.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 9 mg/day × 8 wk</span><span><i class="km"></i>Maintenance — taper 6 → 3 mg</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">9 mg PO once daily × 8 weeks</span></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv">Not recommended beyond 3 months. If used to bridge: taper 6 mg × 2–4 wk, then 3 mg × 2–4 wk.</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO — ineffective for distal colonic or upper GI disease</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 4–8</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl none">Caution</span>No escalation above 9 mg. Failure → prednisone or advanced therapy.</li><li><span class="tagl label">In label</span>Recurrent need for budesonide = steroid dependence → start maintenance immunosuppression.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Less effective than prednisone in moderate–severe disease; far better tolerated. Enteric coating is destroyed by grapefruit juice and CYP3A4 inhibitors.</div>
+</div>
+</details>
+<details class="card c-immuno d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Azathioprine / 6-Mercaptopurine</span>
+<span class="sm-brand">Imuran · Purinethol</span>
+<span class="sm-sum"><b>Ind:</b> AZA 2–2.5 · 6-MP 1–1.5 mg/kg/day<br><b>Mtx:</b> same dose indefinitely</span>
+<span class="badges"><span class="b cl">Immunomodulators</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">6-TGN incorporation triggers apoptosis of activated T cells. Slow onset — never a rescue drug. Main modern role: combination therapy with anti-TNF and post-operative Crohn's prophylaxis.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:42.86%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:42.86%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:42.86%">assess wk 12</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — onset 8–12 wk</span><span><i class="km"></i>Maintenance — weight-based daily</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>AZA</b> <span class="hi">2.0–2.5 mg/kg/day</span> · <b>6-MP</b> <span class="hi">1.0–1.5 mg/kg/day</span><small>Full dose from the start is acceptable once TPMT/NUDT15 is known; onset is still 8–12 weeks.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv">Same weight-based dose, continued indefinitely</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 12–16</span>. CBC + LFT at weeks 2, 4, 8, 12, then 3-monthly</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span><b>Check metabolites</b> before declaring failure. Target 6-TGN <b>235–450</b> pmol/8×10⁸ RBC.</li><li><span class="tagl label">In label</span>Low 6-TGN + low 6-MMP → <b>non-adherence or under-dosing</b>: increase dose.</li><li><span class="tagl off">Off-label</span>Low 6-TGN + high 6-MMP (<b>hypermethylator shunting</b>, ratio &gt; 11) → add <b>allopurinol 100 mg/day</b> and reduce the thiopurine to <b>25–33%</b> of the original dose. Monitor CBC weekly for 4 weeks — this is potent and effective.</li><li><span class="tagl none">Caution</span>Therapeutic 6-TGN with active disease = mechanistic failure → switch to an advanced therapy.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>Test TPMT and NUDT15 before starting</b> — NUDT15 variants are common in East Asian and Hispanic populations and cause severe myelosuppression. Lifetime risks: non-melanoma skin cancer (annual dermatology + sun protection), lymphoma (hepatosplenic T-cell lymphoma in young males), HPV-related cervical dysplasia.</div>
+</div>
+</details>
+<details class="card c-immuno d-CD">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Methotrexate</span>
+<span class="sm-brand">—</span>
+<span class="sm-sum"><b>Ind:</b> 25 mg SC/IM weekly × 16 wk<br><b>Mtx:</b> 15 mg SC/IM weekly</span>
+<span class="badges"><span class="b cl">Immunomodulators</span><span class="b dz">Crohn's</span><span class="b rt">SC</span><span class="b rt">IM</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Antifolate with anti-inflammatory activity at low dose. Evidence supports Crohn's only — trials in UC were negative. Also reduces anti-TNF immunogenicity.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:42.86%"></span><span class="tl-mnt" style="left:57.14%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:14.29%"></span><span class="tl-dot" style="left:28.57%"></span><span class="tl-dot" style="left:42.86%"></span><span class="tl-dot ho" style="left:57.14%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:57.14%">assess wk 16</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 25 mg/wk × 16 wk</span><span><i class="km"></i>Maintenance — 15 mg/wk</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">25 mg SC or IM once weekly × 16 weeks</span><small>Parenteral is clearly superior to oral for IBD — do not substitute tablets at induction.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">15 mg SC/IM once weekly</span></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">SC / IM preferred; PO only if parenteral impossible</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 16</span>. CBC + LFT monthly × 3, then every 3 months</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span>Relapse on 15 mg/week → return to <b>25 mg/week</b> and hold there.</li><li><span class="tagl label">In label</span>Oral therapy failing → <b>switch to SC</b> before concluding the drug does not work; bioavailability is the usual culprit.</li><li><span class="tagl none">Caution</span>Failure at 25 mg/week parenteral for 16 weeks → switch class.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>Absolutely contraindicated in pregnancy</b> — effective contraception, stop ≥ 3 months before conception in both sexes. Folic acid 1 mg/day (or 5 mg weekly, 24–48 h after the dose). Avoid in significant liver disease or alcohol use.</div>
+</div>
+</details>
+<details class="card c-tnf d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Infliximab</span>
+<span class="sm-brand">Remicade · Inflectra · Renflexis · Avsola · Zymfentra (SC)</span>
+<span class="sm-sum"><b>Ind:</b> 5 mg/kg IV wk 0, 2, 6<br><b>Mtx:</b> 5 mg/kg IV q8w <i>or</i> 120 mg SC q2w</span>
+<span class="badges"><span class="b cl">Anti-TNF</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">IV</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Chimeric IgG1 anti-TNF-α. The most dose-flexible biologic in IBD and the only one with a genuine rescue role. First choice for perianal fistulising Crohn's and for acute severe UC.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:21.43%"></span><span class="tl-mnt" style="left:50.00%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:7.14%"></span><span class="tl-dot" style="left:21.43%"></span><span class="tl-dot ho" style="left:50.00%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:50.00%">assess wk 14</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 5 mg/kg wk 0·2·6</span><span><i class="km"></i>Maintenance — 5 mg/kg q8w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">5 mg/kg IV at weeks 0, 2 and 6</span><small>ASUC: accelerated dosing (2nd and 3rd doses within days) is used with albumin &lt; 30 g/L or high inflammatory burden — retrospective data.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">5 mg/kg IV every 8 weeks</span><br><b>SC option:</b> <span class="hi">120 mg SC every 2 weeks</span> from week 10, after completing IV induction (Zymfentra / CT-P13 SC)</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">IV induction mandatory; SC maintenance available after IV induction</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 14</span> (fistulising CD: discontinue if no response by week 14)</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span><b>Double the dose to 10 mg/kg q8w</b> — explicitly in the label for loss of response.</li><li><span class="tagl off">Off-label</span><b>Halve the interval to 5 mg/kg q4–6w</b> — preferred when clearance is high (low albumin, high BMI, high inflammatory burden), since it raises the trough rather than the peak.</li><li><span class="tagl off">Off-label</span><b>Both: 10 mg/kg q4w</b> — the ceiling. Levels above 10–15 µg/mL with active inflammation mean mechanistic failure; stop escalating.</li><li><span class="tagl label">In label</span>Low level <b>with</b> antibodies → add an immunomodulator (AZA 2–2.5 mg/kg or MTX 15–25 mg/wk) to suppress ADA, or switch within class.</li><li><span class="tagl label">In label</span>SC maintenance can be raised to <b>240 mg q2w</b> in the EU.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Combination with a thiopurine (SONIC) outperforms either alone and cuts immunogenicity. Infusion reactions: premedicate only if prior reaction. Screen TB and HBV.</div>
+</div>
+</details>
+<details class="card c-tnf d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Adalimumab</span>
+<span class="sm-brand">Humira · Amjevita · Hyrimoz · Hadlima · Yuflyma + biosimilars</span>
+<span class="sm-sum"><b>Ind:</b> 160 mg d1 → 80 mg d15 SC<br><b>Mtx:</b> 40 mg SC q2w</span>
+<span class="badges"><span class="b cl">Anti-TNF</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Fully human IgG1 anti-TNF-α. Entirely subcutaneous — the practical anti-TNF for patients who cannot attend infusions.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:14.29%"></span><span class="tl-mnt" style="left:14.29%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:7.14%"></span><span class="tl-dot" style="left:14.29%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 160 / 80 mg</span><span><i class="km"></i>Maintenance — 40 mg q2w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">160 mg SC day 1</span> (4 × 40 mg in one day, or split over 2 consecutive days) → <span class="hi">80 mg day 15</span> → maintenance from day 29<small>Identical schedule in CD and UC.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">40 mg SC every other week</span></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">SC only — pen or prefilled syringe; citrate-free formulations reduce injection pain</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><b>UC:</b> discontinue if no clinical remission by <span class="hi">week 8 (day 57)</span> · <b>CD:</b> week 12</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl eu">EU label</span><b>40 mg weekly</b> or <b>80 mg every other week</b> — in the EU SmPC for both CD and UC; widely used off-label in the US.</li><li><span class="tagl off">Off-label</span><b>Reinduction</b> with 160/80 mg has been used for abrupt loss of response.</li><li><span class="tagl label">In label</span>Low level with high ADA → add MTX/thiopurine or switch within class (immunogenicity is drug-specific, not class-wide).</li><li><span class="tagl none">Caution</span>Adequate trough (≥ 7.5 µg/mL, 10–15 for fistulising disease) with active inflammation → switch mechanism.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Concomitant immunomodulator reduces ADA formation but the absolute benefit is smaller than with infliximab. Screen TB and HBV.</div>
+</div>
+</details>
+<details class="card c-tnf d-CD">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Certolizumab pegol</span>
+<span class="sm-brand">Cimzia</span>
+<span class="sm-sum"><b>Ind:</b> 400 mg SC wk 0, 2, 4<br><b>Mtx:</b> 400 mg SC q4w</span>
+<span class="badges"><span class="b cl">Anti-TNF</span><span class="b dz">Crohn's</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">PEGylated anti-TNF Fab′ fragment — no Fc region, so no complement fixation and no active placental transfer in the third trimester. Approved for CD in the US; not for UC.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:14.29%"></span><span class="tl-mnt" style="left:28.57%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:7.14%"></span><span class="tl-dot" style="left:14.29%"></span><span class="tl-dot ho" style="left:28.57%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 400 mg wk 0·2·4</span><span><i class="km"></i>Maintenance — 400 mg q4w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">400 mg SC (2 × 200 mg) at weeks 0, 2 and 4</span></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">400 mg SC every 4 weeks</span> — continue only in responders</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">SC only</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 8–12</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl off">Off-label</span><b>400 mg every 2 weeks</b> — no label option; limited cohort support.</li><li><span class="tagl off">Off-label</span>Reinduction with the 0/2/4-week schedule.</li><li><span class="tagl label">In label</span>Target trough ≥ 20 µg/mL; below that with no ADA, intensify — above it with active disease, switch class.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>Preferred anti-TNF in the third trimester of pregnancy</b> — negligible placental transfer means the infant is not exposed and live vaccines are not delayed. Not approved in the EU for IBD.</div>
+</div>
+</details>
+<details class="card c-tnf d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Golimumab</span>
+<span class="sm-brand">Simponi</span>
+<span class="sm-sum"><b>Ind:</b> 200 mg → 100 mg SC (wk 0, 2)<br><b>Mtx:</b> 100 mg SC q4w</span>
+<span class="badges"><span class="b cl">Anti-TNF</span><span class="b dz">UC</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Human IgG1 anti-TNF-α. UC only. Generally third-choice among anti-TNFs for UC.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:7.14%"></span><span class="tl-mnt" style="left:21.43%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:7.14%"></span><span class="tl-dot ho" style="left:21.43%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:24.00%">assess wk 6</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 200 → 100 mg</span><span><i class="km"></i>Maintenance — 100 mg q4w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">200 mg SC at week 0</span> (2 × 100 mg) → <span class="hi">100 mg SC at week 2</span></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">100 mg SC every 4 weeks</span> from week 6<small><b>EU:</b> 50 mg q4w if &lt; 80 kg, 100 mg q4w if ≥ 80 kg.</small></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">SC only</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 6</span> — discontinue if no response after 4 doses</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl eu">EU label</span>Patients on <b>50 mg q4w</b> with inadequate response → increase to <b>100 mg q4w</b> (EU label).</li><li><span class="tagl off">Off-label</span><b>100 mg every 2 weeks</b> — off-label; small cohorts show response recapture in ~50%.</li><li><span class="tagl label">In label</span>Week-6 trough &lt; 2.5 µg/mL predicts failure — intensify early rather than waiting.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Week-6 exposure is strongly predictive of week-14 outcome; this is a drug where early proactive TDM changes management.</div>
+</div>
+</details>
+<details class="card c-integrin d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Vedolizumab</span>
+<span class="sm-brand">Entyvio</span>
+<span class="sm-sum"><b>Ind:</b> 300 mg IV wk 0, 2, 6 (± wk 10 in CD)<br><b>Mtx:</b> 300 mg IV q8w <i>or</i> 108 mg SC q2w</span>
+<span class="badges"><span class="b cl">Anti-integrin</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">IV</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Anti-α4β7 integrin — blocks gut-selective lymphocyte trafficking. Gut-selective means the best safety profile of any advanced therapy, at the cost of slow onset. Favoured in older patients and those with malignancy history.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:21.43%"></span><span class="tl-mnt" style="left:50.00%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:7.14%"></span><span class="tl-dot" style="left:21.43%"></span><span class="tl-dot ho" style="left:50.00%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:50.00%">assess wk 14</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 300 mg wk 0·2·6</span><span><i class="km"></i>Maintenance — 300 mg q8w / 108 mg SC q2w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">300 mg IV at weeks 0, 2 and 6</span><small><b>EU, CD only:</b> an extra 300 mg IV dose at <b>week 10</b> for inadequate responders, with maintenance then from week 14.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">300 mg IV every 8 weeks</span><br><b>SC option:</b> <span class="hi">108 mg SC every 2 weeks</span>, starting at week 6 after ≥ 2 IV infusions (the first SC dose replaces the next scheduled infusion)</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">IV induction; IV or SC pen for maintenance</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><b>US:</b> discontinue if no benefit by <span class="hi">week 14</span> · <b>EU:</b> UC week 10, CD week 14</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl eu">EU label</span><b>Shorten to 300 mg IV every 4 weeks</b> — explicit in the EU SmPC for decreased response; off-label but standard practice in the US, recapturing response in roughly half.</li><li><span class="tagl eu">EU label</span><b>Extra induction dose at week 10</b> for inadequate early response in Crohn's.</li><li><span class="tagl off">Off-label</span>On SC maintenance: <b>108 mg weekly</b> has been used; data are thin. Reverting to IV q4w is the better-evidenced move.</li><li><span class="tagl label">In label</span>Week-6 trough &lt; 18–20 µg/mL predicts non-response — intensify rather than abandon. Immunogenicity is rare (&lt; 4%), so a low level almost always means under-dosing, not antibodies.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>Be patient</b> — CD response can take 6 months; do not declare failure at week 14 in a partially responding patient without escalating first. No PML signal to date. Effect on extra-intestinal manifestations is limited (gut-selective).</div>
+</div>
+</details>
+<details class="card c-integrin d-CD">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Natalizumab</span>
+<span class="sm-brand">Tysabri</span>
+<span class="sm-sum"><b>Ind:</b> 300 mg IV q4w<br><b>Mtx:</b> 300 mg IV q4w</span>
+<span class="badges"><span class="b cl">Anti-integrin</span><span class="b dz">Crohn's</span><span class="b rt">IV</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Anti-α4 integrin — not gut-selective, hence CNS exposure and PML risk. Effectively superseded by vedolizumab; retained for completeness.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:28.57%"></span><span class="tl-mnt" style="left:42.86%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:14.29%"></span><span class="tl-dot" style="left:28.57%"></span><span class="tl-dot ho" style="left:42.86%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:42.86%">assess wk 12</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 300 mg q4w</span><span><i class="km"></i>Maintenance — 300 mg q4w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">300 mg IV every 4 weeks</span></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">300 mg IV every 4 weeks</span></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">IV — restricted distribution programme (TOUCH) only</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 12</span> — discontinue if no response</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl none">Caution</span><b>No escalation option.</b> Non-response at 12 weeks means stop.</li><li><span class="tagl none">Caution</span>Must not be combined with other immunosuppressants — PML risk.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>PML risk stratified by anti-JCV antibody index</b>, prior immunosuppressant use and treatment duration. Almost never initiated for IBD today.</div>
+</div>
+</details>
+<details class="card c-il23 d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Ustekinumab</span>
+<span class="sm-brand">Stelara · Wezlana · Yesintek · Steqeyma + biosimilars</span>
+<span class="sm-sum"><b>Ind:</b> ~6 mg/kg IV once (260/390/520 mg)<br><b>Mtx:</b> 90 mg SC q8w (EU CD q12w)</span>
+<span class="badges"><span class="b cl">IL-23 / IL-12-23</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">IV</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Anti-p40 — blocks both IL-12 and IL-23. Excellent safety record and a long track record; increasingly displaced by selective p19 agents.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:28.57%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:28.57%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:57.14%">assess wk 16</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — ~6 mg/kg IV</span><span><i class="km"></i>Maintenance — 90 mg SC q8w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>Single weight-based IV infusion (~6 mg/kg):</b><br><span class="hi">≤ 55 kg → 260 mg</span> · <span class="hi">&gt; 55–85 kg → 390 mg</span> · <span class="hi">&gt; 85 kg → 520 mg</span></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">90 mg SC 8 weeks after the IV dose, then every 8 weeks</span><small><b>EU (CD):</b> q12w is the standard interval, with the option to shorten to q8w.</small></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">IV induction (single dose) → SC maintenance</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 8–16</span> — CD responses continue to accrue to week 24</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl eu">EU label</span><b>Shorten q12w → q8w</b> (explicit in the EU label for CD).</li><li><span class="tagl off">Off-label</span><b>Shorten q8w → q4w</b> — the commonest real-world escalation; recaptures response in ~57%.</li><li><span class="tagl off">Off-label</span><b>IV reinduction</b> (repeat the weight-based infusion), with or without interval shortening. Pooled clinical response ~<b>55%</b>, endoscopic response ~61% across 925 patients. Effective even in patients already on q4w.</li><li><span class="tagl label">In label</span>Trough targets are soft (≈ 1–4.5 µg/mL); escalate on objective disease activity rather than waiting for a level.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>No TB reactivation signal comparable to anti-TNF, but screening is still required. A reasonable choice where malignancy history or infection risk rules out anti-TNF.</div>
+</div>
+</details>
+<details class="card c-il23 d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Risankizumab</span>
+<span class="sm-brand">Skyrizi</span>
+<span class="sm-sum"><b>Ind:</b> CD 600 mg · UC 1200 mg IV wk 0, 4, 8<br><b>Mtx:</b> 180 or 360 mg SC q8w</span>
+<span class="badges"><span class="b cl">IL-23 / IL-12-23</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">IV</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Selective anti-IL-23 p19. Strong endoscopic outcomes in Crohn's, including in anti-TNF-experienced patients.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:28.57%"></span><span class="tl-mnt" style="left:42.86%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:14.29%"></span><span class="tl-dot" style="left:28.57%"></span><span class="tl-dot ho" style="left:42.86%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:42.86%">assess wk 12</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — IV wk 0·4·8</span><span><i class="km"></i>Maintenance — 180/360 mg SC q8w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>CD:</b> <span class="hi">600 mg IV</span> over ≥ 1 h at weeks 0, 4, 8<br><b>UC:</b> <span class="hi">1200 mg IV</span> over ≥ 2 h at weeks 0, 4, 8</div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">180 mg</span> or <span class="hi">360 mg SC every 8 weeks</span>, first dose week 12<small>Delivered by on-body injector. "Use the lowest effective dosage."</small></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">IV induction → SC on-body injector maintenance</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 12</span>, with a second look at week 24</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span><b>Step 180 mg → 360 mg q8w</b> — both doses are in the label, so this is a within-label escalation and the first move on partial response.</li><li><span class="tagl off">Off-label</span><b>IV reinduction</b> at the original induction dose for secondary loss of response — trial-derived, used off-label.</li><li><span class="tagl off">Off-label</span>Interval shortening below q8w is not established; increase the dose instead.</li><li><span class="tagl none">Caution</span>SC induction has been filed with regulators (2026) but is <b>not yet approved</b> — IV induction remains mandatory.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>No validated trough targets. Very low immunogenicity. On-body injector takes ~5 minutes and needs patient training.</div>
+</div>
+</details>
+<details class="card c-il23 d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Mirikizumab</span>
+<span class="sm-brand">Omvoh</span>
+<span class="sm-sum"><b>Ind:</b> UC 300 mg · CD 900 mg IV wk 0, 4, 8<br><b>Mtx:</b> UC 200 mg · CD 300 mg SC q4w</span>
+<span class="badges"><span class="b cl">IL-23 / IL-12-23</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">IV</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Selective anti-IL-23 p19. The only IBD biologic with a formally labelled <b>extended induction</b> and a labelled <b>re-induction</b> pathway (EU) — useful in slow responders.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:28.57%"></span><span class="tl-mnt" style="left:42.86%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:14.29%"></span><span class="tl-dot" style="left:28.57%"></span><span class="tl-dot ho" style="left:42.86%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:42.86%">assess wk 12</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — IV wk 0·4·8</span><span><i class="km"></i>Maintenance — SC q4w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>UC:</b> <span class="hi">300 mg IV</span> over ≥ 30 min at weeks 0, 4, 8<br><b>CD:</b> <span class="hi">900 mg IV</span> over ≥ 90 min at weeks 0, 4, 8</div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><b>UC:</b> <span class="hi">200 mg SC every 4 weeks</span> from week 12<br><b>CD:</b> <span class="hi">300 mg SC every 4 weeks</span> from week 12</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">IV induction → SC autoinjector/prefilled syringe maintenance</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 12</span>; with extended induction, again at <span class="hi">week 24</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl eu">EU label</span><b>Extended induction (UC):</b> no adequate benefit at week 12 → three further <b>300 mg IV</b> doses at weeks 12, 16 and 20; start SC maintenance at week 24 if benefit appears. Discontinue if nothing by week 24.</li><li><span class="tagl eu">EU label</span><b>Re-induction for loss of response:</b> <b>300 mg IV every 4 weeks × 3 doses</b>, then resume SC q4w. Repeated re-induction has not been evaluated.</li><li><span class="tagl label">In label</span><b>CD:</b> consider discontinuation if no therapeutic benefit by week 24 — allow the full 24 weeks before calling failure.</li><li><span class="tagl none">Caution</span>No SC dose escalation above 200 mg (UC) / 300 mg (CD) q4w.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Baseline and periodic liver enzymes and bilirubin. Extended-induction and re-induction wording is in the EU SmPC; the US label is more restrictive.</div>
+</div>
+</details>
+<details class="card c-il23 d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Guselkumab</span>
+<span class="sm-brand">Tremfya</span>
+<span class="sm-sum"><b>Ind:</b> 200 mg IV <i>or</i> 400 mg SC wk 0, 4, 8<br><b>Mtx:</b> 100 mg SC q8w <i>or</i> 200 mg SC q4w</span>
+<span class="badges"><span class="b cl">IL-23 / IL-12-23</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">IV</span><span class="b rt">SC</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Selective anti-IL-23 p19 — the first with a <b>fully subcutaneous option from induction through maintenance</b>, removing the infusion chair entirely.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:28.57%"></span><span class="tl-mnt" style="left:42.86%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot" style="left:14.29%"></span><span class="tl-dot" style="left:28.57%"></span><span class="tl-dot ho" style="left:42.86%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:42.86%">assess wk 12</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — IV or SC wk 0·4·8</span><span><i class="km"></i>Maintenance — 100 mg q8w / 200 mg q4w</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>Choose either route:</b><br><span class="hi">200 mg IV</span> over ≥ 1 h at weeks 0, 4, 8<br><b>or</b> <span class="hi">400 mg SC</span> (2 × 200 mg) at weeks 0, 4, 8</div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">100 mg SC every 8 weeks</span> from week 16<br><b>or</b> <span class="hi">200 mg SC every 4 weeks</span> from week 12<small>Same regimens for CD and UC. "Use the lowest effective recommended dosage."</small></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">IV <b>or</b> SC induction; SC maintenance either way</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 12–16</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span><b>Step 100 mg q8w → 200 mg q4w</b> — a within-label escalation that both doubles the dose and halves the interval. Start higher-risk patients on 200 mg q4w from the outset.</li><li><span class="tagl off">Off-label</span>Reinduction for secondary loss of response is not in the label; the q4w regimen is the labelled answer.</li><li><span class="tagl none">Caution</span>No option above 200 mg q4w.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>The SC induction option makes this practical where infusion capacity is limited or the patient refuses IV access.</div>
+</div>
+</details>
+<details class="card c-jak d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Tofacitinib</span>
+<span class="sm-brand">Xeljanz · Xeljanz XR</span>
+<span class="sm-sum"><b>Ind:</b> 10 mg BID × 8–16 wk<br><b>Mtx:</b> 5 mg BID</span>
+<span class="badges"><span class="b cl">JAK inhibitors</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Pan-JAK inhibitor (JAK1/3 &gt; 2). Very fast onset — symptomatic improvement within days, which makes it attractive in steroid-refractory disease. UC only.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:28.57%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:28.57%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 10 mg BID × 8–16 wk</span><span><i class="km"></i>Maintenance — 5 mg BID</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">10 mg PO twice daily × 8 weeks</span><br>XR equivalent: <span class="hi">22 mg once daily</span></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">5 mg PO twice daily</span> (XR 11 mg once daily)</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO — immediate-release BID or extended-release once daily</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 8</span>; if partial, continue to <span class="hi">week 16</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span><b>Extend induction:</b> inadequate response at week 8 → continue <b>10 mg BID to week 16</b>. Discontinue if there is still no benefit at week 16.</li><li><span class="tagl label">In label</span><b>Loss of response on 5 mg BID → return to 10 mg BID</b> (XR 22 mg daily), limited to the shortest duration needed, weighing the dose-dependent VTE and MACE risk.</li><li><span class="tagl off">Off-label</span>ASUC rescue: <b>10 mg three times daily</b> for 7–10 days has cohort support.</li><li><span class="tagl none">Caution</span>Reduce to 5 mg BID in moderate hepatic or renal impairment; halve the XR dose.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>Boxed warning</b> (ORAL Surveillance): MACE, malignancy, thrombosis, serious infection, death — restricted to patients who have failed a TNF blocker. Dose-dependent VTE risk, so 10 mg BID maintenance is a deliberate trade-off. Herpes zoster risk is high — <b>vaccinate with recombinant zoster vaccine before starting</b>. Lipids at week 8–12.</div>
+</div>
+</details>
+<details class="card c-jak d-CD d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Upadacitinib</span>
+<span class="sm-brand">Rinvoq</span>
+<span class="sm-sum"><b>Ind:</b> 45 mg/day × 8 wk UC · 12 wk CD<br><b>Mtx:</b> 15 mg/day (30 mg if severe)</span>
+<span class="badges"><span class="b cl">JAK inhibitors</span><span class="b dz">Crohn's</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Selective JAK1 inhibitor. Among the highest short-term remission rates of any agent in both diseases, with a rapid onset. Approved in CD and UC.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:28.57%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:28.57%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:28.57%">assess wk 8</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 45 mg/day 8–12 wk</span><span><i class="km"></i>Maintenance — 15 or 30 mg/day</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>UC:</b> <span class="hi">45 mg PO once daily × 8 weeks</span><br><b>CD:</b> <span class="hi">45 mg PO once daily × 12 weeks</span><small>CD induction includes a mandated corticosteroid taper from week 4.</small></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">15 mg once daily</span>, or <span class="hi">30 mg once daily</span> for refractory, severe or extensive disease<small>Age ≥ 65: 15 mg only. Higher CV/malignancy/VTE risk: 15 mg only.</small></div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO — swallow whole, with or without food</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 8</span> (UC) / <span class="hi">week 12</span> (CD); hard stop at <b>week 16</b> if nothing</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl eu">EU label</span><b>Extended induction (UC):</b> inadequate response at week 8 → continue <b>45 mg once daily for a further 8 weeks</b>.</li><li><span class="tagl eu">EU label</span><b>Extended induction (CD):</b> inadequate response at week 12 → a further 12 weeks at <b>30 mg once daily</b>.</li><li><span class="tagl label">In label</span><b>Loss of response on 15 mg → increase to 30 mg once daily</b>, provided the patient is not in a high CV/malignancy risk group.</li><li><span class="tagl label">In label</span><b>Discontinue if response is inadequate on 30 mg</b> — that is the ceiling.</li><li><span class="tagl none">Caution</span>Do not start if ANC &lt; 1000/mm³, ALC &lt; 500/mm³ or Hb &lt; 8 g/dL.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span><b>Boxed warning</b> as for tofacitinib. Recombinant zoster vaccination before starting. Acne is common and manageable. Monitor CBC, lipids, LFTs. Avoid with strong CYP3A4 inhibitors.</div>
+</div>
+</details>
+<details class="card c-jak d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Filgotinib</span>
+<span class="sm-brand">Jyseleca</span>
+<span class="sm-sum"><b>Ind:</b> 200 mg/day × 10 wk<br><b>Mtx:</b> 200 mg/day (100 mg if ≥ 65 y)</span>
+<span class="badges"><span class="b cl">JAK inhibitors</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Selective JAK1 inhibitor. <b>EU/UK/Japan only</b> — not FDA-approved for UC. Included for completeness where available.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:35.71%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:35.71%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:35.71%">assess wk 10</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 200 mg/day × 10 wk</span><span><i class="km"></i>Maintenance — 200 or 100 mg/day</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">200 mg PO once daily × 10 weeks</span></div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">200 mg once daily</span>; 100 mg once daily if ≥ 65 years or renal impairment</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 10</span>; extend to week 22 if partially responding</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl eu">EU label</span>Inadequate response at week 10 on 200 mg → <b>continue to week 22</b> before declaring failure.</li><li><span class="tagl none">Caution</span>No dose above 200 mg once daily.</li><li><span class="tagl none">Caution</span>Reduce to 100 mg with moderate–severe renal impairment or age ≥ 75.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>JAK class warnings apply. Semen-parameter monitoring signal from early studies was not confirmed in MANTA/MANTA-RAy.</div>
+</div>
+</details>
+<details class="card c-s1p d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Ozanimod</span>
+<span class="sm-brand">Zeposia</span>
+<span class="sm-sum"><b>Ind:</b> 0.23 → 0.46 → 0.92 mg over 7 days<br><b>Mtx:</b> 0.92 mg/day</span>
+<span class="badges"><span class="b cl">S1P modulators</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">S1P₁/S1P₅ modulator — traps lymphocytes in lymph nodes. Oral, well tolerated, no immunogenicity; slower than JAK inhibitors and needs a cardiac-safety titration.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:7.14%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-dot ho" style="left:7.14%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:35.71%">assess wk 10</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 7-day titration</span><span><i class="km"></i>Maintenance — 0.92 mg/day</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>Mandatory 7-day titration:</b><br><span class="hi">Days 1–4: 0.23 mg</span> once daily<br><span class="hi">Days 5–7: 0.46 mg</span> once daily<br><span class="hi">Day 8 onward: 0.92 mg</span> once daily</div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">0.92 mg PO once daily</span> — the same dose continues indefinitely</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO capsule</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 10–12</span>; benefit can still accrue to week 24</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl none">Caution</span><b>No dose escalation exists.</b> 0.92 mg/day is both the induction and the maximum maintenance dose.</li><li><span class="tagl label">In label</span>Partial response at week 10 → <b>continue to week 24</b> before switching; delayed responders are well described.</li><li><span class="tagl none">Caution</span>Failure at 0.92 mg = mechanistic failure → switch class.</li><li><span class="tagl label">In label</span>A dose missed <b>within the first 2 weeks</b> means <b>restarting the full titration</b>; after 2 weeks, simply continue as planned.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Before starting: CBC, LFTs, <b>ECG</b>, ophthalmological exam (macular oedema), VZV serology ± vaccination, dermatological exam. Contraindicated with recent MI/stroke/unstable angina, Mobitz II or higher AV block without pacemaker, severe untreated sleep apnoea, and MAO inhibitors. Expect a lymphocyte count drop — that is the mechanism, not toxicity.</div>
+</div>
+</details>
+<details class="card c-s1p d-UC">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Etrasimod</span>
+<span class="sm-brand">Velsipity</span>
+<span class="sm-sum"><b>Ind:</b> 2 mg/day from day 1, no titration<br><b>Mtx:</b> 2 mg/day</span>
+<span class="badges"><span class="b cl">S1P modulators</span><span class="b dz">UC</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">S1P₁/S1P₄/S1P₅ modulator. Same class as ozanimod but <b>no titration required</b> — a practical advantage.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-mnt" style="left:0.00%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:42.86%">assess wk 12</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 2 mg/day from day 1</span><span><i class="km"></i>Maintenance — 2 mg/day</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><span class="hi">2 mg PO once daily</span> — full dose from day 1, no titration</div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv"><span class="hi">2 mg PO once daily</span> continued indefinitely</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO tablet, with or without food</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 12</span>; some patients respond later</div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl none">Caution</span><b>No dose escalation exists.</b> 2 mg once daily is the only dose.</li><li><span class="tagl label">In label</span>Partial response → extend the assessment window rather than escalating; there is nothing to escalate to.</li><li><span class="tagl none">Caution</span>Failure at 2 mg = mechanistic failure → switch class.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Baseline ECG for all; cardiology input if bradycardia, QT prolongation, conduction disease, or unstable ischaemia. Also required: CBC with lymphocyte count (within 6 months), LFTs, fundus/macula exam, skin exam, VZV serology. Review rate-limiting medications.</div>
+</div>
+</details>
+<details class="card c-immuno d-CD">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Antibiotics (perianal Crohn's)</span>
+<span class="sm-brand">ciprofloxacin · metronidazole</span>
+<span class="sm-sum"><b>Ind:</b> cipro 500 BID ± metronidazole 500 TID<br><b>Mtx:</b> not for maintenance</span>
+<span class="badges"><span class="b cl">Immunomodulators</span><span class="b dz">Crohn's</span><span class="b rt">PO</span></span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<p class="moa">Adjunctive only — reduce drainage and symptoms in perianal fistulising disease. They do not heal fistulas and are not maintenance therapy.</p>
+<div class="tl"><div class="tl-h">Treatment arc</div><div class="tl-bar"><span class="tl-track"></span><span class="tl-ind" style="width:4.29%"></span><span class="tl-dot" style="left:0.00%"></span><span class="tl-lab l">wk 0</span><span class="tl-lab" style="left:24.00%">assess wk 4</span><span class="tl-lab r">wk 28+</span></div><div class="tl-key"><span><i class="ki"></i>Induction — 4–12 weeks</span><span><i class="km"></i>Maintenance — not for maintenance</span></div></div>
+<div class="rows">
+<div class="row"><div class="rk">Induction</div><div class="rv"><b>Ciprofloxacin</b> <span class="hi">500 mg PO BID</span> ± <b>metronidazole</b> <span class="hi">500 mg PO TID</span> for 4–12 weeks</div></div>
+<div class="row"><div class="rk">Maintenance</div><div class="rv">Not appropriate — long courses cause peripheral neuropathy (metronidazole) and tendinopathy (ciprofloxacin)</div></div>
+<div class="row"><div class="rk">Route</div><div class="rv">PO, alongside surgical drainage and anti-TNF therapy</div></div>
+<div class="row"><div class="rk">Assess</div><div class="rv"><span class="hi">Week 4</span></div></div>
+</div>
+<div class="esc">
+<div class="esc-h">If response is inadequate or lost</div>
+<ul><li><span class="tagl label">In label</span>The real escalation is <b>anti-TNF therapy plus surgical seton drainage</b> — antibiotics buy time, they do not treat the fistula.</li><li><span class="tagl label">In label</span>Image first (pelvic MRI) and drain any abscess before immunosuppression.</li><li><span class="tagl none">Caution</span>Do not extend metronidazole beyond ~12 weeks.</li></ul>
+</div>
+<div class="safety"><span class="sh">Safety &amp; monitoring</span>Also used for pouchitis (ciprofloxacin 500 mg BID × 2 weeks, first-line). No role in luminal CD or UC.</div>
+</div>
+</details>
+</section>
+
+<section class="pane" id="p-lor">
+  <h2>No response or loss of response</h2>
+  <p class="lede">The decisive question is never "is the patient better?" but "is there active inflammation, and is there enough drug on board to explain it?"</p>
+  <h3 class="sub">Step by step</h3>
+  <div class="blk"><div class="n">1</div><h4>Confirm active inflammation</h4>
+    <p>Symptoms alone are unreliable. Objectively re-stage before touching the dose.</p>
+    <ul><li>CRP, faecal calprotectin</li><li>Endoscopy ± cross-sectional imaging (MRE / intestinal ultrasound)</li><li>Exclude <i>C. difficile</i> and CMV — especially UC on steroids</li></ul></div>
+  <div class="blk"><div class="n">2</div><h4>Exclude non-inflammatory mimics</h4>
+    <p>Normal calprotectin with ongoing symptoms redirects the workup entirely.</p>
+    <ul><li>IBS-type overlap, visceral hypersensitivity</li><li>Bile-acid diarrhoea, SIBO</li><li>Fibrostenotic stricture, abscess, fistula, short bowel</li><li>Adherence and injection technique</li></ul></div>
+  <div class="blk"><div class="n">3</div><h4>Therapeutic drug monitoring</h4>
+    <p>Reactive TDM at the point of failure separates pharmacokinetic failure — fixable by dose — from mechanistic failure, fixable only by switching class.</p>
+    <ul><li>Drug trough level plus anti-drug antibodies</li><li>Best validated for anti-TNF agents</li></ul></div>
+  <div class="blk"><div class="n">4</div><h4>Act on the pattern</h4>
+    <p>Three results, three different moves. Also treat the steroid problem: any patient needing a second steroid course within 12 months, or unable to taper below 10&nbsp;mg prednisone, has failed their maintenance strategy.</p></div>
+
+  <h3 class="sub">The three patterns</h3>
+  <div class="blk bl" style="--bc:var(--c-tnf)"><div class="cond">Low drug · no antibodies</div>
+    <h4>Pharmacokinetic failure → intensify</h4>
+    <p>Increase the dose, shorten the interval, or both. Consider adding an immunomodulator to raise exposure with anti-TNF. Re-check the level after the change rather than assuming it worked.</p></div>
+  <div class="blk bl" style="--bc:var(--c-immuno)"><div class="cond">Low drug · high anti-drug antibodies</div>
+    <h4>Immunogenic failure → switch</h4>
+    <p>Low-titre transient antibodies may be overcome by dose escalation plus an immunomodulator. High-titre persistent antibodies mean the drug is gone: switch <i>within</i> class — antibodies are drug-specific, not class-wide.</p></div>
+  <div class="blk bl" style="--bc:var(--c-il23)"><div class="cond">Adequate drug · active inflammation</div>
+    <h4>Mechanistic failure → change class</h4>
+    <p>More of the same drug will not help. After anti-TNF <i>primary</i> non-response, out-of-class switching outperforms within-class; after <i>secondary</i> loss of response with immunogenicity, within-class is reasonable.</p></div>
+
+  <h3 class="sub">TDM targets</h3>
+  <p class="lede">Trough concentrations associated with mucosal healing. Population-level associations, not hard cut-offs — read them alongside objective inflammation.</p>
+  <div class="tdm"><div class="r"><div class="ag">Infliximab</div><div class="kv"><span>Post-induction</span><span><b>≥ 7 µg/mL (wk 14)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 5 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Perianal fistula 10–15 · ASUC ≥ 15–20 µg/mL early</span></div></div><div class="r"><div class="ag">Adalimumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 12 µg/mL (wk 4)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 7.5 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Perianal fistula 10–15 µg/mL</span></div></div><div class="r"><div class="ag">Certolizumab pegol</div><div class="kv"><span>Post-induction</span><span><b>≥ 32 µg/mL (wk 6)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 20 µg/mL</b></span></div></div><div class="r"><div class="ag">Golimumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 2.5 µg/mL (wk 6)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 1–2 µg/mL</b></span></div></div><div class="r"><div class="ag">Vedolizumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 18–20 µg/mL (wk 6)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 10–12 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Immunogenicity rare (&lt; 4%) — a low level almost always means under-dosing, not antibodies</span></div></div><div class="r"><div class="ag">Ustekinumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 3–4.5 µg/mL (wk 8)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 1–4.5 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Limited evidence — escalate on clinical grounds</span></div></div><div class="r"><div class="ag">Risankizumab · Mirikizumab · Guselkumab</div><div class="kv"><span>Note</span><span>No validated thresholds. Escalate on objective disease activity.</span></div></div><div class="r"><div class="ag">Thiopurines</div><div class="kv"><span>Maintenance</span><span><b>6-TGN 235–450 pmol/8×10⁸ RBC</b></span></div><div class="kv"><span>Note</span><span>High 6-MMP with low 6-TGN = hypermethylator shunting → add allopurinol 100 mg/day and reduce the thiopurine to 25–33%</span></div></div><div class="r"><div class="ag">JAK inhibitors · S1P modulators</div><div class="kv"><span>Note</span><span>Small molecules, no TDM. Failure at the maximum tolerated dose is a mechanistic failure; switch class.</span></div></div></div>
+</section>
+
+<section class="pane" id="p-asuc">
+  <h2>Acute severe ulcerative colitis</h2>
+  <p class="lede">A hospital emergency with a defined decision timetable. Truelove &amp; Witts: ≥ 6 bloody stools/day plus any of temperature &gt; 37.8 °C, HR &gt; 90, Hb &lt; 10.5 g/dL, ESR &gt; 30 mm/h.</p>
+  <div class="blk"><div class="dh" style="color:var(--c-steroid)">Day 0–1 · Admit</div>
+    <ul><li><b>IV methylprednisolone 60 mg/day</b>, or hydrocortisone 100 mg 6–8-hourly. Higher doses add nothing.</li>
+    <li>Flexible sigmoidoscopy within 24 h — <b>biopsy for CMV</b>; stool for <i>C. difficile</i>.</li>
+    <li>Prophylactic LMWH — VTE risk is high despite rectal bleeding.</li>
+    <li>Stop opioids, anticholinergics, NSAIDs, antidiarrhoeals. Early surgical co-review.</li>
+    <li>Abdominal X-ray: exclude toxic megacolon.</li></ul></div>
+  <div class="blk"><div class="dh" style="color:var(--c-jak)">Day 3 · Predict failure</div>
+    <ul><li><b>Oxford index:</b> &gt; 8 stools/day, <i>or</i> 3–8 stools/day with CRP &gt; 45 mg/L → roughly 85% risk of colectomy on steroids alone.</li>
+    <li>This is the moment to commit to rescue therapy — not day 7.</li>
+    <li>Confirm the surgical plan in parallel; rescue is not an alternative to a surgeon.</li></ul></div>
+  <div class="blk"><div class="dh" style="color:var(--c-tnf)">Day 3–5 · Rescue</div>
+    <ul><li><b>Infliximab 5 mg/kg IV.</b> Accelerated dosing — 2nd and 3rd doses within days rather than weeks 2 and 6 — is used with high inflammatory burden or albumin &lt; 30 g/L. Retrospective data only.</li>
+    <li><b>Ciclosporin 2 mg/kg/day</b> IV continuous infusion, target trough 150–250 ng/mL, then oral 4–8 mg/kg/day bridging to a thiopurine. Equivalent to infliximab in CYSIF and CONSTRUCT. Avoid if cholesterol &lt; 3 mmol/L or magnesium is low.</li>
+    <li><b>Tofacitinib 10 mg three times daily</b> and <b>upadacitinib 45 mg</b> have positive cohort data as rescue — <span class="tagl off">off-label</span></li>
+    <li>Sequential rescue carries high infection risk — specialist centres only.</li></ul></div>
+  <div class="blk"><div class="dh" style="color:var(--c-immuno)">Day 5–7 · Decide</div>
+    <ul><li>No clear response to rescue by <b>day 5–7</b> → <b>colectomy</b>. Delay past this point increases postoperative morbidity and mortality.</li>
+    <li>Colectomy is a treatment, not a failure — frame it that way with the patient early.</li>
+    <li>If rescued, plan maintenance immediately: infliximab maintenance, or thiopurine bridging after ciclosporin.</li></ul></div>
+</section>
+
+<section class="pane" id="p-pipe">
+  <h2>Pipeline</h2>
+  <p class="lede">Not yet approved as of August 2026. Positive phase 3 data, likely to enter the algorithm — included for positioning awareness only.</p>
+  <div class="blk"><h4>Obefazimod (ABX464)</h4><div class="cond">Oral miR-124 enhancer · UC</div><p>Positive phase 3 induction and maintenance data. Abivax reported a positive pre-NDA interaction with the FDA in July 2026, with an NDA planned by end-2026. Oral once-daily; a genuinely novel mechanism, with activity reported in heavily treatment-experienced patients.</p></div>
+<div class="blk"><h4>Tulisokibart (MK-7240)</h4><div class="cond">Anti-TL1A monoclonal antibody · UC and CD</div><p>Met primary and key secondary endpoints in the phase 3 ATLAS-UC induction study (June 2026) — the first phase 3 success for the anti-TL1A class. Of particular interest for its potential antifibrotic effect and a candidate genetic biomarker for response.</p></div>
+<div class="blk"><h4>Duvakitug</h4><div class="cond">Anti-TL1A monoclonal antibody · UC and CD</div><p>Strong phase 2b results in both indications with durable efficacy reported; phase 3 programme ongoing. Same class as tulisokibart.</p></div>
+<div class="blk"><h4>Risankizumab SC induction</h4><div class="cond">Label expansion · CD</div><p>A fully subcutaneous induction regimen was submitted to regulators in 2026. If approved it would remove the IV induction requirement, matching guselkumab's all-SC option.</p></div>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>About this page</h2>
+  <p class="lede">Adult dosing, normal renal and hepatic function.</p>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Verify every dose against the current local label before use. FDA labels are primary; EU SmPC differences are flagged. Paediatric, pregnancy, renal and hepatic dosing are not covered.</div>
+  <div class="notice"><b>How to read the escalation tags</b><br>
+    <span class="tagl label">In label</span> in the FDA label<br>
+    <span class="tagl eu">EU label</span> in the EU SmPC but not the US label<br>
+    <span class="tagl off">Off-label</span> supported by cohort data or guidelines, not in the label<br>
+    <span class="tagl none">Caution</span> no escalation exists, or a stop rule applies</div>
+  <div class="notice"><b>Before any advanced therapy:</b> screen for latent TB and HBV, update vaccinations, and give recombinant zoster vaccine before a JAK inhibitor. Check TPMT and NUDT15 before thiopurines.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>ADA</b> — anti-drug antibodies</div>
+    <div><b>ASUC</b> — acute severe ulcerative colitis</div>
+    <div><b>CD</b> — Crohn's disease</div>
+    <div><b>LOR</b> — loss of response</div>
+    <div><b>MRE</b> — MR enterography</div>
+    <div><b>PNR</b> — primary non-response</div>
+    <div><b>q2w / q4w / q8w / q12w</b> — every 2 / 4 / 8 / 12 weeks</div>
+    <div><b>IV · SC · IM · PO · PR</b> — intravenous · subcutaneous · intramuscular · oral · per rectum</div>
+    <div><b>TDM</b> — therapeutic drug monitoring</div>
+    <div><b>UC</b> — ulcerative colitis</div>
+    <div><b>VTE</b> — venous thromboembolism</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">FDA prescribing information and EMA SmPCs for each agent, the 2025 ACG ulcerative colitis guideline, AGA guidance on therapeutic drug monitoring, and published dose-escalation cohort data. Content current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-drugs"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Drugs</label>
+  <label for="t-lor"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>No response</label>
+  <label for="t-asuc"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>ASUC</label>
+  <label for="t-pipe"><svg viewBox="0 0 24 24"><path d="M12 3v4"/><path d="M8.5 7h7l1.5 11a3 3 0 0 1-3 3.4h-4A3 3 0 0 1 7 18z"/><path d="M7.6 14h8.8"/></svg>Pipeline</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Info</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),cards=document.querySelectorAll('.searchable .card'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>
