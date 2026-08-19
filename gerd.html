@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GERD / Barrett">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>GERD & Barrett's Oesophagus</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-dx:checked ~ main #p-dx,
+#t-tx:checked ~ main #p-tx,
+#t-refract:checked ~ main #p-refract,
+#t-barrett:checked ~ main #p-barrett,
+#t-surv:checked ~ main #p-surv,
+#t-info:checked ~ main #p-info{display:block}
+#t-dx:checked ~ .tabbar label[for="t-dx"],
+#t-tx:checked ~ .tabbar label[for="t-tx"],
+#t-refract:checked ~ .tabbar label[for="t-refract"],
+#t-barrett:checked ~ .tabbar label[for="t-barrett"],
+#t-surv:checked ~ .tabbar label[for="t-surv"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-dx:checked ~ .topbar .filters,
+#t-refract:checked ~ .topbar .filters,
+#t-barrett:checked ~ .topbar .filters,
+#t-surv:checked ~ .topbar .filters,
+#t-info:checked ~ .topbar .filters{display:none}
+
+.pattern{font-size:12.5px;color:var(--ink-2);margin-top:9px;padding:8px 11px;border-radius:9px;
+  background:var(--card2);border:1px solid var(--ring);line-height:1.5}
+.pattern b{color:var(--ink-1)}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.4;letter-spacing:-.01em}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.miss,.card.miss{display:none !important}
+.cond2{font-size:12.5px;font-weight:650;color:var(--ink-1);margin:2px 0 8px}
+.tagl.strong{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.cond{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.split{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.restrict{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.against{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.find-t .tagl{margin-left:4px;vertical-align:2px}
+.risk ul{padding-top:10px}
+#g-life:checked ~ main .find:not(.grp-life){display:none}
+#g-ppi:checked  ~ main .find:not(.grp-ppi){display:none}
+#g-adj:checked  ~ main .find:not(.grp-adj){display:none}
+#g-all:checked  ~ main .seg label[for="g-all"],
+#g-life:checked ~ main .seg label[for="g-life"],
+#g-ppi:checked  ~ main .seg label[for="g-ppi"],
+#g-adj:checked  ~ main .seg label[for="g-adj"]{background:var(--card);color:var(--ink-1);
+  box-shadow:0 1px 3px rgba(0,0,0,.13);font-weight:700}
+#p-tx .seg label{font-size:12.5px}
+/* six tabs need a little more room on narrow phones */
+.tabbar label{font-size:9px;padding-left:1px;padding-right:1px}
+@media (max-width:359px){.tabbar label{font-size:8.2px}
+  .tabbar label svg{width:19px;height:19px}}
+@media (min-width:900px){
+  #p-dx,#p-tx,#p-refract,#p-barrett,#p-surv{column-count:2;column-gap:14px}
+  #p-dx .find,#p-dx .blk,#p-dx .notice,#p-dx .risk,#p-tx .find,#p-tx .notice,
+  #p-refract .blk,#p-refract .notice,#p-barrett .blk,#p-barrett .notice,#p-barrett .risk,
+  #p-surv .find,#p-surv .blk,#p-surv .notice{break-inside:avoid;-webkit-column-break-inside:avoid}
+  #p-dx h3.sub,#p-barrett h3.sub,#p-surv h3.sub,#p-refract h3.sub,#p-tx .seg{column-span:all}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-dx" class="ctl" checked>
+<input type="radio" name="tab" id="t-tx" class="ctl">
+<input type="radio" name="tab" id="t-refract" class="ctl">
+<input type="radio" name="tab" id="t-barrett" class="ctl">
+<input type="radio" name="tab" id="t-surv" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+<input type="radio" name="grp" id="g-all" class="ctl" checked>
+<input type="radio" name="grp" id="g-life" class="ctl">
+<input type="radio" name="grp" id="g-ppi" class="ctl">
+<input type="radio" name="grp" id="g-adj" class="ctl">
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">GERD &amp; Barrett's</div>
+    <div class="tb-note">ACG · Lyon 2.0</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search drug, threshold, grade…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="hint"><span id="cnt"></span> Searches the treatment cards</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane" id="p-dx">
+  <h2>Diagnosing GERD</h2>
+  <p class="lede">Classic heartburn or regurgitation without alarm features needs no test to start: an <b>8-week trial of a once-daily PPI taken 30–60 minutes before a meal</b> is both the treatment and the diagnostic step. Everything else on this page is for when that does not settle it.</p>
+
+  <h3 class="sub">Alarm features — scope first, do not treat empirically</h3>
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">Endoscopy is first-line</div>
+    <ul><li>Dysphagia<small>Endoscopy first — do not treat empirically</small></li><li>Unintentional weight loss</li><li>Gastrointestinal bleeding or iron deficiency anaemia</li><li>Persistent vomiting</li><li>Multiple risk factors for Barrett's oesophagus<small>See the Barrett's tab for the criteria</small></li><li>Age over 60 with new-onset symptoms</li><li>Family history of oesophageal or gastric cancer</li></ul>
+  </div>
+  <div class="notice"><b>Perform endoscopy off PPI.</b> Stop acid suppression for <b>2–4 weeks</b> beforehand — on treatment, erosive oesophagitis heals and eosinophilic oesophagitis can be masked, and a normal-looking scope tells you nothing.</div>
+
+  <h3 class="sub">Los Angeles classification — and what each grade means</h3>
+  <div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">Grade A</div>
+    <div class="pattern">One or more mucosal breaks ≤ 5 mm, not extending between the tops of two folds</div>
+    <div class="find-n"><b>Not conclusive for GERD.</b> Grade A is seen in healthy controls and does not establish the diagnosis on its own — this is the point most often missed when a report says "grade A oesophagitis".</div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">Grade B</div>
+    <div class="pattern">One or more mucosal breaks &gt; 5 mm, not continuous between the tops of two folds</div>
+    <div class="find-n"><b>Now conclusive.</b> Lyon Consensus 2.0 lowered the bar from grade C to <b>grade B</b>, on the basis that grade B is highly uncommon in healthy controls. This meaningfully expands who has a confirmed diagnosis without further testing.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">Grade C</div>
+    <div class="pattern">Mucosal breaks continuous between the tops of two or more folds, involving &lt; 75% of the circumference</div>
+    <div class="find-n"><b>Conclusive.</b> Also mandates <b>indefinite maintenance PPI</b> — a strong recommendation — and means reflux testing off therapy is unnecessary and inappropriate.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">Grade D</div>
+    <div class="pattern">Mucosal breaks involving ≥ 75% of the oesophageal circumference</div>
+    <div class="find-n"><b>Conclusive.</b> Same implications as grade C. Repeat endoscopy after healing to exclude underlying Barrett's.</div></div>
+
+  <h3 class="sub">Lyon Consensus 2.0 — reflux testing thresholds</h3>
+  <p class="lede">Test <b>off</b> therapy when the diagnosis is unestablished and endoscopy was normal. Test <b>on</b> therapy when GERD is already documented and symptoms persist. Do not test off therapy at all in LA grade C or D or long-segment Barrett's — the diagnosis is already conclusive.</p>
+  <div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">Acid exposure time &gt; 6%</div>
+    <div class="pattern"><b>Conclusive GERD</b></div>
+    <div class="find-n">On wireless pH monitoring, present on at least 2 days. This is actionable disease — escalate treatment or consider a procedure.</div></div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Acid exposure time &lt; 4%</div>
+    <div class="pattern"><b>Excludes GERD</b></div>
+    <div class="find-n">On all days, with negative symptom association. Look for another explanation — functional heartburn, eosinophilic oesophagitis, a motility disorder, or a rumination syndrome.</div></div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">Acid exposure time 4–6%</div>
+    <div class="pattern"><b>Inconclusive</b></div>
+    <div class="find-n">The grey zone. Resolve it with adjunctive metrics — mean nocturnal baseline impedance, symptom association, hiatal hernia, a hypotensive oesophagogastric junction, or ineffective motility.</div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">Mean nocturnal baseline impedance &lt; 1500 Ω</div>
+    <div class="pattern"><b>Supports pathological reflux</b></div>
+    <div class="find-n">A measure of chronic mucosal integrity, less affected by day-to-day variability than acid exposure time.</div></div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Mean nocturnal baseline impedance &gt; 2500 Ω</div>
+    <div class="pattern"><b>Argues against GERD</b></div>
+    <div class="find-n">A new exclusion criterion in Lyon 2.0. Regional variation exists — validation studies in Asian populations suggest higher thresholds.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">On therapy: AET &gt; 4% <b>and</b> &gt; 80 reflux episodes/day</div>
+    <div class="pattern"><b>True refractory reflux</b></div>
+    <div class="find-n">Measured on antisecretory therapy in a patient with already-documented GERD. This identifies the small group who genuinely need escalation or an antireflux procedure.</div></div>
+  <div class="notice"><b>What Lyon 2.0 changed.</b> LA grade <b>B</b> now counts as conclusive endoscopic evidence — previously it took grade C. Mean nocturnal baseline impedance above 2500 Ω was added as an exclusion criterion. And 96-hour wireless monitoring is preferred over 48 hours, because a third of patients show no consistent pattern across only two days.</div>
+  <div class="notice"><b>High-resolution manometry is not a test for GERD.</b> It neither makes nor excludes the diagnosis. Its role is to exclude achalasia and absent contractility and to assess contractile reserve <b>before an antireflux procedure</b>.</div>
+
+  <h3 class="sub">The four phenotypes — they need different treatment</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Erosive reflux disease</h4><div class="cond2">LA grade B, C or D on endoscopy</div><p>Diagnosis complete. No reflux testing needed. Grades C and D require indefinite maintenance therapy.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Non-erosive reflux disease</h4><div class="cond2">Normal endoscopy, abnormal acid exposure time</div><p>Real GERD without visible damage. Responds to acid suppression; suitable for on-demand or intermittent therapy once controlled.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Reflux hypersensitivity</h4><div class="cond2">Normal acid exposure time, positive symptom association</div><p>Physiological reflux perceived as symptomatic. Acid suppression alone often disappoints — neuromodulators and brain–gut therapies do the work here.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Functional heartburn</h4><div class="cond2">Normal acid exposure time, negative symptom association</div><p>Not a reflux disease at all. <b>Stop the PPI</b> — a key concept in the guideline when off-therapy testing is negative and there is no prior GERD diagnosis. Treat as a disorder of gut–brain interaction.</p></div>
+</section>
+
+<section class="pane searchable" id="p-tx">
+  <div class="notice"><b>The most valuable line in the whole guideline:</b> take the PPI <b>30–60 minutes before a meal</b>, not at bedtime and not with food. The pump has to be active for the drug to bind it. A large share of "PPI failure" is a timing failure.</div>
+
+  <div class="seg" style="margin:12px 0 14px">
+    <label for="g-all">All</label>
+    <label for="g-life">Lifestyle</label>
+    <label for="g-ppi">Acid suppression</label>
+    <label for="g-adj">Adjuncts</label>
+  </div>
+
+  <div class="find card grp-life" style="--ac:var(--c-integrin)">
+    <div class="find-t">Weight loss in overweight or obese patients <span class="tagl strong">Strong</span></div>
+    <div class="pattern">Strong · moderate quality</div>
+    <div class="find-n">The only lifestyle measure with a strong recommendation behind it. Also the one most likely to be skipped in the consultation.</div>
+  </div>
+<div class="find card grp-life" style="--ac:var(--c-integrin)">
+    <div class="find-t">Avoid meals 2–3 hours before lying down <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Conditional · low quality</div>
+    
+  </div>
+<div class="find card grp-life" style="--ac:var(--c-integrin)">
+    <div class="find-t">Elevate the head of the bed <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Conditional · low quality</div>
+    <div class="find-n">For nocturnal symptoms specifically. Blocks under the bed legs or a wedge — extra pillows do not work.</div>
+  </div>
+<div class="find card grp-life" style="--ac:var(--c-integrin)">
+    <div class="find-t">Stop smoking <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Conditional · low quality</div>
+    
+  </div>
+<div class="find card grp-life" style="--ac:var(--c-integrin)">
+    <div class="find-t">Avoid identified trigger foods <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Conditional · low quality</div>
+    <div class="find-n">Individual triggers only. Blanket elimination diets have no evidence and reduce quality of life.</div>
+  </div>
+<div class="find card grp-ppi" style="--ac:var(--c-tnf)">
+    <div class="find-t">PPI once daily, <b>30–60 minutes before a meal</b> <span class="tagl strong">Strong</span></div>
+    <div class="pattern">Strong · moderate quality</div>
+    <div class="find-n">Not at bedtime, and not with the meal. The proton pump must be active for the drug to work, which requires a meal after the dose. <b>This single instruction fixes a large share of apparent PPI failures.</b></div>
+  </div>
+<div class="find card grp-ppi" style="--ac:var(--c-tnf)">
+    <div class="find-t">8-week empirical trial for classic symptoms without alarm features <span class="tagl strong">Strong</span></div>
+    <div class="pattern">Strong · moderate quality</div>
+    <div class="find-n">Once daily. Both a treatment and a diagnostic test.</div>
+  </div>
+<div class="find card grp-ppi" style="--ac:var(--c-tnf)">
+    <div class="find-t">PPI over H2 receptor antagonist for erosive oesophagitis <span class="tagl strong">Strong</span></div>
+    <div class="pattern">Strong · high quality</div>
+    <div class="find-n">For both healing and maintaining healing.</div>
+  </div>
+<div class="find card grp-ppi" style="--ac:var(--c-tnf)">
+    <div class="find-t">A single switch to another PPI is reasonable <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Key concept</div>
+    <div class="find-n"><b>More than one switch cannot be supported.</b> If two PPIs have failed, the problem is not the molecule — reassess the diagnosis.</div>
+  </div>
+<div class="find card grp-ppi" style="--ac:var(--c-tnf)">
+    <div class="find-t">Twice-daily dosing beats a single double dose <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Key concept</div>
+    <div class="find-n">For pH control. Reserve for documented refractory disease rather than as a reflex escalation.</div>
+  </div>
+<div class="find card grp-ppi" style="--ac:var(--c-immuno)">
+    <div class="find-t">Indefinite maintenance for LA grade C or D <span class="tagl strong">Strong</span></div>
+    <div class="pattern">Strong · moderate quality</div>
+    <div class="find-n">No attempt at withdrawal. These patients relapse.</div>
+  </div>
+<div class="find card grp-ppi" style="--ac:var(--c-integrin)">
+    <div class="find-t">Attempt discontinuation if symptoms resolved on an empirical trial <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Conditional · low quality</div>
+    <div class="find-n">And use on-demand or intermittent therapy in non-erosive disease once symptoms are controlled.</div>
+  </div>
+<div class="find card grp-adj" style="--ac:var(--c-steroid)">
+    <div class="find-t">Vonoprazan — potassium-competitive acid blocker <span class="tagl split">Newer option</span></div>
+    <div class="pattern">FDA-approved for erosive and non-erosive GERD</div>
+    <div class="find-n"><b>Erosive oesophagitis healing: 20 mg once daily for 8 weeks</b> · <b>maintenance: 10 mg once daily for up to 6 months</b> · <b>non-erosive GERD: 10 mg once daily for 4 weeks</b>. With or without food — no meal timing requirement, which is a practical advantage over PPIs. Faster and more sustained acid suppression, and superior healing rates in severe erosive disease. Not recommended in Child-Pugh B or C; contraindicated with rilpivirine; avoid strong CYP3A4 inducers.</div>
+  </div>
+<div class="find card grp-adj" style="--ac:var(--c-jak)">
+    <div class="find-t">Bedtime H2 receptor antagonist — as needed <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Conditional · moderate quality</div>
+    <div class="find-n">For persistent nocturnal symptoms on a PPI. <b>As-needed, not scheduled</b> — tachyphylaxis develops within weeks of regular use.</div>
+  </div>
+<div class="find card grp-adj" style="--ac:var(--c-integrin)">
+    <div class="find-t">Alginate preparations <span class="tagl cond">Conditional</span></div>
+    <div class="pattern">Shows potential efficacy</div>
+    <div class="find-n">Forms a raft over the gastric pocket. Useful as an add-on for postprandial and breakthrough symptoms, and safe in pregnancy.</div>
+  </div>
+<div class="find card grp-adj" style="--ac:var(--c-jak)">
+    <div class="find-t">Baclofen 5–20 mg three times daily <span class="tagl restrict">Restricted</span></div>
+    <div class="pattern">Strong — but only with objective GERD</div>
+    <div class="find-n">Reduces transient lower oesophageal sphincter relaxations. For PPI-refractory patients <b>with objective evidence of reflux</b>. <b>Do not use it without an established diagnosis</b> — that is a strong recommendation against.</div>
+  </div>
+<div class="find card grp-adj" style="--ac:var(--c-immuno)">
+    <div class="find-t">Sucralfate <span class="tagl against">Against</span></div>
+    <div class="pattern">Strong against — except in pregnancy</div>
+    <div class="find-n">No role in routine GERD. In pregnancy it is superior to lifestyle measures alone and is a reasonable first-line option.</div>
+  </div>
+<div class="find card grp-adj" style="--ac:var(--c-immuno)">
+    <div class="find-t">Prokinetics <span class="tagl against">Against</span></div>
+    <div class="pattern">Strong against</div>
+    <div class="find-n">Not for GERD without documented gastroparesis.</div>
+  </div>
+
+  <div class="notice"><b>PPI safety, in proportion.</b> Scrutiny of long-term PPI use has grown, but the guideline is clear that they remain first-line and that the observational associations have not been shown to be causal. Use the lowest effective dose, individualised — and do not withhold a PPI from someone who needs it. Evidence for clinically meaningful rebound after abrupt discontinuation is weak.</div>
+  <div class="notice"><b>Extra-oesophageal symptoms</b> — cough, hoarseness, throat clearing, asthma. Evaluate non-reflux causes <b>first</b> (strong recommendation). If there is no heartburn or regurgitation, do <b>reflux testing before</b> committing to PPI therapy (strong). If typical symptoms coexist, an 8–12 week twice-daily trial is reasonable. <b>Do not diagnose laryngopharyngeal reflux on laryngoscopy alone</b> — the findings correlate poorly with symptoms. Salivary pepsin and oropharyngeal pH monitoring are not recommended.</div>
+</section>
+
+<section class="pane" id="p-refract">
+  <h2>Refractory symptoms</h2>
+  <p class="lede">Only <b>21%</b> of patients with PPI-refractory heartburn turn out to have genuinely refractory reflux disease. The remaining four in five have something else — which is why the sequence below starts with optimisation and diagnosis, not with escalation.</p>
+  <div class="blk"><div class="dh" style="color:var(--c-tnf)">Step 1 — optimise before investigating</div>
+    <ul><li>Confirm <b>adherence</b> — a large share of "refractory" patients are not taking it</li><li>Confirm <b>timing</b>: 30–60 minutes before a meal, not at bedtime</li><li>Consider twice-daily dosing, or a single switch to another PPI</li><li>Reconsider whether the symptom was ever reflux — only <b>21%</b> of PPI-refractory heartburn turns out to be genuinely refractory reflux disease</li></ul></div>
+<div class="blk"><div class="dh" style="color:var(--c-il23)">Step 2 — endoscopy off PPI</div>
+    <ul><li>Stop the PPI for <b>2–4 weeks</b> first, to maximise yield</li><li>Looking for erosive oesophagitis, Barrett's, and — importantly — <b>eosinophilic oesophagitis</b>, which is a common and frequently missed explanation</li><li>Take biopsies even if the mucosa looks normal</li></ul></div>
+<div class="blk"><div class="dh" style="color:var(--c-steroid)">Step 3 — reflux testing, matched to the question</div>
+    <ul><li><b>Diagnosis not yet established</b> → pH or pH-impedance monitoring <b>off</b> therapy, after 7–14 days off PPI</li><li><b>GERD already documented</b> with persistent symptoms → impedance-pH <b>on</b> therapy, to look for ongoing acid or non-acid reflux</li><li><b>Do not test off therapy</b> in LA grade C or D oesophagitis or long-segment Barrett's — the diagnosis is already conclusive</li><li>Wireless pH over 96 hours gives the highest diagnostic accuracy; 35% of patients show no consistent pattern over just 2 days</li></ul></div>
+<div class="blk"><div class="dh" style="color:var(--c-jak)">Step 4 — high-resolution manometry</div>
+    <ul><li><b>Not a diagnostic test for GERD</b> — it does not make or exclude the diagnosis</li><li>Its role is to exclude achalasia and absent contractility, and to assess contractile reserve, <b>before any antireflux procedure</b></li><li>A motility disorder is found in 1–3% of refractory cases</li></ul></div>
+<div class="blk"><div class="dh" style="color:var(--c-integrin)">Step 5 — act on the phenotype</div>
+    <ul><li>Objective reflux persisting on therapy → escalate, or consider a procedure</li><li>Normal acid exposure with positive symptom association → reflux hypersensitivity: neuromodulators, brain–gut therapy</li><li>Normal acid exposure with negative symptom association → functional heartburn: <b>stop the PPI</b> and treat as a gut–brain disorder</li></ul></div>
+
+  <h3 class="sub">Procedures</h3>
+  <div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Laparoscopic fundoplication</h4><div class="cond2">Strong · moderate quality</div><p>For objective evidence of GERD — particularly <b>LA grade C or D, large hiatal hernia, or persistent troublesome symptoms</b>. Modern population data: 17.7% recurrence, 4.1% acute complications, 0.1% mortality. Over 80% achieve long-term freedom from PPIs, and satisfaction exceeds chronic medical therapy.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Magnetic sphincter augmentation</h4><div class="cond2">Strong · moderate quality</div><p>A reasonable alternative to fundoplication for <b>regurgitation-predominant PPI-refractory GERD</b>. Two randomised trials show superiority over continued medical therapy. Device erosion 0.3% at 4 years. <b>Contraindicated with MRI above 1.5 Tesla</b> — worth telling the patient.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Roux-en-Y gastric bypass</h4><div class="cond2">Conditional · low quality</div><p>For patients with obesity who are willing to accept the risks and the lifestyle requirements. Treats both problems.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Transoral incisionless fundoplication</h4><div class="cond2">Conditional · low quality</div><p>For regurgitation or heartburn <b>without</b> severe oesophagitis (LA C or D) and <b>without</b> a hiatal hernia larger than 2 cm.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Radiofrequency — Stretta</h4><div class="cond2">Cannot be recommended</div><p>Efficacy data are inconsistent and variable.</p></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Before any procedure</h4><div class="cond2">Key concept</div><p><b>High-resolution manometry is mandatory</b> to exclude achalasia and absent contractility and to assess contractile reserve with provocative testing. And the diagnosis must be secure: extensive evaluation is required to confirm that reflux actually causes the symptoms before committing to an irreversible operation.</p></div>
+  <div class="notice"><b>Key concept:</b> stop the PPI in patients whose off-therapy testing is negative, unless a prior GERD diagnosis has been established. Continuing acid suppression in functional heartburn is common, ineffective, and delays the treatment that would help.</div>
+</section>
+
+<section class="pane" id="p-barrett">
+  <h2>Barrett's oesophagus</h2>
+  <div class="blk bl" style="--bc:var(--c-steroid)"><h4>Definition</h4>
+    <p>At least <b>1 cm</b> of salmon-coloured columnar mucosa in the tubular oesophagus, <b>with intestinal metaplasia — goblet cells — on biopsy</b>. Both halves are required. Under 1 cm is not Barrett's, and a normal-looking squamocolumnar junction should not be biopsied.</p></div>
+
+  <h3 class="sub">Who to screen</h3>
+  <div class="risk" style="--bc:var(--c-il23)">
+    <div class="risk-h">Chronic GERD symptoms <b>plus 3 or more</b> of these</div>
+    <ul><li>Male sex</li><li>Age over 50</li><li>White race</li><li>Tobacco smoking<small>Current or past</small></li><li>Obesity — particularly central adiposity</li><li>Family history of Barrett's or oesophageal adenocarcinoma in a first-degree relative</li></ul>
+  </div>
+  <div class="notice"><b>A single screening endoscopy</b> — and <b>do not repeat it</b> after a negative examination. The yield on repeat screening is only 2–4%.<br><br>A <b>swallowable non-endoscopic capsule sponge device with a biomarker</b> — Cytosponge-TFF3 or methylated DNA markers — is an acceptable alternative to endoscopy in this population, and is the practical route where endoscopic capacity is the limiting factor.</div>
+
+  <h3 class="sub">Doing the endoscopy properly</h3>
+  <div class="blk"><h4 style="font-size:13.5px">Document landmarks and extent using the <b>Prague C&amp;M classification</b></h4><p style="margin-top:4px">Circumferential extent and maximal extent above the gastro-oesophageal junction</p></div>
+<div class="blk"><h4 style="font-size:13.5px">Describe any visible lesion using the <b>Paris classification</b></h4><p style="margin-top:4px">And resect it rather than biopsy it</p></div>
+<div class="blk"><h4 style="font-size:13.5px"><b>Seattle protocol</b> — four-quadrant biopsies every 2 cm</h4><p style="margin-top:4px">Every 1 cm if there is prior dysplasia. At least 8 biopsies when a segment is suspicious for Barrett's</p></div>
+<div class="blk"><h4 style="font-size:13.5px">White light endoscopy <b>plus</b> chromoendoscopy</h4><p style="margin-top:4px">Acetic acid or electronic/virtual chromoendoscopy</p></div>
+<div class="blk"><h4 style="font-size:13.5px">Inspection time — around <b>1 minute per centimetre</b> of Barrett's segment</h4><p style="margin-top:4px">A measurable quality indicator, analogous to colonoscopy withdrawal time</p></div>
+<div class="blk"><h4 style="font-size:13.5px"><b>Do not biopsy a normal-appearing squamocolumnar junction</b></h4><p style="margin-top:4px">It generates false diagnoses and needless surveillance</p></div>
+<div class="blk"><h4 style="font-size:13.5px">Any grade of dysplasia confirmed by a <b>second GI pathologist</b></h4><p style="margin-top:4px">Strong recommendation. Community-diagnosed dysplasia is frequently downstaged on expert review</p></div>
+<div class="blk"><h4 style="font-size:13.5px">Track <b>post-endoscopy oesophageal cancer</b></h4><p style="margin-top:4px">The emerging quality metric, analogous to post-colonoscopy colorectal cancer</p></div>
+</section>
+
+<section class="pane" id="p-surv">
+  <h2>Surveillance &amp; dysplasia</h2>
+  <div class="notice"><b>Any grade of dysplasia must be confirmed by a second pathologist with gastrointestinal expertise</b> — a strong recommendation. Community-diagnosed dysplasia is frequently downstaged on expert review, and the grade decides between a five-year interval and an ablation programme.</div>
+  <div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Non-dysplastic Barrett's, segment &lt; 3 cm</div>
+    <div class="pattern"><b>Every 5 years</b></div>
+    <div class="find-n">The interval most often shortened in practice without justification.</div></div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Non-dysplastic Barrett's, segment ≥ 3 cm</div>
+    <div class="pattern"><b>Every 3 years</b></div>
+    <div class="find-n">Segment length is an independent predictor of progression, which is why it drives the interval.</div></div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">Indefinite for dysplasia — confirmed by an expert</div>
+    <div class="pattern"><b>Optimise PPI, repeat at 6 months</b></div>
+    <div class="find-n">Intensify antireflux therapy to twice-daily PPI first — inflammation is a common cause of the reading. If it persists, move to <b>annual</b> surveillance. Progression risk is around 1.5% per year, similar to low-grade dysplasia.</div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">Low-grade dysplasia — confirmed by an expert</div>
+    <div class="pattern"><b>Endoscopic eradication preferred</b></div>
+    <div class="find-n">Expert-confirmed LGD progresses at about <b>9.1% per year</b> — far higher than non-dysplastic disease, and the reason eradication is now preferred. If surveillance is chosen instead: <b>6 months, 12 months, then annually</b>.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">High-grade dysplasia</div>
+    <div class="pattern"><b>Endoscopic eradication therapy</b></div>
+    <div class="find-n">Strong recommendation. Resect any visible lesion first, then ablate the flat segment.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">T1a intramucosal adenocarcinoma</div>
+    <div class="pattern"><b>Endoscopic eradication therapy</b></div>
+    <div class="find-n">Strong recommendation, at a high-volume centre. Endoscopic resection of the visible lesion precedes ablation.</div></div>
+
+  <h3 class="sub">Endoscopic eradication therapy</h3>
+  <div class="blk"><h4>Resect first, then ablate</h4>
+    <p><b>Endoscopic resection of any visible lesion must precede ablation</b> of the flat segment. Resection gives staging information — depth of invasion, lymphovascular invasion, differentiation — that ablation destroys. Treat at a <b>high-volume centre</b>.</p></div>
+  <div class="blk"><h4>Ablation</h4>
+    <p>Radiofrequency ablation is the standard. <b>Cryotherapy is a reasonable substitute</b> in cases resistant to radiofrequency. The endpoint is complete eradication of dysplasia and of intestinal metaplasia.</p></div>
+  <div class="blk"><h4>After successful eradication</h4>
+    <p>A structured surveillance programme is a <b>strong recommendation</b>, with intervals based on the <b>baseline degree of dysplasia</b> — more intensive after high-grade dysplasia or intramucosal cancer than after low-grade dysplasia. Check your unit's protocol against the guideline's table for the exact schedule, which varies between services. Recurrence at the gastro-oesophageal junction is the commonest pattern, so sample it specifically.</p></div>
+
+  <h3 class="sub">Chemoprevention and what not to do</h3>
+  <div class="blk bl" style="--bc:var(--c-integrin)"><h4>PPI at least once daily</h4>
+    <div class="cond2">Conditional recommendation</div>
+    <p>Observational evidence suggests around a 71% reduction in progression to high-grade dysplasia or adenocarcinoma. Reasonable in everyone with Barrett's without a contraindication.</p></div>
+  <div class="blk bl" style="--bc:var(--c-jak)"><h4>Aspirin plus PPI — not recommended</h4>
+    <div class="cond2">Could not be recommended</div>
+    <p>Despite favourable AspECT data, the panel cited low event rates, no demonstrated cancer-specific benefit, and insufficient strength of evidence.</p></div>
+  <div class="blk bl" style="--bc:var(--c-immuno)"><h4>Antireflux surgery as an anticancer measure — recommended against</h4>
+    <div class="cond2">Recommendation against</div>
+    <p>The baseline progression risk is low, the surgical morbidity is real, and superiority over medical therapy has never been convincingly shown. Operate for reflux symptoms, not to prevent cancer.</p></div>
+  <div class="notice"><b>When to stop surveillance.</b> Consider stopping when the patient would no longer be a candidate for eradication therapy, or at around <b>age 75 with limited life expectancy</b>. Surveillance that cannot lead to treatment is a burden without a benefit.</div>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>Quick answers</h2>
+  <div class="tdm">
+    <div class="r"><div class="ag">Does LA grade A oesophagitis prove GERD?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> Grade A is seen in healthy controls. Lyon 2.0 counts <b>grade B and above</b> as conclusive.</span></div></div>
+    <div class="r"><div class="ag">When should the PPI be taken?</div>
+      <div class="kv"><span>Answer</span><span><b>30–60 minutes before a meal.</b> Not at bedtime, not with food.</span></div></div>
+    <div class="r"><div class="ag">How many times can I switch PPI?</div>
+      <div class="kv"><span>Answer</span><span><b>Once.</b> More than one switch is not supported — reassess the diagnosis instead.</span></div></div>
+    <div class="r"><div class="ag">Who needs indefinite maintenance PPI?</div>
+      <div class="kv"><span>Answer</span><span><b>LA grade C or D</b> — strong recommendation, no withdrawal attempt.</span></div></div>
+    <div class="r"><div class="ag">Should I do reflux testing in LA grade C or D?</div>
+      <div class="kv"><span>Answer</span><span><b>Not off therapy.</b> The diagnosis is already conclusive. Test on therapy only if symptoms persist despite optimisation.</span></div></div>
+    <div class="r"><div class="ag">Can I diagnose laryngopharyngeal reflux on laryngoscopy?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> The findings correlate poorly with symptoms. Evaluate non-reflux causes first, and test before treating if there is no heartburn.</span></div></div>
+    <div class="r"><div class="ag">Is Barrett's under 1 cm still Barrett's?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> A minimum 1 cm segment plus intestinal metaplasia is required.</span></div></div>
+    <div class="r"><div class="ag">Should I repeat screening endoscopy if the first was negative?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> The yield is 2–4%.</span></div></div>
+    <div class="r"><div class="ag">Low-grade dysplasia — ablate or survey?</div>
+      <div class="kv"><span>Answer</span><span><b>Eradication is preferred</b> once expert-confirmed, given roughly 9.1% annual progression. Surveillance at 6 and 12 months then annually is an acceptable alternative.</span></div></div>
+    <div class="r"><div class="ag">Does antireflux surgery prevent cancer in Barrett's?</div>
+      <div class="kv"><span>Answer</span><span><b>No</b> — recommended against for that purpose.</span></div></div>
+  </div>
+
+  <h3 class="sub">About this page</h3>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults. Built from the ACG guidelines on GERD and on Barrett's oesophagus, updated with the Lyon Consensus 2.0 testing thresholds and the current vonoprazan label. Local practice on post-eradication surveillance intervals varies — check your unit's protocol.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>AET</b> — acid exposure time</div>
+    <div><b>EET</b> — endoscopic eradication therapy</div>
+    <div><b>H2RA</b> — histamine-2 receptor antagonist</div>
+    <div><b>HGD / LGD / IND</b> — high-grade / low-grade / indefinite for dysplasia</div>
+    <div><b>HRM</b> — high-resolution manometry</div>
+    <div><b>IMC</b> — intramucosal carcinoma</div>
+    <div><b>LA</b> — Los Angeles classification of oesophagitis</div>
+    <div><b>MNBI</b> — mean nocturnal baseline impedance</div>
+    <div><b>MSA</b> — magnetic sphincter augmentation</div>
+    <div><b>NDBE</b> — non-dysplastic Barrett's oesophagus</div>
+    <div><b>NERD</b> — non-erosive reflux disease</div>
+    <div><b>P-CAB</b> — potassium-competitive acid blocker</div>
+    <div><b>RFA</b> — radiofrequency ablation</div>
+    <div><b>TIF</b> — transoral incisionless fundoplication</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">Katz PO et al. <b>ACG Clinical Guideline for the Diagnosis and Management of Gastroesophageal Reflux Disease.</b> Am J Gastroenterol 2022;117:27–56 · Shaheen NJ et al. <b>Diagnosis and Management of Barrett's Esophagus: An Updated ACG Guideline.</b> Am J Gastroenterol 2022;117:559–587 · Gyawali CP et al. <b>Updates to the modern diagnosis of GERD: Lyon consensus 2.0.</b> Gut 2024 · FDA prescribing information for vonoprazan (Voquezna). Content current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-dx"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Diagnose</label>
+  <label for="t-tx"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Treat</label>
+  <label for="t-refract"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Refractory</label>
+  <label for="t-barrett"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Barrett's</label>
+  <label for="t-surv"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Dysplasia</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Answers</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),
+      cards=document.querySelectorAll('.searchable .find'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>
