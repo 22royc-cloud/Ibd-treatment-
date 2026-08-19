@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Portal HTN">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Portal Hypertension & Variceal Bleeding</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-stage:checked ~ main #p-stage,
+#t-prevent:checked ~ main #p-prevent,
+#t-bleed:checked ~ main #p-bleed,
+#t-tips:checked ~ main #p-tips,
+#t-after:checked ~ main #p-after{display:block}
+#t-stage:checked ~ .tabbar label[for="t-stage"],
+#t-prevent:checked ~ .tabbar label[for="t-prevent"],
+#t-bleed:checked ~ .tabbar label[for="t-bleed"],
+#t-tips:checked ~ .tabbar label[for="t-tips"],
+#t-after:checked ~ .tabbar label[for="t-after"]{color:var(--c-tnf)}
+#t-stage:checked ~ .topbar .filters,
+#t-bleed:checked ~ .topbar .filters,
+#t-tips:checked ~ .topbar .filters,
+#t-after:checked ~ .topbar .filters{display:none}
+
+.pattern{font-size:13px;color:var(--ink-1);margin-top:9px;padding:9px 11px;border-radius:9px;
+  background:var(--card2);border:1px solid var(--ring);line-height:1.5}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.4;letter-spacing:-.01em}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.miss,.card.miss{display:none !important}
+.cond2{font-size:12.5px;font-weight:650;color:var(--ink-1);margin:2px 0 8px}
+.risk ul{padding-top:10px}
+.blk .dh + ul{margin-top:0}
+@media (min-width:900px){
+  #p-stage,#p-tips,#p-after,#p-bleed{column-count:2;column-gap:14px}
+  #p-stage .find,#p-stage .blk,#p-tips .blk,#p-after .blk,#p-bleed .blk,
+  #p-stage .notice,#p-tips .notice,#p-after .notice,#p-bleed .notice{
+    break-inside:avoid;-webkit-column-break-inside:avoid}
+  #p-stage h3.sub,#p-after h3.sub{column-span:all}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-stage" class="ctl" checked>
+<input type="radio" name="tab" id="t-prevent" class="ctl">
+<input type="radio" name="tab" id="t-bleed" class="ctl">
+<input type="radio" name="tab" id="t-tips" class="ctl">
+<input type="radio" name="tab" id="t-after" class="ctl">
+
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Portal Hypertension</div>
+    <div class="tb-note">Baveno VII</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search threshold, drug, dose…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="hint"><span id="cnt"></span> Searches the beta blocker cards</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane" id="p-stage">
+  <h2>Staging without a needle</h2>
+  <p class="lede">Baveno VII replaced "compensated cirrhosis" with <b>compensated advanced chronic liver disease</b> — cACLD — because advanced fibrosis and early cirrhosis cannot reliably be separated in practice, and the management is the same. The question that matters is not the histology but whether there is <b>clinically significant portal hypertension</b>.</p>
+
+  <div class="blk bl" style="--bc:var(--c-immuno)"><h4>CSPH — clinically significant portal hypertension</h4>
+    <div class="cond2">HVPG ≥ 10 mmHg</div>
+    <p>The threshold above which varices develop, decompensation becomes likely and HCC risk rises. HVPG ≥ 12 mmHg is the threshold for variceal bleeding; <b>≥ 20 mmHg measured during an acute bleed</b> identifies those who will fail standard treatment and should have a pre-emptive TIPS.</p></div>
+
+  <h3 class="sub">Liver stiffness — the rule of five</h3>
+  <p class="lede">Transient elastography, fasted, in a patient without acute hepatitis, cholestasis, congestion or heavy alcohol use in the preceding days — all of which raise stiffness independently of fibrosis.</p>
+  <div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">&lt; 10 kPa</div>
+    <div class="pattern"><b>Rules out cACLD</b></div>
+    <div class="find-n">In the absence of other clinical or imaging signs. No further portal hypertension workup needed.</div></div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">10–15 kPa</div>
+    <div class="pattern"><b>Suggestive of cACLD</b></div>
+    <div class="find-n">Needs confirmation — repeat measurement, other non-invasive tests, or specialist assessment.</div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">&ge; 15 kPa</div>
+    <div class="pattern"><b>Highly suggestive of cACLD</b></div>
+    <div class="find-n">Treat as advanced chronic liver disease and move on to assessing for CSPH.</div></div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">&lt; 15 kPa <b>and</b> platelets &ge; 150</div>
+    <div class="pattern"><b>Rules out CSPH</b></div>
+    <div class="find-n">Both conditions must be met. No CSPH, so no indication for beta blockers on that basis.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">&ge; 25 kPa</div>
+    <div class="pattern"><b>Rules in CSPH</b></div>
+    <div class="find-n">Sufficient on its own in viral, alcohol-related and non-obese MASLD aetiologies. <b>Start a beta blocker.</b></div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">20–25 kPa with platelets &lt; 150<br>or 15–20 kPa with platelets &lt; 110</div>
+    <div class="pattern"><b>CSPH likely — about 60% probability</b></div>
+    <div class="find-n">Enough to justify treatment in most patients; HVPG or spleen stiffness can refine it if the decision is finely balanced.</div></div>
+
+  <h3 class="sub">Spleen stiffness</h3>
+  <p class="lede">New in Baveno VII, measured with a dedicated 100 Hz probe. It reflects portal pressure more directly than liver stiffness and is most useful when the liver measurement is equivocal.</p>
+  <div class="tdm">
+  <div class="r"><div class="ag">&le; 21 kPa</div>
+    <div class="kv"><span>Means</span><span><b>CSPH ruled out</b></span></div></div><div class="r"><div class="ag">&gt; 50 kPa</div>
+    <div class="kv"><span>Means</span><span><b>CSPH ruled in</b></span></div></div><div class="r"><div class="ag">&le; 40 kPa</div>
+    <div class="kv"><span>Means</span><span><b>High-risk varices unlikely — screening endoscopy may be omitted</b></span></div></div>
+  </div>
+
+  <h3 class="sub">Who actually needs a screening endoscopy</h3>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Already on a beta blocker for CSPH</h4><div class="cond2">No screening endoscopy needed</div><p>The most under-used statement in Baveno VII. If the patient is being treated for portal hypertension, the endoscopy result would not change management — so do not do it. Endoscopy is for deciding whether to band, not for confirming what you already know.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Baveno VI criteria — LSM &lt; 20 kPa <b>and</b> platelets &gt; 150</h4><div class="cond2">Screening endoscopy can be avoided</div><p>Risk of high-risk varices under 5%. Repeat LSM and platelets <b>annually</b>: if the stiffness rises or the platelets fall below the thresholds, do the endoscopy.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Expanded criteria — LSM &lt; 25 kPa and platelets &gt; 110</h4><div class="cond2">May avoid endoscopy — less well validated</div><p>Increases the proportion spared endoscopy at the cost of a slightly higher miss rate. Reasonable where endoscopic capacity is limited.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>After aetiological cure — e.g. HCV SVR, sustained HBV suppression, alcohol abstinence</h4><div class="cond2">LSM &lt; 12 kPa and platelets &gt; 150 can leave surveillance</div><p>Applies once the cause has been removed and the patient remains compensated. This is a genuine discharge, not a longer interval.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>None of the above</h4><div class="cond2">Screening endoscopy indicated</div><p>Then treat according to what is found — see the Prevent tab.</p></div>
+</section>
+
+<section class="pane searchable" id="p-prevent">
+  <div class="notice"><b>The Baveno VII change worth internalising:</b> beta blockers in cACLD are prescribed for <b>CSPH</b>, to prevent decompensation — not for varices, to prevent bleeding. The PREDESCI trial showed carvedilol reduces decompensation, driven mostly by less ascites. The varices are a marker of the pressure, not the target.</div>
+  <h3 class="sub">Who to treat</h3>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>cACLD with CSPH, no varices yet</h4><div class="cond2">Carvedilol — to prevent decompensation</div><p>The central shift in Baveno VII. Following PREDESCI, beta blockers are no longer prescribed only to protect against variceal bleeding — they <b>prevent decompensation</b>, mainly the development of ascites, in anyone with CSPH. The indication is the portal pressure, not the varices.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Small varices with red wale signs, or Child-Pugh C</h4><div class="cond2">Non-selective beta blocker</div><p>Higher bleeding risk than size alone suggests.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Medium or large varices</h4><div class="cond2">Carvedilol preferred · band ligation if beta blockers cannot be used</div><p>Baveno VII prefers carvedilol over banding as first-line primary prophylaxis. Reserve EVL for those who cannot take or tolerate a beta blocker — it protects against bleeding but does nothing for portal pressure or for ascites.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>No CSPH</h4><div class="cond2">No beta blocker</div><p>Beta blockers do not prevent varices from forming in the absence of CSPH and simply add side effects.</p></div>
+
+  <h3 class="sub">The drugs</h3>
+  <details class="card" style="--ac:var(--c-integrin)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Carvedilol</span>
+<span class="sm-brand">preferred agent in Baveno VII</span>
+<span class="sm-sum"><b>6.25 mg daily</b> · max 12.5 mg/day</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv">Start <span class="hi">3.125–6.25 mg once daily</span>, titrate after a few days to <span class="hi">12.5 mg/day</span> — once daily in the trials, though splitting into 6.25 mg twice daily is often better tolerated.</div></div>
+<div class="row"><div class="rk">Titration target</div><div class="rv"><b>Do not chase a heart rate target with carvedilol.</b> Titrate against blood pressure and tolerance. Keep systolic BP above 90 mmHg and MAP above 65 mmHg.</div></div>
+<div class="row"><div class="rk">Why this one</div><div class="rv">Blocks β-receptors <i>and</i> α1-receptors, so it lowers intrahepatic vascular resistance as well as portal inflow. That gives a greater HVPG reduction than propranolol at equivalent β-blockade, and it works in some patients who do not respond to traditional NSBBs.</div></div>
+</div>
+<div class="safety"><span class="sh">Caution</span>Its greater blood-pressure effect is the price. Avoid or reduce in refractory ascites with low blood pressure — propranolol may be better tolerated there. Baveno VII advises against carvedilol in decompensated disease with hypotension.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Propranolol</span>
+<span class="sm-brand">traditional non-selective beta blocker</span>
+<span class="sm-sum"><b>20–40 mg twice daily</b> · max 320 mg/day</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv">Start <span class="hi">20–40 mg twice daily</span>, titrating every few days. Maximum <span class="hi">320 mg/day</span>, reduced to <span class="hi">160 mg/day if ascites is present</span>.</div></div>
+<div class="row"><div class="rk">Titration target</div><div class="rv">Titrate to the maximum tolerated dose, aiming for a resting heart rate around <b>55–60 bpm</b> while keeping systolic BP above 90 mmHg.</div></div>
+<div class="row"><div class="rk">Why this one</div><div class="rv">Long track record and cheap. A reasonable choice when carvedilol lowers the blood pressure too far.</div></div>
+</div>
+<div class="safety"><span class="sh">Caution</span>Heart-rate response correlates poorly with HVPG response, so a patient at target heart rate is not necessarily protected. Asthma, high-degree AV block and severe peripheral arterial disease are contraindications.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Nadolol</span>
+<span class="sm-brand">once-daily alternative</span>
+<span class="sm-sum"><b>20–40 mg daily</b> · max 160 mg/day</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Dose</div><div class="rv">Start <span class="hi">20–40 mg once daily</span>. Maximum <span class="hi">160 mg/day</span>, halved to 80 mg/day with ascites.</div></div>
+<div class="row"><div class="rk">Titration target</div><div class="rv">As for propranolol — heart rate 55–60 bpm, systolic BP above 90 mmHg.</div></div>
+<div class="row"><div class="rk">Why this one</div><div class="rv">Once-daily dosing helps adherence. Renally cleared, so it accumulates in renal impairment.</div></div>
+</div>
+<div class="safety"><span class="sh">Caution</span>Same class contraindications as propranolol.</div>
+</div>
+</details>
+
+  <h3 class="sub">When to hold or reduce a beta blocker</h3>
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">Reduce or pause — then restart once resolved</div>
+    <ul><li>Systolic BP below 90 mmHg, or MAP below 65 mmHg<small>Renal perfusion depends on it</small></li><li>Acute kidney injury or hepatorenal syndrome</li><li>Spontaneous bacterial peritonitis or any active sepsis</li><li>Serum sodium below 130 mmol/L</li><li>Refractory ascites <i>with</i> any of the above<small>Refractory ascites alone is not a reason to stop</small></li></ul>
+  </div>
+  <div class="notice"><b>Pausing is not stopping.</b> The old teaching that beta blockers must be permanently withdrawn in refractory ascites has been softened: hold them during hypotension, AKI or sepsis, and <b>resume once the episode resolves</b>. Permanently abandoning a beta blocker after a single low blood pressure reading loses a protective drug for good.</div>
+</section>
+
+<section class="pane" id="p-bleed">
+  <h2>Acute variceal bleeding</h2>
+  <p class="lede">Mortality is around 15–20% at six weeks. Most of what determines the outcome happens in the first few hours, before and around the endoscopy — not at the endoscopy itself.</p>
+  <div class="blk"><div class="dh" style="color:var(--c-immuno)">Minute 0 — before anything else</div>
+    <ul><li><b>Vasoactive drug immediately</b>, on suspicion, before endoscopy. Terlipressin <b>2 mg IV every 4 h</b> for the first 48 h then 1 mg every 4 h; or somatostatin 250 µg bolus then 250–500 µg/h; or octreotide 50 µg bolus then 50 µg/h. Continue up to 5 days, and it is reasonable to stop 24–48 h after haemostasis.</li><li><b>Ceftriaxone 1 g IV daily</b> — antibiotic prophylaxis is not optional. It reduces infection, rebleeding <i>and</i> mortality. Continue up to 7 days.</li><li><b>Restrictive transfusion.</b> Threshold haemoglobin <b>7 g/dL</b>, target 7–9. Transfuse at 8 g/dL if there is cardiovascular disease. Over-transfusion raises portal pressure and provokes rebleeding.</li><li>Careful crystalloid resuscitation — enough for perfusion, not enough to over-expand.</li><li><b>No fresh frozen plasma</b> — it does not correct the coagulopathy of cirrhosis and is associated with worse outcomes. No routine platelet transfusion. INR is not a measure of bleeding risk here and must not delay endoscopy.</li></ul></div>
+<div class="blk"><div class="dh" style="color:var(--c-il23)">Before the scope</div>
+    <ul><li><b>Erythromycin 250 mg IV</b> 30–120 minutes before endoscopy, to clear the stomach.</li><li>Airway protection <b>only</b> for ongoing haematemesis, encephalopathy, agitation or a compromised airway — and extubate promptly afterwards. Routine intubation causes pneumonia.</li><li>Lactulose to prevent encephalopathy.</li><li>Start a PPI, but as a <b>short course</b> — its role is post-banding ulceration, not the bleeding itself.</li></ul></div>
+<div class="blk"><div class="dh" style="color:var(--c-tnf)">Within 12 hours — endoscopy</div>
+    <ul><li><b>Oesophageal varices: band ligation.</b> Superior to sclerotherapy. Place 5–10 bands, starting at the bleeding point and then spiralling upward from the gastro-oesophageal junction. More than six bands adds nothing.</li><li><b>Gastric varices, Sarin classification.</b> GOV2 and IGV1 (cardiofundal): <b>cyanoacrylate injection</b>. GOV1: cyanoacrylate or banding. EUS-guided coil with glue is an option in experienced centres.</li><li>Record whether there was <b>active bleeding at endoscopy</b> — that single observation decides who gets a pre-emptive TIPS.</li></ul></div>
+<div class="blk"><div class="dh" style="color:var(--c-steroid)">Then — decide about TIPS</div>
+    <ul><li>Assess Child-Pugh class and whether bleeding was active at endoscopy. See the TIPS tab.</li><li>Do not wait to see whether the patient rebleeds. The whole point of pre-emptive TIPS is that it is done before failure, not after.</li></ul></div>
+  <div class="notice"><b>Terlipressin cautions.</b> Check the sodium — it causes hyponatraemia, sometimes profound and rapid, particularly in younger patients with preserved liver function. Avoid in significant ischaemic heart disease or peripheral vascular disease; watch for skin and bowel ischaemia. Reduce with renal impairment.</div>
+  <div class="notice"><b>Not every upper GI bleed in a cirrhotic patient is variceal.</b> Roughly a third are not. Treat as variceal until the endoscopy says otherwise — the drugs and antibiotics do no harm meanwhile — but do not stop looking once the varices are banded if the picture does not fit.</div>
+</section>
+
+<section class="pane" id="p-tips">
+  <h2>TIPS and rescue</h2>
+  <p class="lede">The decision that most changes survival in this disease is who gets a shunt, and when. Baveno VII is explicit that it should be pre-emptive in high-risk patients rather than a salvage manoeuvre.</p>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Pre-emptive — "early" TIPS</h4><div class="cond2">Within 72 hours, ideally within 24</div><p><b>Child-Pugh C with a score of 10–13</b>, or <b>Child-Pugh B above 7 with active bleeding at endoscopy</b> despite vasoactive drugs, or <b>HVPG ≥ 20 mmHg</b>. Done after initial haemostasis, not instead of it. Improves one-year survival and bleeding control without a measurable increase in encephalopathy.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Rescue TIPS</h4><div class="cond2">For failure</div><p>Failure to control bleeding, or early rebleeding despite drugs and endoscopic therapy. Achieves haemostasis in nearly all cases. The commonest error is leaving it too late, after repeated failed endoscopies.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Self-expanding metal stent</h4><div class="cond2">Bridge to definitive therapy</div><p>Preferred over balloon tamponade. Provides tamponade for up to <b>14 days</b>, with about 96% haemostasis and fewer complications.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Balloon tamponade</h4><div class="cond2">Temporising only — maximum 24 hours</div><p>Controls bleeding in around 90% but causes serious complications in about 20%, including aspiration and oesophageal perforation. Requires a protected airway. A bridge to TIPS or a stent, never a destination.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>BRTO</h4><div class="cond2">Gastric varices with a gastrorenal shunt</div><p>Balloon-occluded retrograde transvenous obliteration. Not for oesophageal bleeding. Note it raises portal pressure and can worsen oesophageal varices and ascites.</p></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>When TIPS is a poor idea</h4><div class="cond2">Relative and absolute limits</div><p>Heart failure, severe pulmonary hypertension, uncontrolled encephalopathy, active uncontrolled sepsis, biliary obstruction, extensive polycystic liver disease. Very high MELD predicts poor outcome — but in the pre-emptive setting the trial populations included sick patients, so do not talk yourself out of it on Child-Pugh score alone.</p></div>
+  <div class="notice"><b>The recurring failure</b> is treating pre-emptive TIPS as something to consider if things go badly. By then it is rescue TIPS, in a sicker patient, with worse outcomes. Identify Child-Pugh C 10–13 and Child-Pugh B with active bleeding <b>at the time of the index endoscopy</b>, and refer within 72 hours.</div>
+</section>
+
+<section class="pane" id="p-after">
+  <h2>After the bleed</h2>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Secondary prophylaxis — both, not either</h4><p><b>Non-selective beta blocker plus band ligation.</b> The combination is superior to either alone and is the standard of care after a variceal bleed. Prescribing one and omitting the other is the commonest gap in follow-up.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>The banding programme</h4><p>Repeat sessions every <b>1–4 weeks until varices are eradicated</b>. Then endoscopy at <b>3–6 months</b>, and every 6–12 months thereafter.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>If combination therapy fails</h4><p>Recurrent bleeding despite an adequate beta blocker and a completed banding programme is an indication for <b>TIPS</b>, and a trigger to consider transplant assessment.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Treat the cause — this outranks everything else</h4><p>Alcohol abstinence, HBV suppression, HCV cure, weight loss and metabolic control in MASLD. Removing the aetiology lowers portal pressure, can reverse cACLD, and is the only intervention that changes the trajectory rather than managing its consequences.</p></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>The rest of the cirrhosis bundle</h4><p>Six-monthly ultrasound for HCC. Nutrition and sarcopenia assessment. Hepatitis A and B, pneumococcal and influenza vaccination. Avoid NSAIDs and aminoglycosides. Review every drug for hepatic dosing.</p></div>
+
+  <h3 class="sub">Recompensation</h3>
+  <div class="notice">A new Baveno VII concept: decompensated cirrhosis is no longer necessarily a one-way street. <b>All three</b> criteria must be met.</div>
+  <div class="risk" style="--bc:var(--c-integrin)">
+    <div class="risk-h">Baveno VII recompensation — all three required</div>
+    <ul>
+      <li><b>The cause is removed, cured or suppressed</b><small>Alcohol abstinence, HBV suppression, HCV cure</small></li>
+      <li><b>Resolution of ascites and encephalopathy off diuretics and off prophylactic therapy, and no variceal bleeding for 12 months</b><small>Resolution while still on treatment does not count</small></li>
+      <li><b>Sustained improvement in liver function — albumin, bilirubin and INR</b></li>
+    </ul>
+  </div>
+  <div class="notice">Recompensated patients still need surveillance. The portal hypertension usually improves rather than disappears, and HCC risk persists.</div>
+
+  <h3 class="sub">About this page</h3>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults with cirrhosis and portal hypertension. Doses of vasoactive drugs and beta blockers vary between local protocols — check yours. Pre-emptive TIPS requires a centre that can deliver it within the window.</div>
+  <div class="notice"><b>On Baveno VIII.</b> The workshop was held in Baveno in March 2026 but its consensus statements have not yet been published — Baveno VII, published in 2022, remains the operative document. Expect revisions to the non-invasive thresholds and to the role of spleen stiffness when it appears.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>BRTO</b> — balloon-occluded retrograde transvenous obliteration</div>
+    <div><b>cACLD</b> — compensated advanced chronic liver disease</div>
+    <div><b>CSPH</b> — clinically significant portal hypertension</div>
+    <div><b>EVL</b> — endoscopic variceal band ligation</div>
+    <div><b>GOV / IGV</b> — gastro-oesophageal / isolated gastric varices (Sarin)</div>
+    <div><b>HVPG</b> — hepatic venous pressure gradient</div>
+    <div><b>LSM / SSM</b> — liver / spleen stiffness measurement</div>
+    <div><b>MAP</b> — mean arterial pressure</div>
+    <div><b>NSBB</b> — non-selective beta blocker</div>
+    <div><b>SEMS</b> — self-expanding metal stent</div>
+    <div><b>TIPS</b> — transjugular intrahepatic portosystemic shunt</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">Baveno VII — renewing consensus in portal hypertension (J Hepatol 2022) · ESGE guideline on the endoscopic diagnosis and management of oesophagogastric varices (Endoscopy 2022) · PREDESCI trial of beta blockers for preventing decompensation · Baveno VII recompensation criteria and their subsequent validation studies · published reviews of the evolution of the Baveno consensus. Current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-stage"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Stage</label>
+  <label for="t-prevent"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Prevent</label>
+  <label for="t-bleed"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.4A6 6 0 0 1 6 13.4C6 9.4 12 3 12 3z"/></svg>Bleeding</label>
+  <label for="t-tips"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>TIPS</label>
+  <label for="t-after"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>After</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),
+      cards=document.querySelectorAll('.searchable .card'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>

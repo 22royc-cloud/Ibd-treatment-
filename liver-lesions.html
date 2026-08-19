@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Liver Lesions">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Focal Liver Lesions</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-approach:checked ~ main #p-approach,
+#t-solid:checked ~ main #p-solid,
+#t-hca:checked ~ main #p-hca,
+#t-cystic:checked ~ main #p-cystic,
+#t-info:checked ~ main #p-info{display:block}
+#t-approach:checked ~ .tabbar label[for="t-approach"],
+#t-solid:checked ~ .tabbar label[for="t-solid"],
+#t-hca:checked ~ .tabbar label[for="t-hca"],
+#t-cystic:checked ~ .tabbar label[for="t-cystic"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-approach:checked ~ .topbar .filters,
+#t-hca:checked ~ .topbar .filters,
+#t-info:checked ~ .topbar .filters{display:none}
+
+.pattern{font-size:12.5px;color:var(--ink-2);margin-top:9px;padding:9px 11px;border-radius:9px;
+  background:var(--card2);border:1px solid var(--ring);line-height:1.55}
+.pattern b{color:var(--ink-1)}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.4;letter-spacing:-.01em}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.miss,.card.miss{display:none !important}
+.cond2{font-size:12.5px;font-weight:650;color:var(--ink-1);margin:2px 0 8px}
+.pct{font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ac);border:1px solid var(--ac);border-radius:4px;padding:1px 5px;
+  margin-left:6px;vertical-align:2px;white-space:nowrap}
+.risk ul{padding-top:10px}
+.rv small{display:block;color:var(--ink-2);font-size:12px;margin-top:6px;
+  padding-left:10px;border-left:2px solid var(--rule)}
+@media (min-width:900px){
+  #p-approach,#p-solid,#p-cystic,#p-hca{column-count:2;column-gap:14px}
+  #p-approach .blk,#p-approach .notice,#p-approach .risk,#p-solid .card,
+  #p-cystic .card,#p-hca .blk,#p-hca .find,#p-hca .notice{
+    break-inside:avoid;-webkit-column-break-inside:avoid}
+  #p-approach h3.sub,#p-hca h3.sub{column-span:all}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-approach" class="ctl" checked>
+<input type="radio" name="tab" id="t-solid" class="ctl">
+<input type="radio" name="tab" id="t-hca" class="ctl">
+<input type="radio" name="tab" id="t-cystic" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Focal Liver Lesions</div>
+    <div class="tb-note">ACG 2024</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search lesion, feature, size…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="hint"><span id="cnt"></span> Searches the solid and cystic lesion cards</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane" id="p-approach">
+  <h2>The incidental liver lesion</h2>
+  <p class="lede">Up to 15% of patients have an incidental liver lesion on routine non-surveillance imaging, and up to 52% of people without cancer have a benign liver lesion at autopsy. <b>Most solid lesions in a patient with no risk factors will be benign</b> — haemangioma, adenoma or FNH.</p>
+
+  <h3 class="sub">First — which of these four is this?</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Cirrhosis or chronic liver disease present</h4><div class="cond2">Stop — this is not a benign-lesion problem</div><p>Any lesion in a cirrhotic liver is <b>HCC until proven otherwise</b>. Follow the AASLD HCC guidance and LI-RADS categorisation. Benign lesions rarely form <i>de novo</i> in a cirrhotic liver, and 97% of lesions with characteristic LI-RADS features need no biopsy.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>History of malignancy</h4><div class="cond2">Assume metastasis until characterised</div><p>Follow the guidance for that primary tumour, or discuss at a multidisciplinary meeting. A new lesion in a patient under surveillance for a known cancer is far more likely metastatic than a newly appeared benign lesion. <b>MRI with hepatobiliary contrast plus diffusion-weighted imaging</b> is the recommended modality for suspected metastases.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Under 40, unremarkable history, examination and bloods</h4><div class="cond2">MRI with hepatobiliary contrast</div><p>The one group where a hepatobiliary agent is clearly first choice, because the practical question is FNH versus adenoma — and their management differs completely. FNH is hyperintense on the hepatobiliary phase; most other lesions are hypointense.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Everyone else</h4><div class="cond2">Multiphasic contrast-enhanced imaging</div><p>Triple-phase contrast-enhanced CT, or dynamic MRI with either hepatobiliary or extracellular contrast. Expert opinion favours <b>extracellular</b> agents first line outside the FNH question, because hepatobiliary agents can cause transient dyspnoea and give less satisfactory dynamic phases.</p></div>
+
+  <h3 class="sub">The workup</h3>
+  <div class="blk"><h4>History</h4>
+    <ul><li>Previous cancer of any kind</li><li>Constitutional symptoms — weight loss, anorexia, fever, night sweats</li><li>Medications: <b>oral contraceptives, anabolic steroids, hormone therapy</b></li><li>Foreign travel</li><li>Risk factors for chronic liver disease — viral hepatitis, transfusions, tattoos, intravenous drug use, alcohol</li><li>Features of the metabolic syndrome — obesity, type 2 diabetes, hypertension, dyslipidaemia, cardiovascular disease</li></ul></div>
+<div class="blk"><h4>Bloods</h4>
+    <ul><li>Liver enzymes</li><li>Viral hepatitis panel</li><li>Tumour markers where the differential warrants them</li><li>Alkaline phosphatase and CRP may be raised with inflammatory adenomas, though not sensitive enough to check routinely</li></ul></div>
+<div class="blk"><h4>Imaging</h4>
+    <ul><li><b>Multiphasic contrast-enhanced imaging with late arterial, portal venous and delayed phases</b> — strong recommendation</li><li>MRI or CT are statistically equivalent in accuracy, but <b>MRI confers many advantages</b> and avoids ionising radiation in young patients facing years of surveillance</li><li>CEUS is an alternative with 97.8% sensitivity and 83.9% specificity for benign lesion characterisation</li><li>A routine single portal-venous-phase abdominal CT <b>cannot</b> characterise a lesion — it detects one</li></ul></div>
+
+  <h3 class="sub">Two lesions that need nothing further</h3>
+  <div class="risk" style="--bc:var(--c-integrin)">
+    <div class="risk-h">Characteristic on ultrasound or single-phase CT — stop here</div>
+    <ul>
+      <li><b>Haemangioma</b> — a small echogenic avascular lesion under 2 cm with well-defined borders, in a normal liver, with no risk factors for liver disease or malignancy<small>Anything outside that description needs multiphasic imaging</small></li>
+      <li><b>Uncomplicated simple cyst</b> — anechoic, through transmission, smooth margins<small>Any high-risk feature moves it to CT or MRI</small></li>
+    </ul>
+  </div>
+
+  <div class="notice"><b>Extracellular versus hepatobiliary contrast.</b> Hepatobiliary agents are partially excreted by the biliary system, so lesions with biliary pathology — <b>FNH</b> — are hyperintense on the hepatobiliary phase, while most other lesions are hypointense. That makes them the clear choice in a young patient with no malignancy risk factors, where the question is FNH versus adenoma. Outside that scenario there is no consensus, and expert opinion favours extracellular agents because hepatobiliary agents cause transient dyspnoea and give less adequate dynamic phases.</div>
+  <div class="notice"><b>When a diagnosis cannot be made:</b> multidisciplinary discussion and consideration of core biopsy. If the lesion cannot be characterised and is not amenable to biopsy, <b>surveillance imaging every 3–6 months</b> to detect change in size, appearance or the development of new lesions. <b>Inadequately characterised or atypical lesions should be reviewed at a multidisciplinary liver tumour board</b> — this appears as a key concept in the guideline and recurs throughout it.</div>
+</section>
+
+<section class="pane searchable" id="p-solid">
+  <details class="card" style="--ac:var(--c-integrin)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Haemangioma</span>
+<span class="sm-brand">the commonest benign solid lesion — up to 20% of the population, F:M 4:1</span>
+<span class="sm-sum"><b>No follow-up once confirmed</b> · Do not biopsy, do not resect</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv"><b>Ultrasound alone is enough</b> for a small echogenic avascular lesion <b>under 2 cm</b> with well-defined borders, in a patient with a normal liver and no risk factors for liver disease or malignancy. Anything that does not meet that description needs multiphasic contrast-enhanced imaging.<small>MRI has the best performance — sensitivity 92–100%, specificity 86–99%. Classic features: T2 "lightbulb bright", peripheral nodular enhancement with progressive centripetal fill-in following the blood pool.</small></div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>None.</b> Even large cavernous haemangiomas over 10 cm, if asymptomatic, need neither resection nor follow-up. Resection is indicated <b>only for complications</b>: rupture, intralesional haemorrhage, consumptive coagulopathy (Kasabach–Merritt), or compression of an adjacent organ or vessel — all rare.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv"><b>No follow-up imaging</b> once the diagnosis is confirmed. Two exceptions:<br>• <b>Cirrhosis or chronic hepatitis B</b> meeting HCC surveillance criteria — continue imaging <b>every 3–6 months for at least 1 year</b> (strong recommendation), because early HCC can mimic a haemangioma.<br>• Nothing else. <b>Pregnancy does not require monitoring</b>, even with large cavernous lesions.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span><b>Avoid biopsy</b> because of bleeding risk, though the measured risk with small needles is only 0.15%. Three types: cavernous (classic), capillary or "flash-filling" (under 1 cm, rapid homogeneous arterial enhancement), and <b>sclerosed</b> — the diagnostic trap, which shows thick rim enhancement with non-centripetal progressive fill and capsular retraction, and mimics intrahepatic cholangiocarcinoma or hypovascular metastasis. Up to 20% of patients with FNH also have a haemangioma.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-integrin)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Focal nodular hyperplasia</span>
+<span class="sm-brand">second commonest solid lesion — 0.3–3%, female preponderance</span>
+<span class="sm-sum"><b>No follow-up once confirmed</b> · Do not stop the pill</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv"><b>Multiphase MRI with a hepatobiliary contrast agent</b> is the modality of choice — over 90% accuracy and nearly 100% specificity. Biopsy is not routinely needed.<small>Well-circumscribed homogeneous arterial hyperenhancement becoming isoenhancing on portal venous and delayed phases; a central scar that is hypo- or isointense without contrast, enhances late, and is T2 hyperintense; and — the decisive feature — <b>hyperintensity on the 20-minute hepatobiliary phase</b>, because FNH contains hepatocyte-specific membrane transporters. Only 2% are hypointense.</small></div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Conservative.</b> Not premalignant, and it does not need removing. <b>Even with growth, resection is not required.</b> If resection is being considered for symptoms, counsel the patient explicitly that the symptoms may not improve — FNH rarely causes any. If symptomatic and surgery is not an option, transarterial embolisation with or without bleomycin may reduce size.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv"><b>No further follow-up</b> once confidently diagnosed on imaging.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span><b>Do not routinely stop oral contraceptives</b> — the old belief that FNH is hormone-driven has been disproven, and there is no evidence of change during pregnancy. <b>Men with FNH need no different evaluation, monitoring or treatment.</b><br><br>The important caveat: 11% of inflammatory and <b>59% of β-catenin mutated adenomas</b> express OATP1B3 and can therefore be hyperintense on the hepatobiliary phase too. Any lesion that is atypical for FNH but hepatobiliary-phase hyperintense must be followed closely rather than dismissed.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Hepatic epithelioid haemangioendothelioma</span>
+<span class="sm-brand">HEHE — rare vascular tumour of intermediate grade</span>
+<span class="sm-sum"><b>Resect whenever possible</b> · Transplant if unresectable</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">Incidence around 1–2 per million; diagnosed incidentally in 25%. Look for <b>capsular retraction, calcification and multifocality</b>, and the <b>"lollipop sign"</b> — tapering of a portal or hepatic vein branch as it approaches the lesion, occluded like a stick in the sweet. If imaging is highly suspicious and resection is planned, <b>needle biopsy is not necessarily required first</b>.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Resect whenever possible.</b> If resection is not feasible, <b>liver transplantation offers the best survival — even in the presence of extrahepatic disease</b>, which is unusual among liver tumours and worth remembering. Stage with whole-body contrast-enhanced CT or MRI; PET is only mildly to moderately avid.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv">Specialist centre. For non-resectable, non-transplantable disease the data are very limited — ablation and stereotactic radiotherapy have shown some response in small series; no systemic therapy can be recommended from published evidence.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Distant metastases are present at diagnosis in about 37%, yet median survival is still around 182 months. Poor prognostic features: lung or multiorgan involvement, ascites with serosal metastasis, age over 55, male sex.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Fibrolamellar HCC</span>
+<span class="sm-brand">FLHCC — young patients, non-cirrhotic liver</span>
+<span class="sm-sum"><b>Surgical resection</b> · Biopsy to confirm</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv"><b>Biopsy should be performed to confirm the diagnosis</b> — but molecular analysis of the biopsy is not beneficial for guiding systemic therapy.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Surgical resection is the treatment of choice.</b> Where disease is limited to the liver but unresectable, transplant may be considered case by case.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv">Specialist oncology follow-up.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span><b>Neoadjuvant and adjuvant systemic therapy are not recommended</b> outside a clinical trial.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-immuno)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Hepatic angiosarcoma</span>
+<span class="sm-brand">rare, aggressive — under 1% of primary hepatic malignancy</span>
+<span class="sm-sum"><b>Resect if feasible</b> · Refer to a sarcoma centre</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">Varied appearance — multiple masses or a single heterogeneous one. Hypoenhancing on all postcontrast phases unless there is haemorrhage. Around 80% are over 50 years old, slight male predominance. The only known risk factors are thorium dioxide, vinyl chloride, arsenic and radiation.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Surgical resection whenever feasible.</b> Resection prolongs survival, though recurrence is frequent.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv">Sarcoma specialty centre.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>One-year survival is around <b>12.8%</b>. Adjuvant radiation and chemotherapy data are mixed and not recommended.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-immuno)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Metastatic disease</span>
+<span class="sm-brand">the commonest malignant lesion in a non-cirrhotic liver</span>
+<span class="sm-sum"><b>MRI with HBP contrast + DWI</b> · Work up the primary</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv"><b>MRI with a hepatocyte-specific contrast agent combined with diffusion-weighted imaging is the recommended modality.</b> Per-lesion sensitivity for precontrast, combined dynamic and delayed hepatobiliary imaging is 77.8%, 88.1% and 95.1% respectively. Contrast-enhanced CT reaches about 74%.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv">Directed by the primary. In a patient with a <b>known</b> extrahepatic primary, a new lesion found on staging is almost always a metastasis and does not need dedicated liver characterisation — proceed to staging and biopsy. In a patient with <b>no</b> known primary but suspicious imaging, work up to find it.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv">Per the primary tumour guidance.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Metastatic colorectal cancer is a special case: patients with unresectable liver-limited metastases meeting molecular criteria who have responded to chemotherapy for at least 6 months may be considered for <b>liver transplantation</b> at an experienced centre. Refer patients with HCC, cholangiocarcinoma, neuroendocrine tumours or metastatic colon cancer to a transplant centre <b>early in their course</b>.</div>
+</div>
+</details>
+</section>
+
+<section class="pane" id="p-hca">
+  <h2>Hepatocellular adenoma</h2>
+  <p class="lede">The lesion that generates most of the decisions. Benign, but with a risk of <b>haemorrhage up to 15%</b> and <b>malignant transformation up to 5%</b> — and both risks are concentrated in identifiable subgroups.</p>
+
+  <div class="notice"><b>Risk factors:</b> oral contraceptives, <b>anabolic steroids</b>, obesity and the metabolic syndrome, glycogen storage disease (types Ia and III especially), polycystic ovarian syndrome, and exogenous hormonal therapy in men, women and transgender individuals. Adenomas in glycogen storage disease present early — often in the second or third decade — with a 2:1 male predominance.</div>
+
+  <h3 class="sub">Management by group</h3>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Every patient with an adenoma</h4><p><b>Stop oral contraceptives and hormone-impregnated intrauterine devices</b> — strong recommendation. Stop anabolic steroids. Encourage weight loss if overweight or obese; regression follows hormone withdrawal and metabolic control in many cases.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Men — any size, any subtype</h4><p><b>Surgical resection regardless of lesion size.</b> Adenomas in men are commonly β-catenin mutated and carry roughly a tenfold higher risk of malignant transformation than in women. Biopsy is not advised before surgery, but should be done if the patient is not a surgical candidate and will need ablation or embolisation instead.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Women, lesion under 5 cm</h4><p>Stop exogenous hormones, advise weight loss. <b>Surveillance with contrast-enhanced imaging every 6 months for 2 years, then annually.</b> Routine biopsy for subtyping is <b>not</b> recommended in this group. Consider biopsy only if there is concern for β-catenin mutation — if positive, resect.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Women, lesion 5 cm or larger</h4><p>Modify risk factors and <b>observe for 6–12 months</b>. Repeat contrast-enhanced MRI at 6 months. If the lesion regresses below 5 cm, continue surveillance. <b>If it remains 5 cm or larger, resect</b> — or embolise if not a surgical candidate.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Any lesion growing by 20% or more</h4><p>Resection or definitive treatment. The 20% threshold is extrapolated from RECIST criteria. Any imaging feature suggesting malignancy warrants <b>immediate treatment without a period of observation</b>.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Imaging features concerning for malignant transformation</h4><p><b>Treat as hepatocellular carcinoma</b> — surgical resection, locoregional therapy, or transplantation. Warning signs: rapid increase in size, new intralesional lipid, and new washout on portal venous or delayed phases. AFP is unreliable here.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Unable to undergo surgery</h4><p><b>Embolisation or ablation</b> as alternatives. Embolisation carries a risk of incomplete eradication and possible need for retreatment, so it may serve as a bridge. Continue surveillance every 6–12 months after resection, embolisation or ablation.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Ruptured adenoma</h4><p><b>Haemodynamic stabilisation first, then transarterial embolisation and/or surgical resection.</b> Do not take an unstable patient straight to theatre. Established risk factors for rupture: size 5 cm or more, growth, and exophytic location. Residual adenoma after haemorrhage should be resected — laparoscopically if possible — because recurrent haemorrhage and growth remain a risk.</p></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Pregnancy</h4><p>Repeat <b>ultrasound every 6–12 weeks</b>. Lesions under 5 cm, non-exophytic, without growth can be monitored safely and <b>do not affect the mode of delivery</b>. Growth beyond <b>6.5 cm</b> or high-risk features for rupture warrant treatment: resection early in pregnancy, or embolisation before 26 weeks. Emergent surgery for rupture in the third trimester. Greatest risk is the third trimester. Before planned conception, consider treating lesions under 5 cm if high risk, and treat those 5 cm or larger.</p></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Adenomatosis — 10 or more lesions</h4><p>A distinct entity, usually on a background of steatosis or glycogen storage disease, commonly HNF-1α subtype. <b>Bleeding risk up to 46%</b> and malignancy in up to 7%. Unilobar disease: resection. Bilobar: focus on the largest or dominant lesion, or any lesion raising suspicion. Monitor at least annually. If glycogen storage disease is suspected, arrange genetic testing.</p></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Transplantation</h4><p>For patients meeting OPTN policy — particularly <b>glycogen storage disease</b>, unresectable β-catenin positive adenoma, or unresectable disease with complications of haemorrhage or malignant transformation.</p></div>
+
+  <h3 class="sub">Molecular subtypes</h3>
+  <p class="lede">MRI can subtype inflammatory and HNF-1α adenomas reliably. It <b>cannot</b> subtype β-catenin, sonic hedgehog or unclassified adenomas — which is precisely where the risk sits.</p>
+  <div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">Inflammatory <span class="pct">~35–45%</span></div>
+    <div class="pattern"><b>Risk factors:</b> Excess oestrogen, obesity, hepatic steatosis, heavy alcohol, glycogen storage disease<br><b>Complications:</b> Haemorrhage <b>low</b> · malignancy <b>moderate</b></div>
+    <div class="find-n">Marked T2 hyperintensity with the <b>atoll sign</b> — a T2-hyperintense rim with central isointensity. Lipid in 17%. Strong arterial and persistent portal venous enhancement. 11% are iso- to hyperintense on hepatobiliary phase.</div></div>
+<div class="find card" style="--ac:var(--c-tnf)">
+    <div class="find-t">HNF-1α inactivated <span class="pct">~35–40%</span></div>
+    <div class="pattern"><b>Risk factors:</b> Strong association with oral contraceptives and excess oestrogen; anabolic steroids; MODY3<br><b>Complications:</b> Haemorrhage <b>low</b> · malignancy <b>low</b></div>
+    <div class="find-n"><b>Intralesional fat in 78%</b> — signal drop on out-of-phase imaging is the giveaway. Iso to mildly T2 hyperintense. Modest arterial enhancement. Hypointense on hepatobiliary phase.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">β-catenin activated <span class="pct">exon 3 ~10%</span></div>
+    <div class="pattern"><b>Risk factors:</b> <b>Anabolic steroids, androgen therapy, male sex, glycogen storage disease</b><br><b>Complications:</b> Haemorrhage <b>low</b> · malignancy <b>HIGH — up to 46% with exon 3</b></div>
+    <div class="find-n">Heterogeneously T2 hyperintense, strong arterial enhancement with washout, may show a capsule. <b>MRI cannot reliably distinguish this from well-differentiated HCC.</b> 59% are iso- to hyperintense on hepatobiliary phase, which can mimic FNH.</div></div>
+<div class="find card" style="--ac:var(--c-s1p)">
+    <div class="find-t">Sonic hedgehog <span class="pct">&lt; 5%</span></div>
+    <div class="pattern"><b>Risk factors:</b> Exogenous hormonal stimuli and obesity<br><b>Complications:</b> Haemorrhage <b>HIGH</b> · malignancy <b>low</b></div>
+    <div class="find-n">No characteristic MRI features — not distinguishable by imaging.</div></div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">Unclassified <span class="pct">5–10%</span></div>
+    <div class="pattern"><b>Risk factors:</b> —<br><b>Complications:</b> Variable</div>
+    <div class="find-n">No characteristic MRI features.</div></div>
+
+  <div class="notice"><b>Biopsy</b> when the appearance is uncharacteristic, or when imaging features change in a way that raises concern for malignant transformation. If biopsy shows a β-catenin exon 3 mutation, or transformation to HCC, proceed to resection. If it confirms HNF-1α, inflammatory or another low-risk profile, continue surveillance. <b>Routine biopsy for subtyping is not advised for lesions under 5 cm in women</b> until prospective data support it.</div>
+  <div class="notice"><b>A pathology caveat.</b> Distinguishing β-catenin activated adenoma from well-differentiated HCC is difficult on histology as well as imaging. The three-marker panel of glypican-3, heat shock protein 70 and glutamine synthetase helps. Where pathology is indeterminate, the terms "atypical hepatocellular neoplasm" and "hepatocellular neoplasm of uncertain malignant potential" are used, and management is decided at the tumour board.</div>
+</section>
+
+<section class="pane searchable" id="p-cystic">
+  <details class="card" style="--ac:var(--c-integrin)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Simple hepatic cyst</span>
+<span class="sm-brand">thin-walled, bile duct epithelium, isotonic fluid</span>
+<span class="sm-sum"><b>No surveillance at any size</b> · Treat only if symptomatic</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">Ultrasound is diagnostic with 90% sensitivity and specificity: <b>homogeneously anechoic, through transmission, smooth margins</b>. On CT, no internal architecture, attenuation under <b>20 Hounsfield units</b>, no postcontrast enhancement. On MRI, T1 hypointense, T2 hyperintense, no enhancement, with decreasing intensity on high b-value diffusion. Up to 2.5–5% of simple cysts contain up to two septa and are still simple.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Expectant management regardless of size</b> — strong recommendation. No routine surveillance and no intervention for asymptomatic cysts, however large.<br><br>If <b>symptomatic</b>: surgical cyst fenestration (deroofing) or aspiration with sclerotherapy. Surgery has the lowest recurrence rate and allows histology. <b>Aspiration alone is not recommended</b> as definitive treatment — the recurrence rate is high, though it is useful to confirm the cyst is the cause of the symptoms.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv">None. After sclerotherapy, <b>do not repeat intervention within 6 months</b> — it can take that long to see maximum benefit — and no postintervention imaging is needed.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span><b>High-risk features on ultrasound mandate CT or MRI</b> (strong recommendation): septations, fenestrations, calcifications, mural thickening or nodularity, heterogeneity, or daughter cysts. These raise the possibility of infection, abscess, cystic metastasis, hydatid disease or mucinous cystic neoplasm.<br><br>Serum CA 19-9 is raised in up to 50% of patients with simple cysts and <b>does not help</b> distinguish benign from malignant; cyst fluid CA 19-9 is equally unhelpful.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-jak)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Complex hepatic cyst</span>
+<span class="sm-brand">anything not meeting simple criteria</span>
+<span class="sm-sum"><b>Multidisciplinary discussion</b> · Surveillance 6–12 months</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">Defined by what it is not. Any septation beyond two, fenestration, calcification, mural thickening or nodularity, heterogeneity or daughter cyst moves the lesion into this category.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Discussion at a multidisciplinary tumour board</b>, whatever the size and even if asymptomatic.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv"><b>Consider surveillance imaging at 6–12 months.</b></div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>The differential runs from entirely benign to frankly malignant: infected cyst, pyogenic abscess, cystic metastasis, hydatid cyst, and mucinous cystic neoplasm.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Polycystic liver disease</span>
+<span class="sm-brand">PCLD — at least 10 cysts</span>
+<span class="sm-sum"><b>No surveillance — no malignant potential</b> · Somatostatin analogues</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">At least 10 hepatic cysts with characteristics similar to simple cysts. Part of the ciliopathy spectrum. <b>Patients with ADPKD should have an abdominal ultrasound to screen for PCLD; patients with apparently isolated PCLD should have a kidney ultrasound to exclude ADPKD.</b> Genetic testing plays little role — the six known PCLD genes account for only 30–45% of cases — though it may help in young patients with few renal cysts.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Stop exogenous oestrogen</b> — oestrogen-containing contraceptives worsen PCLD, adding up to 15.5% higher height-adjusted liver volume per decade of use.<br><br>For <b>numerous small-to-medium cysts</b> not amenable to resection, fenestration or sclerotherapy — and for symptomatic ADPKD with concurrent PCLD — <b>somatostatin analogues</b> are a strong recommendation with moderate evidence. Lanreotide LAR 120 mg intramuscularly every 4 weeks reduced height-adjusted liver volume by nearly 6%, with most of the effect in the first 6 months.<br><br>Aspiration with sclerotherapy suits large dominant cysts. Surgical fenestration reduces volume and gives immediate relief but recurs in about 30%. Resection where fenestration will not work.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv"><b>Imaging surveillance is not recommended in asymptomatic patients</b> — there is no malignant potential.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span><b>Liver transplantation, with or without simultaneous kidney transplantation, is the only curative option</b> and has excellent long-term survival. Consider it for marked synthetic dysfunction, malnutrition, or significant impairment of quality of life. MELD exception points are available for hepatic decompensation, concurrent haemodialysis, GFR under 20, previous kidney transplant, documented moderate-to-severe protein-calorie malnutrition, or severe sarcopenia. mTOR inhibitors and ursodiol have not shown benefit.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-immuno)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Mucinous cystic neoplasm</span>
+<span class="sm-brand">MCN-L — formerly biliary cystadenoma</span>
+<span class="sm-sum"><b>Complete surgical resection</b> · Never aspirate to diagnose</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">Under 5% of cystic liver lesions, strong female predominance (4:1), fifth to sixth decade, 76% in the left lobe with a predilection for segment IV. <b>Does not communicate with the biliary tree</b> — which is what separates it from IPNB.<small>Septations are 95% sensitive. <b>Septations arising directly from the cyst wall are 100% specific</b>; mural calcifications are 90% specific; upstream biliary dilatation is highly specific. Enhancement of septations and mural nodularity is nearly 100% sensitive on MRI.</small></div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Complete surgical resection</b> — the gold standard, laparoscopic or open. Thick septations, fenestrations, nodularity, calcifications or mixed solid and cystic components require prompt evaluation for resection.<br><br><b>Aspiration, sclerosis, partial resection and fenestration are all contraindicated</b> — the recurrence rate is 81%.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv">For patients who are not surgical candidates, surveillance imaging should be implemented, although <b>no specific interval can be recommended</b>. Any change suggesting malignant degeneration goes to the tumour board.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span><b>Fluid aspiration and biopsy are not recommended</b> to distinguish benign from malignant — the sensitivity is too low. Malignant transformation risk is around 10% under current WHO criteria, down from the historical 20–30%.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-integrin)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Biliary hamartomas & peribiliary cysts</span>
+<span class="sm-brand">von Meyenburg complexes</span>
+<span class="sm-sum"><b>Benign malformations</b> · No surveillance</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv"><b>Hamartomas:</b> multiple cystic lesions that do not communicate with the biliary tree, usually under 1.5 cm, often peripheral, anywhere in the liver. They do not affect liver function tests.<br><b>Peribiliary cysts:</b> perihilar, under 1 cm, seen on both sides of the bile ducts as a <b>"string of pearls"</b> around the hilar portal veins — commonly in chronic liver disease or portal hypertension.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv">None.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv"><b>No surveillance imaging required.</b></div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Malignant transformation to intrahepatic cholangiocarcinoma or HCC is rare and confined to case reports, mostly in patients with underlying liver disease, congenital hepatic fibrosis or Caroli disease.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-immuno)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Intraductal papillary neoplasm of the bile duct</span>
+<span class="sm-brand">IPNB — the biliary analogue of pancreatic IPMN</span>
+<span class="sm-sum"><b>Premalignant</b> · Surveillance even after resection</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">A precursor to cholangiocarcinoma, but with a <b>much higher rate of malignant transformation than pancreatic IPMN — 40–80% harbour malignancy</b>. Median age 60–66, male-to-female 2:1. Presents with recurrent abdominal pain, cholangitis and jaundice. Risk factors: hepatolithiasis, clonorchiasis, primary sclerosing cholangitis, choledochal cysts, familial adenomatous polyposis and Gardner syndrome.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Surgical resection of the bile duct</b>, with or without associated hepatectomy depending on size, extent and invasiveness.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv"><b>Continued surveillance imaging is recommended even after surgical resection</b>, because of the high rate of undetected lesions remote from the main tumour — which are a source of recurrence.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Distinguished from MCN-L by biliary communication, the presence of intraductal masses and bile duct dilatation as a dominant feature.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Choledochal cysts</span>
+<span class="sm-brand">Todani types I–V · intrahepatic and extrahepatic</span>
+<span class="sm-sum"><b>Management by type</b> · Types I and IV carry malignant risk</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">Rare dilatations of the bile ducts, female predominance 4:1, more common in Asian populations. 80% present in the first decade but adult incidence is rising. Thought to arise from reflux of pancreatic enzymes through an <b>anomalous pancreaticobiliary junction</b>, which itself increases malignant risk. <b>MRI with MRCP</b> is the best modality — it detects the anomalous junction without instrumenting the biliary tree.<small>The classic triad of pain, jaundice and a palpable mass is rare; abdominal pain alone occurs in 60%.</small></div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Type I</b> — complete excision with hepaticoenterostomy<br><b>Type II</b> — cyst excision or diverticulectomy<br><b>Type III</b> — endoscopic sphincteroplasty or transduodenal excision<br><b>Type IV</b> — extrahepatic cyst excision with or without partial hepatectomy and hepaticoenterostomy, or transplantation<br><b>Type V (Caroli disease)</b> — resection or transplantation<br><br>In types IV and V, where resection is not feasible, <b>liver transplantation should be considered</b>.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv"><b>Continue surveillance after treatment for types I and IV</b> — the types most associated with malignancy — although a specific interval cannot be recommended. Types II, III and V need no surveillance after definitive treatment.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span>Malignancy risk overall 7.5–30%, under 1% in young children but <b>30–40% over the age of 50</b> — it rises with each decade. Most commonly cholangiocarcinoma (~70%), then gallbladder cancer (23.5%). Type V should be distinguished from <b>Caroli syndrome</b>, which adds congenital hepatic fibrosis and kidney cysts.</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-steroid)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Hydatid / echinococcal cyst</span>
+<span class="sm-brand">WHO-IWGE classification CE1–CE5</span>
+<span class="sm-sum"><b>Antihelminthic before any puncture</b> · Surgery if complicated</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Diagnosis</div><div class="rv">Classified by ultrasound appearance:<br><b>CE1</b> univesicular fluid collection — active<br><b>CE2</b> multivesicular with daughter cysts or septa, honeycomb — active<br><b>CE3A</b> detached membrane, the <b>water lily sign</b> — transitional<br><b>CE3B</b> daughter cysts in a solid matrix — transitional<br><b>CE4</b> heterogeneous matrix, no daughter cysts, "wool clew" — inactive<br><b>CE5</b> solid matrix with a calcified wall — inactive</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>CE1 and CE3A:</b> under 5 cm — albendazole alone; over 5 cm — <b>PAIR</b> (puncture, aspiration, injection of a scolicidal agent, reaspiration) plus albendazole.<br><b>CE2 and CE3B:</b> catheterisation or surgery plus albendazole.<br><b>CE4 and CE5:</b> watch and wait.<br><br><b>Complicated cysts go to surgery</b> — biliary fistula or communication with the biliary tree, multiseptated cysts, rupture or haemorrhage, secondary infection, or percutaneously inaccessible cysts — provided there is no contraindication.</div></div>
+<div class="row"><div class="rk">Follow-up</div><div class="rv">Surveillance if not resectable.</div></div>
+</div>
+<div class="safety"><span class="sh">Worth knowing</span><b>Antihelminthic therapy is indicated before surgery or cyst puncture</b> — to prevent recurrence and secondary seeding, and to reduce cyst pressure. <b>Medical therapy alone is not recommended</b> because it is ineffective, unless PAIR and surgery are both contraindicated.</div>
+</div>
+</details>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>Quick answers</h2>
+  <p class="lede">The questions this guideline settles most decisively.</p>
+  <div class="tdm">
+    <div class="r"><div class="ag">Does a confirmed haemangioma need follow-up?</div>
+      <div class="kv"><span>Answer</span><span><b>No</b> — unless there is cirrhosis or chronic hepatitis B, where surveillance every 3–6 months for at least a year is a strong recommendation.</span></div></div>
+    <div class="r"><div class="ag">Does a confirmed FNH need follow-up?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> And do not stop the oral contraceptive, and do not treat men differently.</span></div></div>
+    <div class="r"><div class="ag">Should a large asymptomatic haemangioma be resected?</div>
+      <div class="kv"><span>Answer</span><span><b>No</b> — not even over 10 cm. Resection is only for complications.</span></div></div>
+    <div class="r"><div class="ag">Does an asymptomatic simple cyst need surveillance?</div>
+      <div class="kv"><span>Answer</span><span><b>No, at any size.</b> Strong recommendation.</span></div></div>
+    <div class="r"><div class="ag">Does a man with an adenoma need resection?</div>
+      <div class="kv"><span>Answer</span><span><b>Yes, regardless of size</b> — the β-catenin association makes malignant transformation roughly tenfold more likely than in women.</span></div></div>
+    <div class="r"><div class="ag">Can I aspirate a cyst to find out if it is a mucinous neoplasm?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> Sensitivity is too low, and partial procedures on an MCN-L carry an 81% recurrence rate. Resect it.</span></div></div>
+    <div class="r"><div class="ag">Is CA 19-9 useful in a liver cyst?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> Raised in up to 50% of simple cysts, in serum and in cyst fluid.</span></div></div>
+    <div class="r"><div class="ag">Does polycystic liver disease need surveillance imaging?</div>
+      <div class="kv"><span>Answer</span><span><b>No</b> in asymptomatic patients — there is no malignant potential.</span></div></div>
+  </div>
+
+  <h3 class="sub">About this page</h3>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Built from the ACG clinical guideline on focal liver lesions. It covers lesions in people <b>without known liver disease</b> — if cirrhosis is present, the AASLD HCC guidance and LI-RADS apply instead.</div>
+  <div class="notice"><b>The recurring instruction in this guideline</b> is to take inadequately characterised or atypical lesions to a multidisciplinary liver tumour board. It appears as a key concept and then again for hepatic adenoma, haemangioma, complex cysts and mucinous cystic neoplasms. Where this page says "discuss", that is the guideline speaking, not hedging.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>APBJ</b> — anomalous pancreaticobiliary junction</div>
+    <div><b>CEUS</b> — contrast-enhanced ultrasound</div>
+    <div><b>FLL</b> — focal liver lesion</div>
+    <div><b>FLHCC</b> — fibrolamellar hepatocellular carcinoma</div>
+    <div><b>FNH</b> — focal nodular hyperplasia</div>
+    <div><b>HBP</b> — hepatobiliary phase</div>
+    <div><b>HCA</b> — hepatocellular adenoma</div>
+    <div><b>HEHE</b> — hepatic epithelioid haemangioendothelioma</div>
+    <div><b>HNF-1α</b> — hepatocyte nuclear factor 1-alpha</div>
+    <div><b>IPNB</b> — intraductal papillary neoplasm of the bile duct</div>
+    <div><b>MCN-L</b> — mucinous cystic neoplasm of the liver</div>
+    <div><b>OATP1B3</b> — organic anion transporting polypeptide 1B3</div>
+    <div><b>PAIR</b> — puncture, aspiration, injection of scolicidal agent, reaspiration</div>
+    <div><b>PCLD</b> — polycystic liver disease</div>
+  </div>
+  <h3 class="sub">Source</h3>
+  <p class="lede">Frenette C, Mendiratta-Lala M, Salgia R, Wong RJ, Sauer BG, Pillai A. <b>ACG Clinical Guideline: Focal Liver Lesions.</b> Am J Gastroenterol 2024;119:1235–1271. Built directly from that document — its 18 recommendations, 51 key concepts, the two management flowcharts, and the adenoma subtype tables. Content current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-approach"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Approach</label>
+  <label for="t-solid"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Solid</label>
+  <label for="t-hca"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Adenoma</label>
+  <label for="t-cystic"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.4A6 6 0 0 1 6 13.4C6 9.4 12 3 12 3z"/></svg>Cystic</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Answers</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),
+      cards=document.querySelectorAll('.searchable .card'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>
