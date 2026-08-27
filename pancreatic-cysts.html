@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pancreatic Cysts">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Pancreatic Cystic Lesions</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-type:checked ~ main #p-type,
+#t-fluid:checked ~ main #p-fluid,
+#t-risk:checked ~ main #p-risk,
+#t-surv:checked ~ main #p-surv,
+#t-surg:checked ~ main #p-surg,
+#t-info:checked ~ main #p-info{display:block}
+#t-type:checked ~ .tabbar label[for="t-type"],
+#t-fluid:checked ~ .tabbar label[for="t-fluid"],
+#t-risk:checked ~ .tabbar label[for="t-risk"],
+#t-surv:checked ~ .tabbar label[for="t-surv"],
+#t-surg:checked ~ .tabbar label[for="t-surg"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-fluid:checked ~ .topbar .filters,
+#t-risk:checked ~ .topbar .filters,
+#t-surv:checked ~ .topbar .filters,
+#t-surg:checked ~ .topbar .filters,
+#t-info:checked ~ .topbar .filters{display:none}
+
+.pattern{font-size:12.5px;color:var(--ink-2);margin-top:9px;padding:9px 11px;border-radius:9px;
+  background:var(--card2);border:1px solid var(--ring);line-height:1.55}
+.pattern b{color:var(--ink-1)}
+.find{padding:13px 14px}
+.find-t{font-size:14.5px;font-weight:650;line-height:1.4;letter-spacing:-.01em}
+.find-n{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:10px}
+.find.miss,.card.miss{display:none !important}
+.src{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ac);border:1px solid var(--ac);border-radius:4px;padding:1px 5px;
+  margin-left:6px;vertical-align:2px;white-space:nowrap}
+.risk ul{padding-top:10px}
+.rv small{display:block;color:var(--ink-2);font-size:12px;margin-top:6px;
+  padding-left:10px;border-left:2px solid var(--rule)}
+@media (min-width:900px){
+  #p-type,#p-fluid,#p-risk,#p-surv,#p-surg{column-count:2;column-gap:14px}
+  #p-type .card,#p-type .notice,#p-fluid .find,#p-fluid .notice,#p-fluid .risk,
+  #p-risk .blk,#p-risk .risk,#p-risk .notice,#p-surv .find,#p-surv .notice,#p-surv .blk,
+  #p-surg .blk,#p-surg .notice{break-inside:avoid;-webkit-column-break-inside:avoid}
+  #p-fluid h3.sub,#p-risk h3.sub,#p-surv h3.sub,#p-surg h3.sub{column-span:all}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-type" class="ctl" checked>
+<input type="radio" name="tab" id="t-fluid" class="ctl">
+<input type="radio" name="tab" id="t-risk" class="ctl">
+<input type="radio" name="tab" id="t-surv" class="ctl">
+<input type="radio" name="tab" id="t-surg" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Pancreatic Cysts</div>
+    <div class="tb-note">Kyoto 2024</div>
+  </div>
+  <div class="filters">
+  <div class="srch js-only">
+    <input id="q" type="search" placeholder="Search cyst type, marker, feature…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="qclr" type="button" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="hint"><span id="cnt"></span> Searches the cyst type cards</div>
+</div>
+</header>
+
+<main>
+
+<section class="pane searchable" id="p-type">
+  <div class="notice"><b>Start with the type, not the size.</b> Imaging alone gets the cyst type right only 40–50% of the time, and benign versus malignant only 55–76%. The type determines whether size even matters — a 4 cm serous cystadenoma needs nothing, a 2 cm main-duct IPMN needs a surgeon.</div>
+  <div class="notice"><b>MRI with MRCP is the imaging of choice</b> — no radiation, and it shows communication with the pancreatic duct, which is the single most useful discriminating feature. CT and EUS are good alternatives where MRI is not possible.</div>
+  <details class="card" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Branch-duct IPMN</span>
+<span class="sm-brand">the commonest incidental cyst — mucinous, premalignant</span>
+<span class="sm-sum"><b>Communicates with the duct</b> · Surveillance by size</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Who</div><div class="rv">Both sexes, typically 60s–70s. Anywhere, but often head and uncinate. Frequently multifocal — which is a feature of the disease, not multiple diseases.</div></div>
+<div class="row"><div class="rk">Imaging</div><div class="rv"><b>Communication with the pancreatic duct</b> is the defining feature and the reason MRCP is the imaging of choice. Classically a "cluster of grapes" — a multilocular cyst without a thick wall. Main duct is normal or under 5 mm.</div></div>
+<div class="row"><div class="rk">Cyst fluid</div><div class="rv">CEA <b>high</b> · glucose <b>low</b> · amylase <b>high</b> (because it communicates with the duct) · <b>KRAS and GNAS</b> mutations — GNAS is essentially specific for IPMN.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv">Risk-stratify against high-risk stigmata and worrisome features, then surveil or resect. This is the lesion the whole Risk and Surveillance tabs are about.</div></div>
+</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-immuno)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Main-duct IPMN</span>
+<span class="sm-brand">main duct dilatation without another cause</span>
+<span class="sm-sum"><b>Malignancy risk 33–85%</b> · Resect if fit</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Who</div><div class="rv">Both sexes, 60s–70s. Segmental or diffuse.</div></div>
+<div class="row"><div class="rk">Imaging</div><div class="rv"><b>Main pancreatic duct ≥ 5 mm</b> with no obstructing cause. A duct of <b>≥ 10 mm</b> is a high-risk stigma on its own. Look for a patulous papilla oozing mucin at endoscopy — pathognomonic.</div></div>
+<div class="row"><div class="rk">Cyst fluid</div><div class="rv">As for branch-duct IPMN, though fluid analysis rarely changes the plan here.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Resection if the patient is fit for surgery</b> — European guidelines and Kyoto agree. The malignancy risk is an order of magnitude above branch-duct disease. <b>Mixed-type carries the same risk as main-duct and is managed the same way.</b></div></div>
+</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-il23)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Mucinous cystic neoplasm</span>
+<span class="sm-brand">MCN — ovarian-type stroma, premalignant</span>
+<span class="sm-sum"><b>Almost always women</b> · Resect if ≥ 4 cm or any risk feature</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Who</div><div class="rv"><b>Over 95% women</b>, typically 40s–50s. <b>Body and tail</b> in about 95%. Usually solitary.</div></div>
+<div class="row"><div class="rk">Imaging</div><div class="rv">A single unilocular or few-locular cyst with a thick wall, sometimes with <b>peripheral eggshell calcification</b> — which is highly suggestive and also associated with malignancy. <b>No communication with the pancreatic duct</b> — this is what separates it from IPMN.</div></div>
+<div class="row"><div class="rk">Cyst fluid</div><div class="rv">CEA <b>high</b> · glucose <b>low</b> · amylase <b>low</b> (no ductal communication) · KRAS, but <b>GNAS negative</b>.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv">European guidance: <b>resect if ≥ 40 mm</b>, or at any size with risk features or symptoms. Under 40 mm without risk features can be followed. Between 30 and 40 mm, weigh age, comorbidity and preference. Surveillance: 6-monthly for a year, then annually.<br><br><b>Once resected without cancer, no further surveillance is needed</b> — unlike IPMN.</div></div>
+</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-integrin)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Serous cystadenoma</span>
+<span class="sm-brand">SCA — benign, almost never needs anything</span>
+<span class="sm-sum"><b>Benign</b> · Symptom-based follow-up after 1 year</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Who</div><div class="rv">Women more than men, 60s. Anywhere.</div></div>
+<div class="row"><div class="rk">Imaging</div><div class="rv"><b>Microcystic honeycomb</b> of many small cysts, often with a <b>central stellate scar and calcification</b>. A macrocystic variant exists and is the one mistaken for a mucinous cyst. No ductal communication.</div></div>
+<div class="row"><div class="rk">Cyst fluid</div><div class="rv">CEA <b>low</b> (typically under 5 ng/mL) · <b>glucose high</b> · amylase low · <b>VHL</b> mutation, no KRAS or GNAS.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Benign, with near-zero malignant potential.</b> Once the diagnosis is confident, European guidance recommends confirming at 1 year and then <b>symptom-based follow-up only</b>. Surgery only for symptomatic compression. ACG: no follow-up needed after resection.</div></div>
+</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-immuno)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Solid pseudopapillary neoplasm</span>
+<span class="sm-brand">SPN — low-grade malignant, young women</span>
+<span class="sm-sum"><b>Resect all</b> · 5 years of follow-up</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Who</div><div class="rv"><b>Young women, 20s–30s.</b> Any location.</div></div>
+<div class="row"><div class="rk">Imaging</div><div class="rv">A well-encapsulated mass with <b>mixed solid and cystic components and haemorrhagic degeneration</b> — the haemorrhage is characteristic.</div></div>
+<div class="row"><div class="rk">Cyst fluid</div><div class="rv">Cytology is usually diagnostic. β-catenin mutation.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv"><b>Radical resection for all</b>, regardless of size — and an aggressive surgical approach even with advanced disease, because outcomes after complete resection are excellent. ACG: <b>yearly follow-up for at least 5 years</b> after resection.</div></div>
+</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-steroid)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Cystic neuroendocrine tumour</span>
+<span class="sm-brand">the mimic that is often missed</span>
+<span class="sm-sum"><b>Not a benign cyst</b> · Treat as a NET</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Who</div><div class="rv">Any age or sex. Consider MEN1 in younger or multifocal cases.</div></div>
+<div class="row"><div class="rk">Imaging</div><div class="rv">A <b>hypervascular enhancing rim</b> with a cystic centre, no ductal communication. Arterial-phase enhancement is the clue that this is not a mucinous cyst.</div></div>
+<div class="row"><div class="rk">Cyst fluid</div><div class="rv">Chromogranin A and synaptophysin on cytology. CEA low.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv">Managed as a neuroendocrine tumour, not as a pancreatic cyst — staging, grading and resection decisions follow NET guidance.</div></div>
+</div>
+</div>
+</details>
+<details class="card" style="--ac:var(--c-tnf)">
+<summary>
+<span class="sm-dot"></span>
+<span class="sm-main">
+<span class="sm-name">Pseudocyst</span>
+<span class="sm-brand">inflammatory, not neoplastic</span>
+<span class="sm-sum"><b>History of pancreatitis</b> · Amylase very high</span>
+</span>
+<span class="chev" aria-hidden="true"></span>
+</summary>
+<div class="body">
+<div class="rows">
+<div class="row"><div class="rk">Who</div><div class="rv">A history of acute or chronic pancreatitis, or of pancreatic trauma. Without that history, question the diagnosis.</div></div>
+<div class="row"><div class="rk">Imaging</div><div class="rv">A unilocular collection with a well-defined non-epithelialised wall, at least 4 weeks after an episode of pancreatitis. May communicate with the duct.</div></div>
+<div class="row"><div class="rk">Cyst fluid</div><div class="rv"><b>Amylase very high</b> · CEA <b>low</b> · glucose high. <b>Amylase under 250 U/L excludes a pseudocyst in 98% of cases</b> — a genuinely useful rule-out.</div></div>
+<div class="row"><div class="rk">Management</div><div class="rv">Drain only if symptomatic, infected or causing obstruction. Most resolve. The trap is labelling a mucinous neoplasm a pseudocyst on the basis of a remote or unconvincing history of pancreatitis.</div></div>
+</div>
+</div>
+</details>
+</section>
+
+<section class="pane" id="p-fluid">
+  <h2>Cyst fluid &amp; EUS-FNA</h2>
+  <p class="lede">Aspirate only when the result would <b>change what you do</b>. A cyst already destined for surgery, and a cyst in a patient who would never have surgery, both fail that test.</p>
+
+  <div class="risk" style="--bc:var(--c-tnf)">
+    <div class="risk-h">When to do EUS ± FNA</div>
+    <ul>
+      <li>The diagnosis is unclear and the result would alter management</li>
+      <li>Any concerning feature — mural nodule, solid component, main duct &gt; 5 mm, size ≥ 3 cm, jaundice, cyst-related pancreatitis, raised CA 19-9<small>Kyoto: EUS is specifically recommended when there is suspicion of high-grade dysplasia or invasive cancer</small></li>
+      <li>To obtain cytology when imaging alone is not enough to justify surgery</li>
+    </ul>
+  </div>
+  <div class="notice"><b>Do not aspirate</b> a cyst that already meets criteria for resection, a confidently diagnosed serous cystadenoma, or a cyst in someone who is not a surgical candidate. Also weigh the small but real risks — pancreatitis, bleeding, infection.</div>
+
+  <h3 class="sub">What each test tells you</h3>
+  <div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Glucose &lt; 50 mg/dL</div>
+    <div class="pattern"><b>Mucinous — the best single test</b></div>
+    <div class="find-n"><b>Sensitivity 93%, specificity 89%</b> for distinguishing mucinous from non-mucinous. Outperforms CEA, costs almost nothing, and can be run on a bedside glucometer with a tiny volume. If you order one fluid test, order this one.</div></div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">CEA &gt; 192 ng/mL</div>
+    <div class="pattern"><b>Mucinous — the traditional test</b></div>
+    <div class="find-n">Sensitivity only 58–63%, specificity 87–93%. Levels above 800 ng/mL push specificity beyond 95%. <b>CEA cannot identify dysplasia or cancer</b> — a high CEA says "mucinous", not "malignant", and a low CEA does not exclude malignancy.</div></div>
+<div class="find card" style="--ac:var(--c-tnf)">
+    <div class="find-t">Amylase &lt; 250 U/L</div>
+    <div class="pattern"><b>Excludes a pseudocyst</b></div>
+    <div class="find-n">Excludes pseudocyst in <b>98%</b> of cases. High amylase indicates ductal communication — expected in IPMN and pseudocyst, not in MCN or serous cystadenoma.</div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">KRAS and/or GNAS mutation</div>
+    <div class="pattern"><b>Mucinous — molecular</b></div>
+    <div class="find-n"><b>Sensitivity 79%, specificity 98%.</b> <b>GNAS is essentially specific for IPMN</b> and helps separate it from MCN. Useful when the diagnosis would change management and imaging plus routine fluid analysis has not settled it.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">TP53, SMAD4, CDKN2A or PIK3CA</div>
+    <div class="pattern"><b>Advanced neoplasia</b></div>
+    <div class="find-n">Sensitivity only 9–39% but <b>specificity 92–98%</b>. A positive result is meaningful; a negative one is not reassuring. These point to high-grade dysplasia or invasive cancer rather than merely to a mucinous lesion.</div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">Cytology</div>
+    <div class="pattern"><b>The only test that grades</b></div>
+    <div class="find-n">The only fluid test that can demonstrate <b>high-grade dysplasia or carcinoma</b>. Low sensitivity because of scant cellularity, but a positive result is a high-risk stigma in its own right and mandates surgery.</div></div>
+
+  <div class="notice"><b>The distinction that matters most</b> is mucinous versus non-mucinous, because only mucinous cysts — IPMN and MCN — are premalignant. <b>Glucose has largely replaced CEA</b> as the first-line fluid test: better sensitivity, negligible cost, tiny volume. CEA remains useful as a confirmatory second marker.</div>
+</section>
+
+<section class="pane" id="p-risk">
+  <h2>Risk features</h2>
+  <p class="lede">Three guidelines, three vocabularies, largely overlapping content. Kyoto's two-tier system is the international standard for IPMN; the European absolute-versus-relative framing is the most useful when talking to a surgeon.</p>
+
+  <h3 class="sub">Kyoto 2024 — high-risk stigmata</h3>
+  <div class="risk" style="--bc:var(--c-immuno)">
+    <div class="risk-h">Any one → surgery, after excluding mimics</div>
+    <ul><li>Obstructive jaundice with a cystic lesion in the pancreatic head</li><li>Enhancing mural nodule <b>≥ 5 mm</b>, or a solid component<small>Measured on contrast-enhanced EUS or MRI</small></li><li>Main pancreatic duct <b>≥ 10 mm</b></li><li>Suspicious or positive cytology<small>If FNA was performed</small></li></ul>
+  </div>
+
+  <h3 class="sub">Kyoto 2024 — worrisome features</h3>
+  <div class="risk" style="--bc:var(--c-jak)">
+    <div class="risk-h">Any one → EUS and multidisciplinary assessment</div>
+    <ul><li>Acute pancreatitis attributable to the cyst</li><li>Elevated serum CA 19-9<small>Without another explanation</small></li><li>New-onset diabetes, or acute worsening within the past year<small>A Kyoto addition — worth asking about directly</small></li><li>Cyst size <b>≥ 30 mm</b></li><li>Enhancing mural nodule <b>&lt; 5 mm</b></li><li>Thickened or enhancing cyst walls</li><li>Main pancreatic duct <b>5–9 mm</b></li><li>Abrupt change in duct calibre with distal parenchymal atrophy</li><li>Lymphadenopathy</li><li>Growth rate <b>≥ 2.5 mm/year</b><small>Kyoto lowered this from 5 mm/year</small></li></ul>
+  </div>
+  <div class="notice"><b>Worrisome features are cumulative.</b> One in an elderly comorbid patient may justify continued surveillance; two or three in a fit patient shift the balance decisively toward resection. Kyoto explicitly invokes nomograms and multidisciplinary judgement rather than a fixed count.</div>
+
+  <h3 class="sub">How the three frameworks compare</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Kyoto 2024 — international consensus</h4><p><b>High-risk stigmata → surgery</b> after excluding mimics. <b>Worrisome features → EUS</b>, nomogram assessment, then surveillance or surgery by clinical judgement. Neither → surveillance by size.</p>
+    <p style="margin-top:9px;color:var(--ink-3)">The current international standard for IPMN, replacing the 2017 Fukuoka revision. Notable changes: new-onset diabetes added as a worrisome feature, and the growth-rate threshold lowered to 2.5 mm/year.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>ACG 2018 — concerning features</h4><p>Jaundice · acute pancreatitis from the cyst · raised CA 19-9 · mural nodule or solid component · <b>main duct &gt; 5 mm</b> · change in duct calibre with upstream atrophy · <b>size ≥ 3 cm</b> · growth <b>≥ 3 mm/year</b> · high-grade dysplasia or cancer on cytology.</p>
+    <p style="margin-top:9px;color:var(--ink-3)">A single flat list rather than two tiers. Any concerning feature prompts EUS ± FNA and multidisciplinary referral. Note the main-duct threshold is 5 mm rather than Kyoto's two-tier 5–9 and ≥ 10.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>European 2018 — absolute vs relative</h4><p><b>Absolute indications for surgery:</b> positive cytology for malignancy or high-grade dysplasia · solid mass · tumour-related jaundice · enhancing mural nodule ≥ 5 mm · main duct ≥ 10 mm.<br><br><b>Relative indications:</b> growth ≥ 5 mm/year · CA 19-9 &gt; 37 U/mL · main duct 5–9.9 mm · cyst ≥ 40 mm · new-onset diabetes · acute pancreatitis · enhancing mural nodule &lt; 5 mm.</p>
+    <p style="margin-top:9px;color:var(--ink-3)">The cleanest framing for a surgical conversation: absolute indications operate, relative indications trigger a weighted discussion — and two or more relative indications shift most patients toward resection.</p></div>
+</section>
+
+<section class="pane" id="p-surv">
+  <h2>Surveillance intervals</h2>
+  <p class="lede">For presumed branch-duct IPMN or MCN with <b>no</b> high-risk stigmata and no worrisome features. Any risk feature moves the patient out of these schedules and into EUS and multidisciplinary assessment.</p>
+  <div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">&lt; 20 mm <span class="src">Kyoto</span></div>
+    <div class="pattern">At 6 months once, then <b>every 18 months</b></div></div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">20–29 mm <span class="src">Kyoto</span></div>
+    <div class="pattern">At 6 months twice, then <b>every 12 months</b></div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">≥ 30 mm <span class="src">Kyoto</span></div>
+    <div class="pattern"><b>Every 6 months</b></div></div>
+<div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">&lt; 1 cm <span class="src">ACG</span></div>
+    <div class="pattern">MRI <b>every 2 years for 4 years</b>, then lengthen if stable</div></div>
+<div class="find card" style="--ac:var(--c-jak)">
+    <div class="find-t">1–2 cm <span class="src">ACG</span></div>
+    <div class="pattern">MRI <b>annually for 3 years</b>, then lengthen if stable</div></div>
+<div class="find card" style="--ac:var(--c-il23)">
+    <div class="find-t">2–3 cm <span class="src">ACG</span></div>
+    <div class="pattern">MRI <b>alternating with EUS every year for 4 years</b></div></div>
+<div class="find card" style="--ac:var(--c-immuno)">
+    <div class="find-t">&gt; 3 cm <span class="src">ACG</span></div>
+    <div class="pattern">MRI or EUS <b>every 6–12 months for 3 years</b></div></div>
+<div class="find card" style="--ac:var(--c-tnf)">
+    <div class="find-t">Any size, IPMN <span class="src">European</span></div>
+    <div class="pattern"><b>6-monthly in the first year, then annually.</b> Stay 6-monthly if there is a relative indication for surgery</div></div>
+<div class="find card" style="--ac:var(--c-tnf)">
+    <div class="find-t">MCN &lt; 40 mm <span class="src">European</span></div>
+    <div class="pattern"><b>6-monthly for the first year, then annually</b> if unchanged</div></div>
+  <div class="notice"><b>MRI with MRCP is the surveillance modality</b> across all three guidelines — no radiation over what may be decades of imaging, and the best view of the duct. EUS is added when a mural nodule needs characterising.</div>
+  <div class="notice"><b>The schedules differ more in style than in substance.</b> Kyoto front-loads with early repeat imaging then lengthens; ACG sets fixed blocks of years and then lengthens if stable; Europe uses a simple 6 months then annual. Pick the one your service has adopted and apply it consistently — switching between them mid-surveillance is how intervals get lost.</div>
+
+  <h3 class="sub">When surveillance can stop</h3>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Stable branch-duct IPMN under 20 mm after 5 years</h4><p>Kyoto permits <b>either</b> stopping or continuing — no morphological change and no worrisome features after five years of surveillance. The argument for continuing is the separate risk of <b>concomitant pancreatic ductal adenocarcinoma arising elsewhere in the gland</b>, which is independent of the cyst itself and does not disappear with time.</p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>No longer a surgical candidate</h4><p><b>Stop.</b> ACG is explicit: surveillance should be discontinued if the patient would not undergo surgery whatever is found. Continuing generates anxiety, cost and incidental findings with no possible benefit. This is the most commonly ignored recommendation in the whole area.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Age over 75</h4><p>ACG suggests it is reasonable to reassess the utility of surveillance. Between 76 and 85, individualise. The question is not the age but whether the patient would accept and survive a pancreatectomy.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Serous cystadenoma</h4><p>Confirm the diagnosis at 1 year, then <b>symptom-based follow-up only</b>.</p></div>
+</section>
+
+<section class="pane" id="p-surg">
+  <h2>Surgery &amp; after</h2>
+
+  <div class="blk bl" style="--bc:var(--c-immuno)"><h4>Resect</h4>
+    <p>Any <b>high-risk stigma</b> or <b>absolute indication</b>. All <b>main-duct and mixed-type IPMN</b> in a fit patient. All <b>solid pseudopapillary neoplasms</b>. <b>MCN ≥ 40 mm</b>, or smaller with risk features or symptoms. Any cyst with positive cytology for high-grade dysplasia or carcinoma.</p></div>
+  <div class="blk bl" style="--bc:var(--c-jak)"><h4>Discuss</h4>
+    <p>Worrisome features or relative indications — weigh number of features, age, comorbidity, life expectancy, the operative risk of the specific resection, and the patient's own preference. A distal pancreatectomy in a fit 55-year-old and a Whipple in a frail 80-year-old are not the same conversation.</p></div>
+  <div class="blk bl" style="--bc:var(--c-integrin)"><h4>Do not operate</h4>
+    <p>Confident serous cystadenoma without symptoms. Pseudocyst without complications. Any cyst in a patient unfit for pancreatic surgery — and in that case, <b>stop surveillance too</b>.</p></div>
+  <div class="notice"><b>Before committing to surgery</b>, Kyoto asks explicitly for counselling about intraoperative margin assessment and the possibility of proceeding to <b>total pancreatectomy</b> — a conversation that has to happen before the anaesthetic, not during it.</div>
+
+  <h3 class="sub">After resection</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Resected IPMN</h4><p><b>All resected IPMN require postoperative surveillance</b> — remnant gland recurrence and metachronous lesions are well described, including after negative margins.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Resected MCN without cancer</h4><p><b>No postoperative surveillance needed.</b> Complete resection is curative.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Serous cystadenoma, pseudocyst, other benign cyst</h4><p><b>No follow-up required.</b></p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Solid pseudopapillary neoplasm</h4><p><b>Yearly follow-up for at least 5 years.</b></p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Invasive carcinoma in any cyst</h4><p>Oncological follow-up per pancreatic cancer protocols.</p></div>
+
+  <h3 class="sub">Two things these guidelines exclude</h3>
+  <div class="notice"><b>Familial pancreatic cancer and known germline mutations.</b> The ACG guideline states plainly that it does not apply to patients with a strong family history of pancreatic cancer or a predisposing genetic mutation — BRCA1/2, PALB2, ATM, CDKN2A, STK11, Lynch syndrome, hereditary pancreatitis. Those patients follow dedicated high-risk surveillance protocols, usually annual EUS and MRI at a specialist centre, and a cyst in that setting is interpreted quite differently.</div>
+  <div class="notice"><b>Concomitant pancreatic cancer.</b> Patients with IPMN carry an elevated risk of ductal adenocarcinoma arising <b>elsewhere in the gland</b>, separate from the cyst. It is the main argument for continuing surveillance in cysts that have been stable for years, and the reason a new symptom in a patient with a known stable cyst deserves fresh imaging rather than reassurance.</div>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>Quick answers</h2>
+  <div class="tdm">
+    <div class="r"><div class="ag">Which single cyst fluid test should I order?</div>
+      <div class="kv"><span>Answer</span><span><b>Glucose.</b> Under 50 mg/dL means mucinous — 93% sensitive, 89% specific, better than CEA, and it runs on a glucometer.</span></div></div>
+    <div class="r"><div class="ag">Does a high CEA mean cancer?</div>
+      <div class="kv"><span>Answer</span><span><b>No.</b> It means mucinous. CEA cannot grade dysplasia at all — only cytology can.</span></div></div>
+    <div class="r"><div class="ag">Which feature distinguishes IPMN from MCN?</div>
+      <div class="kv"><span>Answer</span><span><b>Communication with the pancreatic duct</b> — present in IPMN, absent in MCN. Hence high amylase in IPMN, low in MCN. GNAS mutation also favours IPMN.</span></div></div>
+    <div class="r"><div class="ag">A woman in her 40s with a single thick-walled cyst in the tail?</div>
+      <div class="kv"><span>Answer</span><span><b>MCN until proven otherwise</b> — over 95% are women and about 95% are in the body or tail.</span></div></div>
+    <div class="r"><div class="ag">Does main-duct IPMN need surgery?</div>
+      <div class="kv"><span>Answer</span><span><b>Yes if the patient is fit</b> — malignancy risk is far above branch-duct disease. Mixed-type is treated the same.</span></div></div>
+    <div class="r"><div class="ag">Does a resected MCN need follow-up?</div>
+      <div class="kv"><span>Answer</span><span><b>No</b>, if there was no invasive cancer. Resected <b>IPMN always does</b>.</span></div></div>
+    <div class="r"><div class="ag">Can I stop surveillance on a stable small cyst?</div>
+      <div class="kv"><span>Answer</span><span>Kyoto allows stopping a stable branch-duct IPMN under 20 mm after 5 years — or continuing, because of the separate risk of cancer elsewhere in the gland. <b>Definitely stop if the patient would not have surgery.</b></span></div></div>
+    <div class="r"><div class="ag">What changed in Kyoto 2024?</div>
+      <div class="kv"><span>Answer</span><span><b>New-onset or worsening diabetes</b> became a worrisome feature, and the <b>growth threshold dropped to 2.5 mm/year</b> from 5. Surveillance was restructured into three size bands.</span></div></div>
+  </div>
+
+  <h3 class="sub">About this page</h3>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults with incidentally detected pancreatic cystic lesions. <b>Does not apply</b> to patients with a strong family history of pancreatic cancer or a known predisposing germline mutation — they follow dedicated high-risk protocols.</div>
+  <div class="notice"><b>Why three guidelines are shown.</b> Kyoto 2024 is the international consensus for IPMN and supersedes Fukuoka 2017. ACG 2018 and the European 2018 guidelines remain widely used and differ in thresholds and in surveillance schedules. Where they disagree, all positions are shown rather than one being silently chosen.</div>
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>BD-IPMN</b> — branch-duct intraductal papillary mucinous neoplasm</div>
+    <div><b>CEA</b> — carcinoembryonic antigen</div>
+    <div><b>EUS-FNA</b> — endoscopic ultrasound fine-needle aspiration</div>
+    <div><b>HGD</b> — high-grade dysplasia</div>
+    <div><b>HRS / WF</b> — high-risk stigmata / worrisome features</div>
+    <div><b>MCN</b> — mucinous cystic neoplasm</div>
+    <div><b>MD-IPMN</b> — main-duct IPMN</div>
+    <div><b>MPD</b> — main pancreatic duct</div>
+    <div><b>MRCP</b> — magnetic resonance cholangiopancreatography</div>
+    <div><b>PDAC</b> — pancreatic ductal adenocarcinoma</div>
+    <div><b>SCA</b> — serous cystadenoma</div>
+    <div><b>SPN</b> — solid pseudopapillary neoplasm</div>
+  </div>
+  <h3 class="sub">Sources</h3>
+  <p class="lede">International evidence-based <b>Kyoto guidelines</b> for the management of intraductal papillary mucinous neoplasm of the pancreas (Pancreatology 2024) · <b>ACG Clinical Guideline</b>: Diagnosis and Management of Pancreatic Cysts (Am J Gastroenterol 2018) · <b>European evidence-based guidelines</b> on pancreatic cystic neoplasms (Gut 2018). Current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-type"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Identify</label>
+  <label for="t-fluid"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.4A6 6 0 0 1 6 13.4C6 9.4 12 3 12 3z"/></svg>Fluid</label>
+  <label for="t-risk"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Risk</label>
+  <label for="t-surv"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Surveillance</label>
+  <label for="t-surg"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Surgery</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Answers</label>
+</nav>
+
+<script>
+(function(){
+  document.documentElement.className='has-js';
+  var q=document.getElementById('q'),clr=document.getElementById('qclr'),
+      cnt=document.getElementById('cnt'),
+      cards=document.querySelectorAll('.searchable .card'),t=[];
+  if(!q)return;
+  for(var i=0;i<cards.length;i++)t[i]=cards[i].textContent.toLowerCase();
+  function run(){
+    var v=q.value.toLowerCase().trim(),n=0;
+    for(var i=0;i<cards.length;i++){
+      if(v.length>0&&t[i].indexOf(v)<0)cards[i].classList.add('miss');
+      else{cards[i].classList.remove('miss');n++;}
+    }
+    cnt.textContent=v?n+' match'+(n===1?'':'es')+' \u00b7':'';
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';run();q.focus();});
+})();
+</script>
+</body>
+</html>
