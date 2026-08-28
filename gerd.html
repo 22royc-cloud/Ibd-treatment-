@@ -219,6 +219,7 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
 #t-surv:checked ~ .topbar .filters,
 #t-info:checked ~ .topbar .filters{display:none}
 
+.notice.ver{border-left:3px solid var(--c-il23)}
 .pattern{font-size:12.5px;color:var(--ink-2);margin-top:9px;padding:8px 11px;border-radius:9px;
   background:var(--card2);border:1px solid var(--ring);line-height:1.5}
 .pattern b{color:var(--ink-1)}
@@ -505,7 +506,7 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
   <div class="blk"><h4 style="font-size:13.5px">Document landmarks and extent using the <b>Prague C&amp;M classification</b></h4><p style="margin-top:4px">Circumferential extent and maximal extent above the gastro-oesophageal junction</p></div>
 <div class="blk"><h4 style="font-size:13.5px">Describe any visible lesion using the <b>Paris classification</b></h4><p style="margin-top:4px">And resect it rather than biopsy it</p></div>
 <div class="blk"><h4 style="font-size:13.5px"><b>Seattle protocol</b> — four-quadrant biopsies every 2 cm</h4><p style="margin-top:4px">Every 1 cm if there is prior dysplasia. At least 8 biopsies when a segment is suspicious for Barrett's</p></div>
-<div class="blk"><h4 style="font-size:13.5px">White light endoscopy <b>plus</b> chromoendoscopy</h4><p style="margin-top:4px">Acetic acid or electronic/virtual chromoendoscopy</p></div>
+<div class="blk"><h4 style="font-size:13.5px">High-definition white light endoscopy <b>plus</b> chromoendoscopy</h4><p style="margin-top:4px"><b>The one strong recommendation in AGA 2025</b>, at moderate certainty — the combination beats white light alone. Dye-based or virtual, chosen by local expertise</p></div>
 <div class="blk"><h4 style="font-size:13.5px">Inspection time — around <b>1 minute per centimetre</b> of Barrett's segment</h4><p style="margin-top:4px">A measurable quality indicator, analogous to colonoscopy withdrawal time</p></div>
 <div class="blk"><h4 style="font-size:13.5px"><b>Do not biopsy a normal-appearing squamocolumnar junction</b></h4><p style="margin-top:4px">It generates false diagnoses and needless surveillance</p></div>
 <div class="blk"><h4 style="font-size:13.5px">Any grade of dysplasia confirmed by a <b>second GI pathologist</b></h4><p style="margin-top:4px">Strong recommendation. Community-diagnosed dysplasia is frequently downstaged on expert review</p></div>
@@ -516,17 +517,21 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
   <h2>Surveillance &amp; dysplasia</h2>
   <div class="notice"><b>Any grade of dysplasia must be confirmed by a second pathologist with gastrointestinal expertise</b> — a strong recommendation. Community-diagnosed dysplasia is frequently downstaged on expert review, and the grade decides between a five-year interval and an ablation programme.</div>
   <div class="find card" style="--ac:var(--c-integrin)">
+    <div class="find-t">Columnar-lined oesophagus &lt; 1 cm, or an irregular Z-line</div>
+    <div class="pattern"><b>No surveillance at all</b></div>
+    <div class="find-n"><b>New in the AGA 2025 guideline</b> — a conditional recommendation <i>against</i> endoscopic surveillance, and the most practice-changing item in it. ESGE agrees and adds that no routine biopsies are needed either. This is the single commonest source of unnecessary surveillance programmes.</div></div>
+<div class="find card" style="--ac:var(--c-integrin)">
     <div class="find-t">Non-dysplastic Barrett's, segment &lt; 3 cm</div>
     <div class="pattern"><b>Every 5 years</b></div>
-    <div class="find-n">The interval most often shortened in practice without justification.</div></div>
+    <div class="find-n">The interval most often shortened in practice without justification. AGA 2025 phrases it as a default of 3 years that <b>may be extended to 5 years in lower-risk patients, for instance short segments under 3 cm</b>; ACG and ESGE state 5 years as the standard for short segments. Annual progression is 0.06% for short segments against 0.31% for long.</div></div>
 <div class="find card" style="--ac:var(--c-integrin)">
     <div class="find-t">Non-dysplastic Barrett's, segment ≥ 3 cm</div>
     <div class="pattern"><b>Every 3 years</b></div>
-    <div class="find-n">Segment length is an independent predictor of progression, which is why it drives the interval.</div></div>
+    <div class="find-n">Segment length is an independent predictor of progression, which is why it drives the interval. All three societies agree on 3 years here, and on <b>3 cm as the short-versus-long cutoff</b>. AGA attaches a condition worth reading: the 3-year interval assumes <b>a high-quality endoscopic examination was performed</b>.</div></div>
 <div class="find card" style="--ac:var(--c-jak)">
     <div class="find-t">Indefinite for dysplasia — confirmed by an expert</div>
-    <div class="pattern"><b>Optimise PPI, repeat at 6 months</b></div>
-    <div class="find-n">Intensify antireflux therapy to twice-daily PPI first — inflammation is a common cause of the reading. If it persists, move to <b>annual</b> surveillance. Progression risk is around 1.5% per year, similar to low-grade dysplasia.</div></div>
+    <div class="pattern"><b>Optimise PPI, repeat at 3 to 6 months</b></div>
+    <div class="find-n">Intensify antireflux therapy to twice-daily PPI first — inflammation is a common cause of the reading. <b>AGA 2025 says repeat at 3 months on twice-daily PPI; ACG says within 6 months</b> — a real difference, with AGA the tighter standard. Then annual surveillance until the grade changes. Progression risk is around 1.5% per year, similar to low-grade dysplasia. <b>Eradication therapy is not recommended</b> for confirmed indefinite-for-dysplasia.</div></div>
 <div class="find card" style="--ac:var(--c-il23)">
     <div class="find-t">Low-grade dysplasia — confirmed by an expert</div>
     <div class="pattern"><b>Endoscopic eradication preferred</b></div>
@@ -545,8 +550,21 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
     <p><b>Endoscopic resection of any visible lesion must precede ablation</b> of the flat segment. Resection gives staging information — depth of invasion, lymphovascular invasion, differentiation — that ablation destroys. Treat at a <b>high-volume centre</b>.</p></div>
   <div class="blk"><h4>Ablation</h4>
     <p>Radiofrequency ablation is the standard. <b>Cryotherapy is a reasonable substitute</b> in cases resistant to radiofrequency. The endpoint is complete eradication of dysplasia and of intestinal metaplasia.</p></div>
-  <div class="blk"><h4>After successful eradication</h4>
-    <p>A structured surveillance programme is a <b>strong recommendation</b>, with intervals based on the <b>baseline degree of dysplasia</b> — more intensive after high-grade dysplasia or intramucosal cancer than after low-grade dysplasia. Check your unit's protocol against the guideline's table for the exact schedule, which varies between services. Recurrence at the gastro-oesophageal junction is the commonest pattern, so sample it specifically.</p></div>
+  <h3 class="sub">Surveillance after complete eradication</h3>
+  <div class="notice ver"><b>This is not in the AGA 2025 surveillance guideline.</b> That document covers surveillance of untreated Barrett's and states explicitly that eradication therapy "was addressed in a recent AGA guideline". The post-ablation schedules below come from the <b>AGA 2024 endoscopic eradication therapy guideline</b> and from <b>ESGE 2023</b>, and the two do not agree on when — or whether — to stop.</div>
+  <div class="tdm">
+    <div class="r"><div class="ag">After high-grade dysplasia or intramucosal cancer</div>
+      <div class="kv"><span>AGA 2024</span><span><b>3 months, 6 months, 12 months, then annually</b> — indefinitely</span></div>
+      <div class="kv"><span>ESGE 2023</span><span><b>1, 2, 3, 4, 5, 7 and 10 years</b>, after which surveillance may <b>stop</b></span></div></div>
+    <div class="r"><div class="ag">After low-grade dysplasia</div>
+      <div class="kv"><span>AGA 2024</span><span><b>Year 1 and year 3</b>, then revert to non-dysplastic intervals</span></div>
+      <div class="kv"><span>ESGE 2023</span><span><b>1, 3 and 5 years</b>, after which surveillance may <b>stop</b></span></div></div>
+    <div class="r"><div class="ag">Where to take the biopsies</div>
+      <div class="kv"><span>AGA 2024</span><span>Targeted sampling of visible lesions, plus <b>random biopsies of the cardia and the distal 2 cm of tubular oesophagus</b></span></div>
+      <div class="kv"><span>ESGE 2023</span><span>Four-quadrant random biopsies <b>just distal to a normal-appearing neo-squamocolumnar junction</b></span></div></div>
+  </div>
+  <div class="notice"><b>Do not take routine biopsies of normal-looking neosquamous mucosa.</b> ESGE makes this a <b>strong recommendation against</b>. Sample just below the neo-squamocolumnar junction instead — recurrence at the gastro-oesophageal junction is the commonest pattern, and buried glands under intact neosquamous epithelium are not what these biopsies find.</div>
+  <div class="notice"><b>The disagreement that matters: does it ever end?</b> AGA surveils indefinitely after high-grade dysplasia; <b>ESGE stops at 10 years</b>. And the first year differs sharply — AGA does three endoscopies in year one for high-grade dysplasia, ESGE does one. Pick a protocol and apply it consistently rather than blending them.</div>
 
   <h3 class="sub">Chemoprevention and what not to do</h3>
   <div class="blk bl" style="--bc:var(--c-integrin)"><h4>PPI at least once daily</h4>
@@ -558,7 +576,9 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
   <div class="blk bl" style="--bc:var(--c-immuno)"><h4>Antireflux surgery as an anticancer measure — recommended against</h4>
     <div class="cond2">Recommendation against</div>
     <p>The baseline progression risk is low, the surgical morbidity is real, and superiority over medical therapy has never been convincingly shown. Operate for reflux symptoms, not to prevent cancer.</p></div>
-  <div class="notice"><b>When to stop surveillance.</b> Consider stopping when the patient would no longer be a candidate for eradication therapy, or at around <b>age 75 with limited life expectancy</b>. Surveillance that cannot lead to treatment is a burden without a benefit.</div>
+  <div class="notice"><b>When to stop surveillance.</b> Consider stopping when the patient would no longer be a candidate for eradication therapy. AGA 2025 frames it as a conversation rather than a cut-off: <b>begin discussing discontinuation at the earliest potential penultimate endoscopy — for example age 75 in a man without comorbidities</b>. ESGE is more explicit: consider stopping at <b>age 75, and/or where life expectancy is under 5 years</b>, while noting the age cutoff is arbitrary and extension to 80 can be considered. No society sets a mandatory stop age.</div>
+  <div class="notice ver"><b>What AGA 2025 does not cover.</b> It addresses surveillance only. <b>Screening</b> — who should be tested for Barrett's in the first place — is deferred to a future document, so ACG 2022 remains operative: a single screening endoscopy with chronic reflux plus <b>three or more</b> risk factors from male sex, age over 50, White race, smoking, obesity and a first-degree relative with Barrett's or adenocarcinoma. Note male sex is itself one of the three. A swallowable <b>capsule sponge combined with a biomarker</b> is an acceptable alternative to endoscopy for screening.</div>
+  <div class="notice ver"><b>Where AGA 2025 declined to rule.</b> It made <b>no recommendation</b> on wide-area transepithelial sampling, on <b>p53</b> immunostaining, or on <b>TissueCypher</b> — all labelled evidence gaps. It does set guardrails around WATS: it must not substitute for the Seattle protocol, and <b>dysplasia found on WATS alone should not trigger eradication therapy</b>; a discordant result warrants repeat endoscopy in 3 to 6 months. Chromoendoscopy-targeted biopsies likewise do not replace the structured protocol.</div>
 </section>
 
 <section class="pane" id="p-info">
@@ -587,7 +607,9 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
   </div>
 
   <h3 class="sub">About this page</h3>
-  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults. Built from the ACG guidelines on GERD and on Barrett's oesophagus, updated with the Lyon Consensus 2.0 testing thresholds and the current vonoprazan label. Local practice on post-eradication surveillance intervals varies — check your unit's protocol.</div>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adults. Built from the ACG guidelines on GERD and on Barrett's oesophagus, the <b>AGA 2025 clinical practice guideline on surveillance of Barrett's oesophagus</b>, the <b>AGA 2024 guideline on endoscopic eradication therapy</b> and the <b>ESGE 2023 Barrett guideline</b>, updated with the Lyon Consensus 2.0 testing thresholds and the current vonoprazan label.</div>
+  <div class="notice ver"><b>A verification note on the AGA 2025 intervals.</b> The published article is paywalled. The numeric intervals attributed to AGA 2025 on this page &mdash; the 3-year default, the 5-year extension, the 3&nbsp;cm cutoff, the 3-month repeat for indefinite-for-dysplasia and the 1&nbsp;minute per centimetre inspection time &mdash; were read from the <b>AGA public-comment draft</b>, cross-checked against the published abstract, which they match wherever the two overlap. The recommendation <i>against</i> surveillance for columnar-lined oesophagus under 1&nbsp;cm and the strong recommendation for chromoendoscopy are confirmed in the published abstract. Check the interval numbers against the final article before relying on them.</div>
+  <div class="notice"><b>Aspirin: the societies split.</b> ACG could not make a recommendation on aspirin plus PPI. <b>ESGE recommends against aspirin or NSAIDs for chemoprevention outright</b>, at strong strength and moderate quality. AGA 2025 did not address it. Do not present aspirin as a neutral option.</div>
   <h3 class="sub">Abbreviations</h3>
   <div class="abbr">
     <div><b>AET</b> — acid exposure time</div>
@@ -606,7 +628,7 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
     <div><b>TIF</b> — transoral incisionless fundoplication</div>
   </div>
   <h3 class="sub">Sources</h3>
-  <p class="lede">Katz PO et al. <b>ACG Clinical Guideline for the Diagnosis and Management of Gastroesophageal Reflux Disease.</b> Am J Gastroenterol 2022;117:27–56 · Shaheen NJ et al. <b>Diagnosis and Management of Barrett's Esophagus: An Updated ACG Guideline.</b> Am J Gastroenterol 2022;117:559–587 · Gyawali CP et al. <b>Updates to the modern diagnosis of GERD: Lyon consensus 2.0.</b> Gut 2024 · FDA prescribing information for vonoprazan (Voquezna). Content current to August 2026.</p>
+  <p class="lede">Wani S et al. <b>AGA Clinical Practice Guideline on Surveillance of Barrett's Esophagus.</b> Gastroenterology 2025;169(6):1184–1231, doi 10.1053/j.gastro.2025.09.012 · <b>AGA Clinical Practice Guideline on Endoscopic Eradication Therapy of Barrett's Esophagus and Related Neoplasia.</b> Gastroenterology 2024 · <b>Diagnosis and management of Barrett esophagus: ESGE Guideline.</b> Endoscopy 2023 · Shaheen NJ et al. <b>Diagnosis and Management of Barrett's Esophagus: An Updated ACG Guideline.</b> Am J Gastroenterol 2022;117:559–587 · Katz PO et al. <b>ACG Clinical Guideline for the Diagnosis and Management of Gastroesophageal Reflux Disease.</b> Am J Gastroenterol 2022;117:27–56 · Gyawali CP et al. <b>Updates to the modern diagnosis of GERD: Lyon consensus 2.0.</b> Gut 2024 · AGA Clinical Practice Update on New Technology and Innovation for Surveillance and Screening in Barrett's Esophagus, Clin Gastroenterol Hepatol 2022 · FDA prescribing information for vonoprazan (Voquezna). Content current to August 2026.</p>
 </section>
 </main>
 

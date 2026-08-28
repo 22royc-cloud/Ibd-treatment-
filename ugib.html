@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="UGI Bleeding">
+<meta name="theme-color" content="#f4f4f2">
+<meta name="format-detection" content="telephone=no">
+<title>Non-variceal upper GI bleeding</title>
+<style>
+:root{
+  --page:#f4f4f2; --card:#fff; --card2:#fafaf8;
+  --ink-1:#0b0b0b; --ink-2:#4f4e4b; --ink-3:#86847d;
+  --rule:#e5e4de; --ring:#dedcd5; --tint:#f0efeb;
+  --c-asa:#00760a; --c-steroid:#4a3aa7; --c-immuno:#c62f2f; --c-tnf:#1f6fd0;
+  --c-integrin:#0f8a63; --c-il23:#c74e1f; --c-jak:#8f6200; --c-s1p:#b9436e;
+  --g-bg:#e7f5e7; --g-br:#7cc47c; --g-tx:#1a6b1a;
+  --e-bg:#e6f0fc; --e-br:#7fb0e8; --e-tx:#17539e;
+  --o-bg:#fdeee6; --o-br:#e9a97f; --o-tx:#9c4a17;
+  --n-bg:#f0efeb; --n-br:#d5d3cb; --n-tx:#55534e;
+  --r-bg:#fdeaea; --r-br:#e79a9a; --r-tx:#9c1c1c;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+:root{
+  --page:#0e0e0d; --card:#1a1a19; --card2:#151514;
+  --ink-1:#fff; --ink-2:#c6c5bb; --ink-3:#918f87;
+  --rule:#2b2b29; --ring:#333330; --tint:#232322;
+  --c-asa:#43b043; --c-steroid:#9b91ee; --c-immuno:#eb6b6b; --c-tnf:#5b9dee;
+  --c-integrin:#2bbd8b; --c-il23:#ee8149; --c-jak:#dda62a; --c-s1p:#e88ab0;
+  --g-bg:#12300f; --g-br:#3e7c3e; --g-tx:#6fd06f;
+  --e-bg:#0f2540; --e-br:#37649c; --e-tx:#79b3f0;
+  --o-bg:#3a1f10; --o-br:#8a5232; --o-tx:#f0975f;
+  --n-bg:#232322; --n-br:#3a3a37; --n-tx:#b3b1a8;
+  --r-bg:#3a1414; --r-br:#8a3535; --r-tx:#f08585;
+}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink-1);font-family:var(--sans);
+  font-size:15px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding-left:18px}
+a{color:var(--c-tnf)}
+.ctl{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:30;background:var(--page);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.tb-row{display:flex;align-items:center;gap:9px;padding:10px 14px 8px}
+.tb-title{font-size:16.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0}
+.tb-note{font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.home-link{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:999px;border:1px solid var(--ring);color:var(--ink-2);text-decoration:none;background:var(--card)}
+.home-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.filters{padding:0 14px 9px}
+.nojs .js-only{display:none}
+.has-js .nojs-only{display:none}
+.srch{position:relative;margin-bottom:8px}
+.srch input{width:100%;font-family:inherit;font-size:16px;padding:10px 34px 10px 12px;
+  border-radius:11px;border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  -webkit-appearance:none;appearance:none}
+.srch input::placeholder{color:var(--ink-3)}
+.srch button{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;
+  border:none;background:none;color:var(--ink-3);font-size:19px;line-height:1;cursor:pointer;padding:0}
+.card.miss{display:none !important}
+#cnt{color:var(--ink-2);font-weight:600}
+.seg{display:flex;gap:3px;background:var(--tint);padding:3px;border-radius:11px;margin-bottom:8px}
+.seg label{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:7px 3px;border-radius:8px;
+  color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.seg label .ct{font-size:11px;color:var(--ink-3);margin-left:4px;font-weight:500}
+.scrollrow{display:flex;gap:7px;overflow-x:auto;margin:0 -14px;padding:1px 14px 3px;
+  -webkit-overflow-scrolling:touch}
+.pill{flex:none;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--ring);background:var(--card);color:var(--ink-2);white-space:nowrap;
+  display:flex;align-items:center;gap:6px}
+.pill .ct{font-size:10.5px;color:var(--ink-3)}
+.pill i{width:7px;height:7px;border-radius:2px;flex:none;background:var(--ink-3)}
+.hint{font-size:11px;color:var(--ink-3);padding:7px 14px 0}
+
+main{display:block}
+.pane{display:none;padding:12px 14px 30px}
+.pane > h2{font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
+.pane > .lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+h3.sub{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  margin:22px 0 9px;font-weight:700}
+
+.card{background:var(--card);border:1px solid var(--ring);border-radius:13px;margin-bottom:9px;
+  overflow:hidden;border-left:3px solid var(--ac)}
+summary{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;cursor:pointer;
+  list-style:none;min-height:54px}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+.sm-dot{width:9px;height:9px;border-radius:3px;background:var(--ac);flex:none;margin-top:6px}
+.sm-main{flex:1;min-width:0}
+.sm-name{display:block;font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+.sm-brand{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.sm-sum{display:block;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.sm-sum b{color:var(--ink-1);font-weight:650}
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.b{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;
+  border-radius:4px;border:1px solid var(--ring);color:var(--ink-2)}
+.b.dz{background:var(--tint)}
+.b.rt{border-style:dashed}
+.b.cl{color:var(--ac);border-color:var(--ac)}
+.chev{flex:none;width:9px;height:9px;margin-top:9px;border-right:2px solid var(--ink-3);
+  border-bottom:2px solid var(--ink-3);transform:rotate(-45deg)}
+details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
+
+.body{padding:0 13px 13px;border-top:1px solid var(--rule)}
+.moa{font-size:13px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+.rows{margin-top:14px;border-top:1px solid var(--rule)}
+.row{padding:9px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:none}
+.rk{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);
+  font-weight:700;margin-bottom:3px}
+.rv{font-size:13.5px;line-height:1.5}
+.rv .hi{font-weight:650}
+.rv small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+
+.esc{margin-top:12px;padding:11px 12px;border-radius:10px;background:var(--card2);
+  border:1px solid var(--ring)}
+.esc-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+  margin-bottom:9px}
+.esc ul{padding-left:0;list-style:none}
+.esc li{font-size:13px;line-height:1.5;margin-bottom:9px}
+.esc li:last-child{margin-bottom:0}
+.tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 5px;border-radius:4px;margin-right:6px;border:1px solid;position:relative;top:-1px}
+.tagl.label{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.eu{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.off{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.none{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.stop{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.go{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.safety{margin-top:11px;padding-top:10px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.safety .sh{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);font-weight:700;margin-bottom:4px}
+
+.blk{background:var(--card);border:1px solid var(--ring);border-radius:13px;padding:14px;
+  margin-bottom:10px}
+.blk.bl{border-left:3px solid var(--bc)}
+.blk .n{width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:var(--page);
+  font-size:11.5px;font-weight:700;text-align:center;line-height:22px;margin-bottom:9px}
+.blk h4{font-size:14.5px;margin-bottom:6px;letter-spacing:-.01em}
+.blk .cond{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);
+  font-weight:700;margin-bottom:7px}
+.blk p{font-size:13px;color:var(--ink-2);line-height:1.5}
+.blk ul{margin-top:8px}
+.blk li{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.blk li:last-child{margin-bottom:0}
+.blk .dh{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  margin:-14px -14px 12px;padding:9px 14px;background:var(--tint);border-bottom:1px solid var(--rule)}
+.blk li b, .blk p b{color:var(--ink-1)}
+
+.tdm{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden}
+.tdm .r{padding:11px 14px;border-bottom:1px solid var(--rule)}
+.tdm .r:last-child{border-bottom:none}
+.tdm .ag{font-size:14px;font-weight:650;margin-bottom:5px}
+.tdm .kv{display:flex;gap:9px;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.tdm .kv span:first-child{color:var(--ink-3);flex:none;width:92px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding-top:2px}
+.tdm .kv b{color:var(--ink-1);font-weight:650}
+.notice{padding:12px 13px;border-radius:11px;border:1px solid var(--ring);background:var(--card2);
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:11px}
+.notice b{color:var(--ink-1)}
+.abbr div{font-size:13px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule)}
+.abbr div:last-child{border-bottom:none}
+.abbr b{color:var(--ink-1)}
+
+/* two-column risk lists */
+.risk{background:var(--card);border:1px solid var(--ring);border-radius:13px;overflow:hidden;
+  margin-bottom:10px;border-left:3px solid var(--bc)}
+.risk-h{padding:10px 14px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--tint);border-bottom:1px solid var(--rule);color:var(--bc)}
+.risk ul{margin:0;padding:11px 14px 12px 30px}
+.risk li{font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--ink-1)}
+.risk li:last-child{margin-bottom:0}
+.risk li small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:1px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--page);
+  border-top:1px solid var(--rule);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px 7px;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;line-height:1.3}
+.tabbar label svg{display:block;width:21px;height:21px;margin:0 auto 3px;fill:none;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .pane{max-width:1180px;margin:0 auto;padding:18px 22px 40px}
+  .topbar .tb-row,.topbar .filters{max-width:1180px;margin:0 auto}
+  .tabbar label{padding:11px 2px}
+  .cols{column-count:2;column-gap:14px}
+  .cols > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+}
+@media print{
+  .tabbar,.topbar{display:none}
+  .pane{display:block !important;padding:0}
+  .card{break-inside:avoid;border:1px solid #ccc}
+  details:not([open]) .body{display:block}
+}
+
+#t-risk:checked ~ main #p-risk,
+#t-pre:checked ~ main #p-pre,
+#t-scope:checked ~ main #p-scope,
+#t-after:checked ~ main #p-after,
+#t-anti:checked ~ main #p-anti,
+#t-disch:checked ~ main #p-disch,
+#t-info:checked ~ main #p-info{display:block}
+#t-risk:checked ~ .tabbar label[for="t-risk"],
+#t-pre:checked ~ .tabbar label[for="t-pre"],
+#t-scope:checked ~ .tabbar label[for="t-scope"],
+#t-after:checked ~ .tabbar label[for="t-after"],
+#t-anti:checked ~ .tabbar label[for="t-anti"],
+#t-disch:checked ~ .tabbar label[for="t-disch"],
+#t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+
+
+.cond2{font-size:12.5px;font-weight:650;color:var(--ink-1);margin:2px 0 8px}
+.tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:4px;line-height:1}
+.tags:empty{display:none}
+.tags .tagl,.notice .tagl{display:inline-block;font-size:9px;font-weight:800;
+  letter-spacing:.04em;text-transform:uppercase;padding:3px 6px;border-radius:4px;margin:0 2px 0 0;
+  border:1px solid;position:static;top:auto;white-space:nowrap}
+.tagl.esge{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.acg{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.acgc{background:var(--tint);border-color:var(--ring);color:var(--ink-2)}
+.tagl.cag{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.trial{background:var(--n-bg);border-color:var(--n-br);color:var(--n-tx)}
+.tagl.diff{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.notice.ver{border-left:3px solid var(--c-il23)}
+.tabbar label{font-size:9px;letter-spacing:-.01em;padding-left:1px;padding-right:1px}
+@media (min-width:400px){.tabbar label{font-size:9.5px}}
+@media (min-width:900px){
+  .pane{column-count:2;column-gap:14px}
+  .blk,.notice,.tdm{break-inside:avoid;-webkit-column-break-inside:avoid}
+  h3.sub{column-span:all}}
+@media print{ .blk,.tdm,.notice{break-inside:avoid} }
+</style>
+</head>
+<body>
+
+<input type="radio" name="tab" id="t-risk" class="ctl" checked>
+<input type="radio" name="tab" id="t-pre" class="ctl">
+<input type="radio" name="tab" id="t-scope" class="ctl">
+<input type="radio" name="tab" id="t-after" class="ctl">
+<input type="radio" name="tab" id="t-anti" class="ctl">
+<input type="radio" name="tab" id="t-disch" class="ctl">
+<input type="radio" name="tab" id="t-info" class="ctl">
+
+
+<header class="topbar">
+  <div class="tb-row">
+    <a class="home-link" href="index.html" aria-label="All tools"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></a>
+    <div class="tb-title">Upper GI Bleeding</div>
+    <div class="tb-note">ESGE 2026 &middot; ACG</div>
+  </div>
+  
+</header>
+
+<main>
+
+<section class="pane" id="p-risk">
+  <h2>Who can go home</h2>
+  <p class="lede">The first decision is not what to do, but whether the patient needs to be in hospital at all. One score answers it.</p>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Glasgow-Blatchford &le; 1</h4><div class="cond2">Discharge with outpatient endoscopy</div><p>The only score endorsed for the discharge decision, and all three bodies agree on the same threshold. ESGE: <b>"Patients with a GBS &le; 1 can be safely managed as outpatients with outpatient endoscopy"</b> &mdash; strong recommendation, moderate evidence. ACG frames it by performance rather than a bare number: a score with a <b>&le; 1% false-negative rate</b> for hospital-based intervention or death, giving GBS 0&ndash;1 as the worked example. Sensitivity at &le;1 is <b>98.6%</b>, specificity 34.6%.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, moderate</span><span class="tagl acg">ACG 2021 &middot; Rec 1 &middot; conditional, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Rockall</h4><div class="cond2">Predicts mortality &mdash; not a discharge tool</div><p>Pre-endoscopic Rockall uses age (&lt;60 = 0, 60&ndash;79 = 1, &ge;80 = 2), shock (pulse &gt;100 with SBP &gt;100 = 1; SBP &lt;100 = 2) and comorbidity (cardiac, renal or hepatic disease = 2&ndash;3). The full score adds diagnosis and stigmata of recent haemorrhage after endoscopy. <b>No guideline reviewed endorses it for the outpatient-discharge decision.</b></p>
+    <div class="tags"></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>AIMS65</h4><div class="cond2">Predicts in-hospital mortality &mdash; explicitly not for discharge</div><p>One point each: <b>A</b>lbumin &lt;3.0 g/dL, <b>I</b>NR &gt;1.5, <b>M</b>ental status altered, <b>S</b>ystolic BP &le;90, age &gt;<b>65</b>. The international consensus explicitly discourages using it for discharge, because it <b>"was designed to identify patients at high risk of death, not those at low risk."</b> ESGE 2026 mentions no score other than GBS.</p>
+    <div class="tags"></div></div>
+
+  <h3 class="sub">Glasgow-Blatchford score</h3>
+  <p class="lede">Range 0&ndash;23. Two bedside errors are near-universal: it uses <b>urea or BUN, not creatinine</b>, and the haemoglobin cut-offs are <b>sex-specific</b>.</p>
+  <div class="tdm">
+  <div class="r"><div class="ag">Blood urea nitrogen (mg/dL)</div>
+    <div class="kv"><span>Points</span><span>&lt;18 &rarr; 0 &middot; 18&ndash;22 &rarr; 2 &middot; 22&ndash;28 &rarr; 3 &middot; 28&ndash;70 &rarr; 4 &middot; &gt;70 &rarr; 6</span></div></div><div class="r"><div class="ag">Haemoglobin, men (g/dL)</div>
+    <div class="kv"><span>Points</span><span>&gt;13 &rarr; 0 &middot; 12&ndash;12.9 &rarr; 1 &middot; 10&ndash;11.9 &rarr; 3 &middot; &lt;10 &rarr; 6</span></div></div><div class="r"><div class="ag">Haemoglobin, women (g/dL)</div>
+    <div class="kv"><span>Points</span><span>&gt;12 &rarr; 0 &middot; 10&ndash;11.9 &rarr; 1 &middot; &lt;10 &rarr; 6</span></div></div><div class="r"><div class="ag">Systolic BP (mmHg)</div>
+    <div class="kv"><span>Points</span><span>&gt;110 &rarr; 0 &middot; 100&ndash;109 &rarr; 1 &middot; 90&ndash;99 &rarr; 2 &middot; &lt;90 &rarr; 3</span></div></div><div class="r"><div class="ag">Pulse &ge; 100/min</div>
+    <div class="kv"><span>Points</span><span>1</span></div></div><div class="r"><div class="ag">Melena</div>
+    <div class="kv"><span>Points</span><span>1</span></div></div><div class="r"><div class="ag">Syncope</div>
+    <div class="kv"><span>Points</span><span>2</span></div></div><div class="r"><div class="ag">Hepatic disease</div>
+    <div class="kv"><span>Points</span><span>2</span></div></div><div class="r"><div class="ag">Cardiac failure</div>
+    <div class="kv"><span>Points</span><span>2</span></div></div>
+  </div>
+
+  <h3 class="sub">Timing of endoscopy</h3>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Within 24 hours</h4><div class="cond2">After haemodynamic resuscitation &mdash; universal agreement</div><p>Every guideline reviewed says the same thing: resuscitate first, then scope within 24 hours of presentation.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong</span><span class="tagl acg">ACG 2021 &middot; Rec 5 &middot; conditional, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>The 12-hour rule is dead</h4><div class="cond2">Retracted by ACG, rejected by ESGE</div><p><b>"ESGE does not recommend emergent (&le;6 hours) or urgent (&le;12 hours) upper GI endoscopy unless the patient remains hemodynamically unstable despite adequate resuscitation."</b> And ACG explicitly says it <b>"did not include the suggestion from the 2012 ACG Guidelines that endoscopy within 12 hours may be considered in patients with high-risk clinical features."</b> The only remaining trigger for a sub-24-hour scope is <b>persistent instability despite adequate resuscitation</b>.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, moderate</span><span class="tagl acg">ACG 2021 &middot; Rec 5</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Why it changed</h4><div class="cond2">Lau, NEJM 2020</div><p>516 patients, all with <b>GBS &ge; 12</b> &mdash; deliberately the high-risk group the 12-hour rule was aimed at. Endoscopy within 6 hours versus 6&ndash;24 hours. <b>30-day mortality 8.9% vs 6.6%</b>, hazard ratio 1.35 (95% CI 0.72&ndash;2.54). <b>Further bleeding 10.9% vs 7.8%.</b> Urgent endoscopy found and treated <i>more</i> lesions &mdash; 60.1% vs 48.4% received endoscopic treatment &mdash; without improving any outcome. Numerically it was worse.</p>
+    <div class="tags"><span class="tagl trial">Lau NEJM 2020</span></div></div>
+</section>
+
+<section class="pane" id="p-pre">
+  <h2>Before the scope</h2>
+  <p class="lede">Most of what determines the outcome happens here, in the first few hours &mdash; not at the endoscopy.</p>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Transfusion &mdash; restrictive, with a cardiac carve-out</h4><div class="cond2">Hb &lt; 7, or &le; 8 with cardiovascular disease</div><p><b>No cardiovascular disease:</b> transfuse below <b>7 g/dL</b>, post-transfusion target <b>7&ndash;9 g/dL</b>. <b>With acute or chronic cardiovascular disease:</b> transfuse at or below <b>8 g/dL</b>, target <b>&ge; 10 g/dL</b>. ACG states a single 7 g/dL threshold with no cardiovascular exception in the recommendation itself &mdash; ESGE is the more clinically complete standard here.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong</span><span class="tagl acg">ACG 2021 &middot; Rec 2 &middot; conditional, low</span><span class="tagl diff">guidelines differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Erythromycin before the scope</h4><div class="cond2">250 mg IV, 30&ndash;120 minutes before endoscopy</div><p>For clinically severe or ongoing active bleeding. Clears the stomach, improves visualisation and reduces transfusion requirement. <b>ESGE grades this strong with high-quality evidence; ACG grades the same drug at the same dose conditional with very-low-quality evidence</b> &mdash; a striking confidence mismatch. ACG's window is 20&ndash;90 minutes. New in ESGE 2026: <b>IV metoclopramide if erythromycin is unavailable</b>, though no dose is given.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, high</span><span class="tagl acg">ACG 2021 &middot; Rec 3 &middot; conditional, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Pre-endoscopic PPI</h4><div class="cond2">Permitted, unproven &mdash; and it must never delay endoscopy</div><p><b>ACG could not reach a recommendation for or against it.</b> ESGE suggests it <b>"be considered&hellip; however, this should not delay early endoscopy"</b>. Note the direction of travel: ESGE dropped its old "downstage the stigmata" rationale in 2026 and <b>downgraded its certainty from high to low</b>. The two bodies are converging on scepticism. Giving it is defensible; delaying the scope for it is not.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Conditional, low</span><span class="tagl acg">ACG 2021 &middot; Rec 4 &middot; no recommendation</span><span class="tagl diff">guidelines differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Tranexamic acid &mdash; do not give it</h4><div class="cond2">Strong recommendation against, high-quality evidence</div><p><b>"ESGE does not recommend the use of tranexamic acid in patients with acute nonvariceal UGIH."</b> HALT-IT randomised <b>12,009 patients</b>: death from bleeding at 5 days <b>3.7% vs 3.8%</b> &mdash; no difference &mdash; with a <b>significant increase in venous thromboembolism</b>. This is one of the few strong, high-certainty negative recommendations in the whole field.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, HIGH</span><span class="tagl trial">HALT-IT 2020</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Nasogastric lavage</h4><div class="cond2">Not recommended</div><p><b>"ESGE does not recommend the routine use of nasogastric or orogastric aspiration/lavage."</b> It does not change management and it distresses the patient.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Intubation</h4><div class="cond2">Only three indications</div><p>Routine prophylactic intubation is <b>recommended against, at high certainty</b>. Intubate only for <b>ongoing active haematemesis, agitation, or encephalopathy with inability to control the airway</b>. Routine intubation causes pneumonia.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, high / Strong, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Video capsule and blood-sensing capsules</h4><div class="cond2">Not recommended</div><p>New negative recommendation in 2026 &mdash; no routine role in suspected upper GI bleeding.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Somatostatin and octreotide</h4><div class="cond2">Not for non-variceal bleeding</div><p>Their place is variceal bleeding. ESGE recommends against them here.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, low</span></div></div>
+</section>
+
+<section class="pane" id="p-scope">
+  <h2>At the scope</h2>
+  <p class="lede">ESGE mandates the Forrest classification in every peptic ulcer haemorrhage, to separate the stigmata that need treating from those that do not.</p>
+
+  <h3 class="sub">Forrest classification</h3>
+  <div class="tdm">
+  <div class="r"><div class="ag" style="color:var(--c-immuno)">Ia &mdash; Spurting haemorrhage</div>
+    <div class="kv"><span>Rebleed risk</span><span><b>55%</b> untreated</span></div>
+    <div class="kv"><span>Action</span><span><b>Treat</b></span></div></div><div class="r"><div class="ag" style="color:var(--c-immuno)">Ib &mdash; Oozing haemorrhage</div>
+    <div class="kv"><span>Rebleed risk</span><span><b>55%</b> untreated</span></div>
+    <div class="kv"><span>Action</span><span><b>Treat</b></span></div></div><div class="r"><div class="ag" style="color:var(--c-il23)">IIa &mdash; Non-bleeding visible vessel</div>
+    <div class="kv"><span>Rebleed risk</span><span><b>43%</b> untreated</span></div>
+    <div class="kv"><span>Action</span><span><b>Treat</b></span></div></div><div class="r"><div class="ag" style="color:var(--c-jak)">IIb &mdash; Adherent clot</div>
+    <div class="kv"><span>Rebleed risk</span><span><b>22%</b> untreated</span></div>
+    <div class="kv"><span>Action</span><span><b>Contested</b></span></div></div><div class="r"><div class="ag" style="color:var(--c-integrin)">IIc &mdash; Flat pigmented spot</div>
+    <div class="kv"><span>Rebleed risk</span><span><b>10%</b> untreated</span></div>
+    <div class="kv"><span>Action</span><span><b>Do not treat</b></span></div></div><div class="r"><div class="ag" style="color:var(--c-integrin)">III &mdash; Clean base</div>
+    <div class="kv"><span>Rebleed risk</span><span><b>5%</b> untreated</span></div>
+    <div class="kv"><span>Action</span><span><b>Do not treat</b></span></div></div>
+  </div>
+  <div class="notice">Rebleeding percentages are the classic untreated natural-history figures from the secondary literature. <b>ACG does not use the Forrest nomenclature at all</b> &mdash; it speaks only of active spurting, active oozing and non-bleeding visible vessels, and reports a pooled further-bleeding rate of <b>39%</b> for untreated oozing. <span class="tagl esge">ESGE 2026 &middot; Strong, high</span></div>
+
+  <h3 class="sub">The adherent clot</h3>
+  <p class="lede">The clearest ACG-versus-ESGE disagreement in the guideline set.</p>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Both agree on the first step</h4><p><b>Vigorous irrigation.</b> ACG's statement applies only to clots that survive it. Many clots come off and reveal the real lesion underneath.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>ESGE: remove it and treat what is beneath</h4><p><b>"Patients with peptic ulcers presenting with an adherent clot (FIIb) should undergo endoscopic therapy, with clot removal and subsequent endoscopic hemostasis if indicated, provided that the endoscopist has the technical competence to safely remove the clot and manage potential conversion to a higher risk bleeding lesion."</b> Note that ESGE lowered its certainty from moderate in 2021 to <b>very low</b> in 2026 and added the competence proviso &mdash; it is moving toward ACG's uncertainty.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>ACG: cannot advise either way</h4><p><b>"We could not reach a recommendation for or against endoscopic therapy in patients with UGIB due to ulcers with adherent clot resistant to vigorous irrigation."</b></p></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Either way, the PPI is the same</h4><p>ESGE gives <b>full high-dose PPI to FIIb ulcers even when they are not treated endoscopically</b>. If you leave the clot, the patient still gets the 72-hour regimen.</p></div>
+
+  <h3 class="sub">Achieving haemostasis</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Epinephrine is never a monotherapy</h4><div class="cond2">The strongest agreement in the field</div><p><b>"ESGE does not recommend that epinephrine injection be used as endoscopic monotherapy. If used, it should be combined with a second endoscopic hemostasis modality."</b> ACG agrees at strong strength. For actively bleeding ulcers the mandate is epinephrine <b>plus contact thermal or mechanical therapy</b>.<br><br><b>Dilution and volume:</b> 1:10,000 or 1:20,000 in normal saline, injected in <b>0.5&ndash;2 mL aliquots</b> in and around the ulcer base. Note that this figure survives only in the older ESGE 2015 text &mdash; neither ESGE 2026 nor ACG 2021 restates it, and no source specifies a total volume.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, HIGH</span><span class="tagl acg">ACG 2021 &middot; Rec 10 &middot; strong</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Thermal and mechanical modalities</h4><div class="cond2">The strongly-backed options</div><p>ACG recommends <b>bipolar electrocoagulation, heater probe, or absolute ethanol injection</b> at strong strength. It <i>suggests</i> <b>clips, argon plasma coagulation, or soft monopolar electrocoagulation</b> at conditional strength.</p>
+    <div class="tags"><span class="tagl acg">ACG 2021 &middot; Rec 8 strong / Rec 9 conditional</span></div></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>A visible vessel can have monotherapy</h4><div class="cond2">The dual-therapy rule is about epinephrine, not about everything</div><p>For a non-bleeding visible vessel (FIIa), ESGE permits <b>contact or non-contact thermal therapy, mechanical therapy, or a sclerosant &mdash; each as monotherapy or combined with epinephrine</b>. Combination is mandated for <b>actively bleeding</b> FIa and FIb.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Haemostatic forceps</h4><div class="cond2">Soft coagulation as monotherapy</div><p>May be used as monotherapy for high-risk stigmata &mdash; FIa, FIb and FIIa.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Conditional, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Over-the-scope clips</h4><div class="cond2">Undisputed for rebleeding; contested as first-line</div><p><b>For recurrent bleeding both bodies endorse it</b>, and the evidence is striking &mdash; further bleeding <b>15.2% with OTSC vs 57.6%</b> with standard therapy in the Schmidt trial. <b>For primary therapy the two now diverge:</b> ESGE 2026 newly suggests OTS clips as <b>first-line monotherapy</b> for FIa, FIb and FIIa, on the basis of five RCTs showing lower 30-day rebleeding (RR 0.43). <b>ACG restricts them to recurrent bleeding after previous successful haemostasis.</b> ESGE's own certainty is very low.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Conditional, very low</span><span class="tagl acg">ACG 2021 &middot; Rec 12 &middot; conditional, low</span><span class="tagl diff">guidelines differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Haemostatic powder (TC-325)</h4><div class="cond2">A bridge, not a treatment &mdash; and the societies contradict each other</div><p><b>ACG suggests it for actively bleeding ulcers. ESGE 2026 recommends against it as first-line monotherapy</b> and restricts it to rescue when conventional modalities fail; the international consensus agrees with ESGE. <br><br><b>The limitation that settles it:</b> TC-325 achieves over 90% immediate haemostasis, but <b>the powder washes off within 12&ndash;24 hours</b>. It does not seal a vessel. A patient treated with powder alone has not been definitively haemostased &mdash; it buys time to arrange repeat endoscopy, embolisation or surgery.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Conditional, very low</span><span class="tagl acg">ACG 2021 &middot; Rec 11 &middot; conditional, very low</span><span class="tagl diff">guidelines differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Doppler endoscopic probe</h4><div class="cond2">Not endorsed by anyone</div><p>ESGE 2021 recommended against routine use; ESGE 2026 softened to <b>"could not reach a consensus for or against"</b>. ACG does not address it. Softening toward neutrality is not endorsement.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; No recommendation</span></div></div>
+</section>
+
+<section class="pane" id="p-after">
+  <h2>After haemostasis</h2>
+
+  <h3 class="sub">The PPI regimen</h3>
+  <p class="lede">For any patient who received endoscopic haemostasis &mdash; and for FIIb adherent-clot ulcers left untreated.</p>
+  <div class="tdm">
+  <div class="r"><div class="ag">Acute &mdash; continuous</div>
+    <div class="kv"><span>Regimen</span><span>PPI <b>80 mg IV bolus, then 8 mg/hour infusion</b></span></div>
+    <div class="kv"><span>Duration</span><span><b>72 hours / 3 days</b></span></div></div><div class="r"><div class="ag">Acute &mdash; intermittent</div>
+    <div class="kv"><span>Regimen</span><span>PPI <b>40 mg, IV or oral, two to four times daily</b> (an initial 80 mg bolus may be appropriate)</span></div>
+    <div class="kv"><span>Duration</span><span><b>72 hours / 3 days</b></span></div></div><div class="r"><div class="ag">Step-down</div>
+    <div class="kv"><span>Regimen</span><span>PPI standard dose <b>orally twice daily</b></span></div>
+    <div class="kv"><span>Duration</span><span><b>Until <b>2 weeks after index endoscopy</b></b></span></div></div><div class="r"><div class="ag">Then</div>
+    <div class="kv"><span>Regimen</span><span>PPI standard dose once daily</span></div>
+    <div class="kv"><span>Duration</span><span><b>Determined by aetiology, not by the bleed &mdash; see Discharge</b></span></div></div>
+  </div>
+  <div class="notice"><b>Continuous and intermittent are equivalent.</b> ACG puts both inside a single strong recommendation &mdash; <b>"high-dose PPI therapy given continuously or intermittently for 3 days"</b> &mdash; which is a practical liberation: no infusion pump is needed, and <b>oral 40 mg twice to four times daily is an accepted alternative</b>. ESGE lists the infusion first and calls bolus or oral dosing "alternative regimens". No real conflict. <span class="tagl acg">ACG 2021 &middot; Rec 13 &middot; strong</span> <span class="tagl esge">ESGE 2026 &middot; Strong, HIGH</span></div>
+  <div class="notice"><b>Vonoprazan for this indication is not yet endorsed.</b> ESGE 2026 <b>"could not reach a consensus for or against the routine use of potassium-competitive acid blockers"</b> after endoscopic haemostasis, despite two RCTs showing comparability to PPI. <span class="tagl esge">ESGE 2026 &middot; No recommendation</span></div>
+
+  <h3 class="sub">Rebleeding</h3>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Routine second-look endoscopy</h4><div class="cond2">Not recommended</div><p><b>"ESGE does not recommend routine second-look endoscopy as part of the management of nonvariceal UGIH"</b> &mdash; strong, high certainty. ACG issues no recommendation but reveals its position methodologically: it <b>excluded second-look studies from its meta-analyses</b> because routine repeat endoscopy is "not a recommended or standard practice in the United States". Repeat endoscopy is driven by clinical evidence of rebleeding, not by protocol.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, HIGH</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Definitions matter here</h4><div class="cond2">Persistent versus recurrent</div><p><b>Persistent bleeding</b> is ongoing active bleeding refractory to standard haemostasis. <b>Recurrent bleeding</b> is bleeding after initially successful haemostasis. The escalation ladder is the same but the starting rung differs.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, high</span></div></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>First move for rebleeding: scope again</h4><div class="cond2">Not surgery, not interventional radiology</div><p>ACG: <b>"repeat endoscopy and endoscopic therapy rather than undergo surgery or transcatheter arterial embolization."</b> ESGE agrees at strong strength, and adds that an <b>over-the-scope clip should be considered</b> for this second attempt.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, high</span><span class="tagl acg">ACG 2021 &middot; Rec 15 &middot; conditional</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Then embolisation, then surgery</h4><div class="cond2">TAE is now ahead of surgery, not parallel to it</div><p><b>"Should this second attempt at endoscopic hemostasis also be unsuccessful, TAE should be considered. Surgery is indicated when TAE is either locally unavailable or after unsuccessful TAE."</b> Surgery has become the fallback for embolisation failure or unavailability.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, moderate</span><span class="tagl acg">ACG 2021 &middot; Rec 16 &middot; conditional, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Prophylactic embolisation</h4><div class="cond2">New concept in ESGE 2026</div><p>TAE <b>after successful</b> endoscopic haemostasis, in selected anatomically high-risk cases: <b>haemodynamic instability at presentation, posterior duodenal wall location, ulcer larger than 2 cm, or where durable haemostasis is considered uncertain</b>. Posterior duodenal means the gastroduodenal artery. Absent from ACG 2021.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Conditional, very low</span></div></div>
+  <div class="notice"><b>The ladder:</b> repeat endoscopy, considering an over-the-scope clip &rarr; <b>transcatheter arterial embolisation</b> &rarr; surgery, only where embolisation is unavailable or has failed.</div>
+</section>
+
+<section class="pane" id="p-anti">
+  <h2>Antithrombotics</h2>
+  <div class="notice ver"><b>Scope warning.</b> The ACG 2021 ulcer-bleeding guideline <b>does not cover antithrombotics</b> &mdash; its statements stop at haemostasis. The ACG position lives in a separate document, the <b>ACG-CAG guideline on anticoagulants and antiplatelets during acute GI bleeding (2022)</b>. Citing "ACG 2021" for anticoagulation advice is a category error. That document and ESGE disagree on nearly every reversal agent.</div>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Aspirin for secondary prevention &mdash; do not stop it</h4><p>ESGE: <b>"aspirin not be interrupted"</b>, strong recommendation. ACG-CAG: <b>"suggest against holding the aspirin."</b> If it is interrupted, restart <b>on the day haemostasis is endoscopically confirmed</b> (ACG-CAG) or <b>within 3&ndash;5 days</b> (ESGE).</p><div class="tags"><span class="tagl acgc">ACG-CAG 2022 &middot; conditional, very low</span><span class="tagl esge">ESGE 2026 &middot; Strong, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Why &mdash; the mortality signal</h4><p>Sung's randomised trial in peptic ulcer bleeding on low-dose aspirin: continuing aspirin gave <b>30-day rebleeding 10.3% vs 5.4%</b> (not statistically significant), but <b>30-day mortality 1.3% versus 9.0%</b> in favour of continuing. Stopping aspirin roughly halves rebleeding and multiplies mortality several-fold. <b>Patients die of myocardial infarction and stroke, not of their ulcer.</b> This asymmetry is the single most commonly made error in this area.</p><div class="tags"><span class="tagl trial">Sung, Ann Intern Med 2010</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Dual antiplatelet therapy after stenting</h4><p><b>Continue the aspirin; interrupt only the second agent.</b> Restart the P2Y12 inhibitor <b>as soon as possible, preferably within 5 days</b>. ESGE suggests <b>cardiology consultation</b>. ACG-CAG was unable to reach a recommendation on P2Y12 resumption.</p><div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Warfarin</h4><p>Withhold it. <b>ESGE, if haemodynamically unstable:</b> low-dose vitamin K plus IV prothrombin complex concentrate, or fresh frozen plasma if PCC is unavailable &mdash; and <b>this must not delay endoscopy</b>. <b>ACG-CAG contradicts every element:</b> it suggests <i>against</i> vitamin K, <i>against</i> FFP, and prefers PCC over FFP where something is given. Restart as soon as clinically indicated by thromboembolic risk.</p><div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, low</span><span class="tagl acgc">ACG-CAG 2022 &middot; conditional, very low</span><span class="tagl diff">guidelines differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Direct oral anticoagulants</h4><p>Withhold, and <b>do not delay endoscopy</b>. <b>ESGE:</b> in severe ongoing bleeding, consider a DOAC reversal agent or IV PCC. <b>ACG-CAG suggests against idarucizumab, against andexanet alfa, and against PCC</b> for DOACs &mdash; all conditional, very low certainty. The two are reconcilable in practice: <b>reversal is not routine, but remains an option in life-threatening haemorrhage.</b></p><div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, low</span><span class="tagl acgc">ACG-CAG 2022 &middot; conditional, very low</span><span class="tagl diff">guidelines differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Platelet transfusion</h4><p>Not recommended routinely in patients on antiplatelet agents. <b>Both bodies agree</b> &mdash; a rare point of concord in this section.</p><div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, low</span><span class="tagl acgc">ACG-CAG 2022 &middot; conditional, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>What INR is acceptable</h4><p>Expert consensus: <b>moderate coagulopathy, INR 1.5&ndash;2.5, should not delay endoscopy</b>; correct above 2.5. ESGE restates the principle for both warfarin and DOAC patients &mdash; correction <b>"should not delay endoscopy or if required, endoscopic hemostasis."</b> Correct concurrently, never sequentially. Note these specific numbers come from secondary reporting of the international consensus, not from primary guideline text.</p><div class="tags"><span class="tagl diff">guidelines differ</span></div></div>
+
+  <h3 class="sub">Reversal agent dosing</h3>
+  <div class="notice"><b>Neither guideline supplies these doses.</b> ACG-CAG gives none because it recommends against the agents; ESGE says "consider a reversal agent" without specifying. The doses below are from the drug labels and secondary sources, and are included because a clinician facing exsanguinating haemorrhage needs a number.</div>
+  <div class="tdm">
+  <div class="r"><div class="ag">Idarucizumab</div>
+    <div class="kv"><span>For</span><span>Dabigatran</span></div>
+    <div class="kv"><span>Dose</span><span><b>5 g IV</b></span></div></div><div class="r"><div class="ag">Andexanet alfa &mdash; low dose</div>
+    <div class="kv"><span>For</span><span>Rivaroxaban &le;10 mg, or apixaban &le;5 mg, or last dose &ge;8 h ago</span></div>
+    <div class="kv"><span>Dose</span><span><b>400 mg IV bolus at 30 mg/min</b>, then <b>4 mg/min for up to 120 min</b></span></div></div><div class="r"><div class="ag">Andexanet alfa &mdash; high dose</div>
+    <div class="kv"><span>For</span><span>Rivaroxaban &gt;10 mg or apixaban &gt;5 mg taken &lt;8 h ago, or dose/timing unknown</span></div>
+    <div class="kv"><span>Dose</span><span><b>800 mg IV bolus at 30 mg/min</b>, then <b>8 mg/min for up to 120 min</b></span></div></div><div class="r"><div class="ag">4-factor PCC</div>
+    <div class="kv"><span>For</span><span>When andexanet is unavailable, or dabigatran without idarucizumab</span></div>
+    <div class="kv"><span>Dose</span><span><b>2,000 units IV</b> (flat dose as reported; weight- and INR-based protocols exist locally)</span></div></div>
+  </div>
+  <div class="notice"><b>How to reconcile the conflict at the bedside.</b> ACG-CAG's recommendations against reversal agents are all <b>conditional with very-low certainty</b> &mdash; they reflect absent GI-bleed-specific evidence and concern about thrombotic harm and cost, <b>not</b> evidence of ineffectiveness. ESGE reserves reversal for severe ongoing bleeding. Both positions reduce to the same practice: <b>reversal is not routine, but remains available for life-threatening haemorrhage.</b></div>
+</section>
+
+<section class="pane" id="p-disch">
+  <h2>Discharge and beyond</h2>
+  <div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Test for H. pylori at the index endoscopy</h4><div class="cond2">And retest if it is negative</div><p>ESGE gives three strong, high-certainty recommendations: test <b>in the acute setting at first endoscopy</b>, treat if positive, <b>retest those with a negative test at first endoscopy</b>, and <b>document successful eradication</b>.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, HIGH</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Why a negative test during bleeding means nothing</h4><div class="cond2">Sensitivity collapses in the presence of blood</div><p>In peptic ulcer bleeding specifically: rapid urease test sensitivity <b>0.73&ndash;0.86</b>, urea breath test <b>0.73&ndash;0.89</b>, stool antigen <b>0.72&ndash;0.80</b>. Blood, PPI and antibiotics all suppress the organism, so index testing <b>"underestimates the true prevalence"</b>. <b>Every negative index test must be repeated after recovery, off PPI for at least 2 weeks.</b> Missing this is a leading cause of preventable recurrent ulcer bleeding.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026</span><span class="tagl trial">meta-analysis, 40 studies</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Who needs long-term PPI &mdash; and who does not</h4><div class="cond2">Four groups need it</div><p><b>1.</b> Continuing an NSAID &mdash; use a <b>COX-2 selective agent at the lowest effective dose <i>plus</i> a daily PPI</b>, both, not either. <b>2.</b> Continuing aspirin or another antithrombotic for secondary cardiovascular prevention. <b>3.</b> On ongoing dual antiplatelet therapy &mdash; PPI co-therapy, strong recommendation. <b>4.</b> Idiopathic ulcer, neither H. pylori nor NSAID related.<br><br><b>Who does not:</b> an H. pylori-positive ulcer, successfully eradicated and documented, on no NSAID and no antithrombotic. <b>Stop the PPI in this group</b> &mdash; it is the commonest source of inappropriate indefinite PPI.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Strong, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Iron before discharge</h4><div class="cond2">New in ESGE 2026</div><p>Start iron therapy <b>before the patient leaves</b> in those with iron deficiency or anaemia. No dose, route or duration is specified.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Conditional, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Feed them early</h4><div class="cond2">Within 24 hours</div><p>Early oral nutrition within 24 hours of endoscopic haemostasis, where durable haemostasis has been achieved.</p>
+    <div class="tags"><span class="tagl esge">ESGE 2026 &middot; Conditional, low</span></div></div>
+
+  <h3 class="sub">Non-ulcer lesions</h3>
+  <div class="notice"><b>ESGE 2026 and ACG 2021 both cover peptic ulcers only.</b> ESGE explicitly hands off non-ulcer lesions to the <b>CAG 2025 guideline on endoscopic management of non-variceal non-peptic-ulcer upper GI bleeding</b>, which it endorses. All CAG recommendations below are conditional with very low certainty.</div>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Dieulafoy lesion</h4><p>Band ligation or through-the-scope clip, with or without epinephrine; contact thermocoagulation is an alternative. <b>Epinephrine injection alone is explicitly recommended against.</b> Cap-mounted clips cannot be ranked against conventional therapy for lack of data. Embolisation or surgery if endoscopy fails.</p><div class="tags"><span class="tagl cag">CAG 2025 &middot; Recs 8&ndash;9</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Mallory-Weiss tear</h4><p><b>Treat only if it is actively bleeding.</b> Band ligation or a clip is preferred over epinephrine injection alone. <b>Recommended against</b> treating non-bleeding visible vessels, adherent clots, clean bases or pigmented spots &mdash; the Forrest treat-or-not logic of peptic ulcers <b>does not transfer</b>. A non-bleeding lesion gets high-dose PPI alone.</p><div class="tags"><span class="tagl cag">CAG 2025 &middot; Recs 5&ndash;7</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Gastric antral vascular ectasia</h4><p><b>Band ligation is now recommended over argon plasma coagulation</b> &mdash; a reversal of long-standing practice, at conditional strength and very low certainty. Radiofrequency ablation is <b>not</b> recommended over APC.</p><div class="tags"><span class="tagl cag">CAG 2025 &middot; Recs 10&ndash;11</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Angioectasia and AVM</h4><p>Endoscopic haemostasis is recommended but <b>there is inadequate evidence to prefer any specific modality</b>. Options in use: argon plasma coagulation, heater probe, bipolar and monopolar coagulation, band ligation.</p><div class="tags"><span class="tagl esge">ESGE 2015</span></div></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>Bleeding tumour</h4><p><b>This is the one place haemostatic powder wins.</b> CAG recommends topical haemostatic agents <b>over conventional endoscopic therapy</b> for malignant bleeding &mdash; the opposite of its rescue-only status in ulcers. A supporting trial reported 30-day rebleeding <b>2.1% vs 21.3%</b> and immediate haemostasis <b>100% vs 68.6%</b>. The diffuse, friable, oozing surface of a tumour suits a powder and defeats clips and thermal probes. But no endoscopic treatment has long-term efficacy &mdash; this is a bridge to oncological or radiotherapeutic control.</p><div class="tags"><span class="tagl cag">CAG 2025 &middot; Recs 1&ndash;4</span></div></div>
+</section>
+
+<section class="pane" id="p-info">
+  <h2>About this page</h2>
+  <p class="lede">Adults with acute non-variceal upper gastrointestinal bleeding. For variceal bleeding, see the portal hypertension tool.</p>
+  <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Verify every dose against the current local label. Local availability of andexanet alfa, idarucizumab and interventional radiology cover varies and should be established before you need them at 3 a.m.</div>
+  <div class="notice"><b>How to read the tags</b><br>
+    <span class="tagl esge">ESGE 2026</span> ESGE peptic ulcer bleeding guideline, update 2026<br>
+    <span class="tagl acg">ACG 2021</span> ACG upper gastrointestinal and ulcer bleeding guideline, 2021<br>
+    <span class="tagl acgc">ACG-CAG 2022</span> ACG-CAG antithrombotics during acute GI bleeding, 2022<br>
+    <span class="tagl cag">CAG 2025</span> CAG guideline on non-ulcer non-variceal bleeding, 2025<br>
+    <span class="tagl diff">guidelines differ</span> the societies take different positions</div>
+
+  <h3 class="sub">The disagreements worth knowing</h3>
+  <div class="notice"><b>Over-the-scope clips.</b> ESGE 2026 newly permits them as first-line monotherapy for high-risk stigmata; ACG restricts them to recurrent bleeding. Strong agreement for rebleeding; first-line use is ESGE-only and at very low certainty. <span class="tagl diff">guidelines differ</span></div>
+  <div class="notice"><b>Haemostatic powder.</b> ACG suggests TC-325 for actively bleeding ulcers; ESGE and the international consensus restrict it to rescue after conventional modalities fail. The 12&ndash;24 hour wash-off supports the rescue-only reading. <span class="tagl diff">guidelines differ</span></div>
+  <div class="notice"><b>Adherent clot.</b> ESGE says remove it and treat what is underneath; ACG cannot recommend either way. Both irrigate first. <span class="tagl diff">guidelines differ</span></div>
+  <div class="notice"><b>Reversal agents.</b> ACG-CAG recommends against idarucizumab, andexanet alfa and PCC for DOAC-associated bleeding; ESGE says consider them in severe ongoing bleeding. <span class="tagl diff">guidelines differ</span></div>
+  <div class="notice"><b>Vitamin K.</b> ESGE gives low-dose vitamin K with PCC in the unstable warfarin patient; ACG-CAG suggests against vitamin K entirely. <span class="tagl diff">guidelines differ</span></div>
+  <div class="notice"><b>Transfusion.</b> ACG states a single 7 g/dL threshold; ESGE carves out 8 g/dL with a target above 10 for cardiovascular disease. <span class="tagl diff">guidelines differ</span></div>
+  <div class="notice"><b>Erythromycin.</b> Same drug, same dose, opposite confidence &mdash; ESGE strong with high certainty, ACG conditional with very low certainty. <span class="tagl diff">guidelines differ</span></div>
+
+  <h3 class="sub">Where they agree, emphatically</h3>
+  <div class="notice">No tranexamic acid &middot; no routine second-look endoscopy &middot; no epinephrine monotherapy &middot; no routine platelet transfusion &middot; endoscopy within 24 hours and <b>not</b> within 12 &middot; do not stop the aspirin &middot; embolisation before surgery.</div>
+
+  <h3 class="sub">Abbreviations</h3>
+  <div class="abbr">
+    <div><b>APC</b> &mdash; argon plasma coagulation</div>
+    <div><b>DAPT</b> &mdash; dual antiplatelet therapy</div>
+    <div><b>DOAC</b> &mdash; direct oral anticoagulant</div>
+    <div><b>EBL</b> &mdash; endoscopic band ligation</div>
+    <div><b>GAVE</b> &mdash; gastric antral vascular ectasia</div>
+    <div><b>GBS</b> &mdash; Glasgow-Blatchford score</div>
+    <div><b>OTSC</b> &mdash; over-the-scope clip</div>
+    <div><b>PCC</b> &mdash; prothrombin complex concentrate</div>
+    <div><b>TAE</b> &mdash; transcatheter arterial embolisation</div>
+    <div><b>TTSC</b> &mdash; through-the-scope clip</div>
+    <div><b>UGIH / UGIB</b> &mdash; upper gastrointestinal haemorrhage / bleeding</div>
+  </div>
+
+  <h3 class="sub">Sources</h3>
+  <p class="lede"><b>Endoscopic diagnosis and management of peptic ulcer bleeding: ESGE Guideline &mdash; Update 2026</b>, Endoscopy 2026, doi 10.1055/a-2863-8314 &middot; <b>ACG Clinical Guideline: Upper Gastrointestinal and Ulcer Bleeding</b>, Am J Gastroenterol 2021;116:899&ndash;917 &middot; <b>ACG-CAG Clinical Practice Guideline: Management of Anticoagulants and Antiplatelets During Acute Gastrointestinal Bleeding and the Periendoscopic Period</b>, Am J Gastroenterol 2022 &middot; <b>CAG Clinical Practice Guideline for the Endoscopic Management of Nonvariceal Nonpeptic Ulcer Upper GI Bleeding</b>, Gastroenterology 2025 (ESGE- and AGA-endorsed) &middot; ESGE Guideline 2015 and 2021 for superseded detail &middot; International consensus recommendations, Ann Intern Med 2019 &middot; HALT-IT, Lancet 2020 &middot; Lau et al., N Engl J Med 2020 &middot; Sung et al., Ann Intern Med 2010. Content current to August 2026.</p>
+</section>
+</main>
+
+<nav class="tabbar">
+  <label for="t-risk"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Triage</label>
+  <label for="t-pre"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Pre-scope</label>
+  <label for="t-scope"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.4A6 6 0 0 1 6 13.4C6 9.4 12 3 12 3z"/></svg>Scope</label>
+  <label for="t-after"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>After</label>
+  <label for="t-anti"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Anticoag</label>
+  <label for="t-disch"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Discharge</label>
+  <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Info</label>
+</nav>
+
+
+</body>
+</html>

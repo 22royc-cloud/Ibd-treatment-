@@ -213,6 +213,12 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
 #t-bleed:checked ~ .topbar .filters,
 #t-info:checked ~ .topbar .filters{display:none}
 
+.notice.ver{border-left:3px solid var(--c-il23)}
+.notice .tagl{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.04em;
+  text-transform:uppercase;padding:3px 6px;border-radius:4px;margin:0 2px 0 0;border:1px solid;
+  position:static;top:auto;white-space:nowrap}
+.tagl.bsg{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.tagl.asge{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
 #k-ac:checked ~ main .card:not(.k-ac){display:none}
 #k-ap:checked ~ main .card:not(.k-ap){display:none}
 #k-all:checked ~ .topbar .seg label[for="k-all"],
@@ -294,6 +300,17 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
     <ul><li>Drug-eluting coronary stent within <b>12 months</b><small>Newer-generation stents in high-bleeding-risk patients may allow 1–6 months — ask cardiology</small></li><li>Bare-metal coronary stent within <b>1 month</b></li><li>Acute coronary syndrome within <b>90 days</b></li><li>Recent carotid or peripheral arterial stent<small>Discuss with the implanting service</small></li></ul>
   </div>
   <div class="notice"><b>The practical rule for stents:</b> defer an elective high-risk procedure until the mandatory dual-therapy window has passed — 12 months after a drug-eluting stent, 1 month after a bare-metal stent, and beyond 90 days after an ACS. Newer-generation drug-eluting stents allow shorter windows in patients at high bleeding risk, but that call belongs to cardiology, in writing, not to an assumption.</div>
+
+  <h3 class="sub">The patient the 2021 guideline forgot</h3>
+  <div class="notice ver"><b>Anticoagulant monotherapy in someone with a prior coronary stent.</b> The BSG/ESGE 2021 guideline is silent on this group. BSG issued a formal <b>addendum on 3 June 2024</b> after <b>at least two fatal myocardial infarctions from stent thrombosis</b> in patients whose anticoagulant was stopped for endoscopy with nothing put in its place.<br><br><b>What the addendum requires:</b> such patients must either be <b>switched to aspirin across the interruption</b> — <b>300 mg loading dose the day before the anticoagulant is stopped, then 75 mg daily, continued until anticoagulation is re-established and therapeutic</b> — or be <b>discussed with an interventional cardiologist first</b>.<br><br>A patient on a DOAC or warfarin alone, years after a stent, looks like a simple hold. It is not. This is the single most dangerous gap in the parent guideline. <span class="tagl bsg">BSG addendum, June 2024</span></div>
+
+  <h3 class="sub">GLP-1 and SGLT-2 agents before sedation</h3>
+  <div class="notice"><b>Do not routinely hold them.</b> The consensus across the AGA rapid update, the 2024 multisociety guidance and the 2025 ASGE position statement is <b>fasting-first and risk-stratified</b>, not blanket cessation:<br><br>
+    &bull; <b>Continue the drug</b> in patients without elevated aspiration risk.<br>
+    &bull; <b>Minimum 24 hours of clear liquids</b> before a sedated procedure — extended in symptomatic patients or those on high doses. This is the primary mitigation, not the drug hold.<br>
+    &bull; <b>Point-of-care gastric ultrasound</b> where gastric content status is ambiguous.<br>
+    &bull; <b>Hold selectively</b> — daily agents on the day of the procedure, weekly agents about 7 days — for symptomatic patients or higher-risk therapeutic procedures such as EUS, ERCP and endoscopic sleeve gastroplasty.<br><br>
+    The <b>ASGE 2025 position statement is the newer and more endoscopy-specific document</b>, adds procedure-level granularity the multisociety guidance lacks, and extends the same framework to <b>SGLT-2 inhibitors</b>. <span class="tagl asge">ASGE 2025</span></div>
 </section>
 
 <section class="pane searchable" id="p-drugs">
@@ -559,6 +576,7 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
   <p class="lede">Elective procedures in adults. Emergency management is on the bleeding tab.</p>
   <div class="notice"><b>Clinical decision support, not a prescribing authority.</b> Adult patients, elective settings unless stated. Verify against your local protocol and the current label before acting. This page does not replace discussion with cardiology or haematology where the guidelines call for it.</div>
   <div class="notice"><b>Where the numbers come from.</b> Hold and restart intervals follow the BSG/ESGE 2021 guideline update, cross-checked against ASGE guidance and the PAUSE study protocol, which validated a no-testing, no-bridging DOAC strategy in over 3,000 patients. Where BSG/ESGE and ASGE differ, the more conservative interval is shown and the difference is noted on the drug card.</div>
+  <div class="notice ver"><b>A note on the ASGE antithrombotic document.</b> It dates from <b>2016</b> (Gastrointest Endosc 2016;83:3–16) and ASGE has not replaced it — its 2024–2026 output covers other topics. It is a decade old and materially out of step with BSG/ESGE 2021 and ACG-CAG 2022 on DOAC handling. Treat it as historical context, not as a co-equal current source.</div>
   <div class="notice"><b>Two things this page cannot decide for you.</b> Whether a stent is safe to leave unprotected — that is a cardiology decision. And whether an individual resection is worth the bleeding risk — that is yours, at the time, looking at the lesion.</div>
   <h3 class="sub">Abbreviations</h3>
   <div class="abbr">
@@ -576,7 +594,7 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
     <div><b>VTE</b> — venous thromboembolism</div>
   </div>
   <h3 class="sub">Sources</h3>
-  <p class="lede">BSG and ESGE guideline update on endoscopy in patients on antiplatelet or anticoagulant therapy (2021) · ASGE guideline on the management of antithrombotic agents for endoscopic procedures · PAUSE study (JAMA Intern Med 2019) · BRIDGE trial (NEJM 2015) · ANNEXA-I (NEJM 2024) and ISTH guidance on DOAC reversal · HALT-IT (Lancet 2020) · meta-analysis of cold snare polypectomy on antithrombotics (2022). Current to August 2026.</p>
+  <p class="lede">Veitch AM et al. <b>Endoscopy in patients on antiplatelet or anticoagulant therapy: BSG and ESGE guideline update.</b> Endoscopy 2021;53:947–969 · <b>Addendum to the BSG/ESGE guideline</b>, British Society of Gastroenterology, 3 June 2024 — anticoagulant monotherapy with prior coronary stents · Acosta RD et al. <b>Management of antithrombotic agents for patients undergoing GI endoscopy.</b> Gastrointest Endosc 2016;83:3–16 · Abraham NS et al. <b>ACG-CAG Clinical Practice Guideline: Management of Anticoagulants and Antiplatelets During Acute GI Bleeding and the Periendoscopic Period.</b> Am J Gastroenterol 2022;117 · Kindel TL et al. <b>Multisociety Clinical Practice Guidance for the Safe Use of GLP-1 Receptor Agonists in the Perioperative Period.</b> Clin Gastroenterol Hepatol 2025;23:2083–2085 · Sharaiha RZ et al. <b>ASGE position statement on periendoscopic management of patients on GLP-1 receptor agonists and SGLT-2 inhibitors.</b> Gastrointest Endosc 2025;101:285–294 · PAUSE study (JAMA Intern Med 2019) · BRIDGE trial (NEJM 2015) · ANNEXA-I (NEJM 2024) and ISTH guidance on DOAC reversal · HALT-IT (Lancet 2020) · meta-analysis of cold snare polypectomy on antithrombotics (2022). Current to August 2026.</p>
 </section>
 </main>
 

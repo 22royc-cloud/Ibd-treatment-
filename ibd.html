@@ -202,20 +202,56 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
 }
 
 #t-drugs:checked ~ main #p-drugs,
+#t-pos:checked ~ main #p-pos,
 #t-lor:checked ~ main #p-lor,
+#t-t2t:checked ~ main #p-t2t,
 #t-asuc:checked ~ main #p-asuc,
+#t-postop:checked ~ main #p-postop,
 #t-pipe:checked ~ main #p-pipe,
 #t-info:checked ~ main #p-info{display:block}
 #t-drugs:checked ~ .tabbar label[for="t-drugs"],
+#t-pos:checked ~ .tabbar label[for="t-pos"],
 #t-lor:checked ~ .tabbar label[for="t-lor"],
+#t-t2t:checked ~ .tabbar label[for="t-t2t"],
 #t-asuc:checked ~ .tabbar label[for="t-asuc"],
+#t-postop:checked ~ .tabbar label[for="t-postop"],
 #t-pipe:checked ~ .tabbar label[for="t-pipe"],
 #t-info:checked ~ .tabbar label[for="t-info"]{color:var(--c-tnf)}
+#t-pos:checked ~ .topbar .filters,
 #t-lor:checked ~ .topbar .filters,
+#t-t2t:checked ~ .topbar .filters,
 #t-asuc:checked ~ .topbar .filters,
+#t-postop:checked ~ .topbar .filters,
 #t-pipe:checked ~ .topbar .filters,
 #t-info:checked ~ .topbar .filters{display:none}
 
+.tabbar label{font-size:8.5px;letter-spacing:-.02em;padding-left:1px;padding-right:1px}
+.tabbar label svg{width:19px;height:19px}
+@media (min-width:400px){.tabbar label{font-size:9.5px}}
+.tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:4px;line-height:1}
+.tags:empty{display:none}
+.tags .tagl,.notice .tagl,.blk li .tagl{display:inline-block;font-size:9px;font-weight:800;
+  letter-spacing:.04em;text-transform:uppercase;padding:3px 6px;border-radius:4px;margin:0 2px 0 0;
+  border:1px solid;position:static;top:auto;white-space:nowrap}
+.tagl.acg{background:var(--e-bg);border-color:var(--e-br);color:var(--e-tx)}
+.tagl.aga{background:var(--o-bg);border-color:var(--o-br);color:var(--o-tx)}
+.tagl.ecco{background:var(--g-bg);border-color:var(--g-br);color:var(--g-tx)}
+.tagl.src{background:var(--tint);border-color:var(--ring);color:var(--ink-3)}
+.tagl.conflict{background:var(--r-bg);border-color:var(--r-br);color:var(--r-tx)}
+.verdict{margin-top:10px;padding:10px 11px;border-radius:9px;background:var(--card2);
+  border:1px solid var(--ring);font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.verdict b{color:var(--ink-1)}
+.tierrow{display:flex;gap:9px;margin-top:9px;align-items:flex-start}
+.tk{flex:none;width:92px;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;
+  font-weight:800;padding-top:2px}
+.tk.hi{color:var(--c-integrin)} .tk.lo{color:var(--c-immuno)}
+.tv{font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.tv b{color:var(--ink-1)}
+@media (min-width:900px){
+  #p-pos,#p-t2t,#p-postop{column-count:2;column-gap:14px}
+  #p-pos .blk,#p-pos .notice,#p-t2t .blk,#p-t2t .notice,#p-t2t .tdm,
+  #p-postop .blk,#p-postop .notice,#p-postop .tdm{break-inside:avoid;-webkit-column-break-inside:avoid}
+  #p-pos h3.sub,#p-postop h3.sub{column-span:all}}
 .c-asa{--ac:var(--c-asa)} .c-steroid{--ac:var(--c-steroid)} .c-immuno{--ac:var(--c-immuno)}
 .c-tnf{--ac:var(--c-tnf)} .c-integrin{--ac:var(--c-integrin)} .c-il23{--ac:var(--c-il23)}
 .c-jak{--ac:var(--c-jak)} .c-s1p{--ac:var(--c-s1p)}
@@ -282,8 +318,11 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
 <body>
 
 <input type="radio" name="tab" id="t-drugs" class="ctl" checked>
+<input type="radio" name="tab" id="t-pos" class="ctl">
 <input type="radio" name="tab" id="t-lor" class="ctl">
+<input type="radio" name="tab" id="t-t2t" class="ctl">
 <input type="radio" name="tab" id="t-asuc" class="ctl">
+<input type="radio" name="tab" id="t-postop" class="ctl">
 <input type="radio" name="tab" id="t-pipe" class="ctl">
 <input type="radio" name="tab" id="t-info" class="ctl">
 <input type="radio" name="dz" id="z-all" class="ctl" checked>
@@ -976,6 +1015,173 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
 </details>
 </section>
 
+<section class="pane" id="p-pos">
+  <h2>Choosing the first drug</h2>
+  <p class="lede">Two societies, two philosophies. ACG 2025 declines to rank the advanced therapies in Crohn's; AGA publishes efficacy tiers from network meta-analysis. Knowing which one you are quoting matters more than knowing either.</p>
+
+  <div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Do not make them fail conventional therapy first</h4><div class="cond">The headline change of ACG 2025</div><p><b>"We suggest against requiring failure of conventional therapy before initiation of advanced therapy for the management of Crohn's disease."</b> Early advanced therapy beats accelerated step-up. The old reflex of exhausting steroids and thiopurines before reaching for a biologic is now explicitly discouraged.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 3 &middot; conditional, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>ACG declines to rank the advanced therapies in Crohn's</h4><div class="cond">No recommendation favours one agent over another</div><p>In advanced-therapy-naive Crohn's, ACG 2025 deliberately makes <b>no</b> comparative recommendation. AGA does rank them. If you want a league table you are using AGA, not ACG &mdash; and you should know which one you are quoting.</p>
+    <div class="tags"><span class="tagl acg">CD</span><span class="tagl conflict">societies differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>The one comparative statement in Crohn's</h4><div class="cond">Risankizumab over ustekinumab, after anti-TNF</div><p>The single head-to-head-derived positioning statement in the Crohn's guideline, translating SEQUENCE directly. Applies to <b>anti-TNF-experienced</b> patients only.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 19 &middot; conditional, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>Use your best agent first &mdash; in UC this is stated outright</h4><div class="cond">Response rates fall after each failure</div><p><b>"Patients with moderately to severely active UC have higher rates of response and remission with their first therapies than after failure of one or more other advanced therapies."</b> The corollary: sequencing weak-to-strong wastes the best chance you will get.</p>
+    <div class="tags"><span class="tagl acg">UC key concept</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Infliximab is the preferred anti-TNF in UC</h4><div class="cond">Stated explicitly</div><p>And <b>vedolizumab is recommended over adalimumab</b> for induction and maintenance, reflecting VARSITY. Where infection risk is high, vedolizumab or an anti-IL-23 strategy may be preferred over more systemically immunosuppressive options.</p>
+    <div class="tags"><span class="tagl acg">UC Rec 45 &middot; strong, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>ACG will not build an efficacy league table from network meta-analyses</h4><div class="cond">And says so</div><p><b>"Post hoc subgroup analyses and network meta-analyses provide hypothesis-generating data but are not sufficient to stratify therapies for individual patients."</b> AGA takes the opposite methodological view and publishes tiers. Both positions are defensible; know which you are relying on.</p>
+    <div class="tags"><span class="tagl acg">UC</span><span class="tagl conflict">societies differ</span></div></div>
+
+  <h3 class="sub">The AGA efficacy tiers</h3>
+  <div class="notice"><b>These are AGA, not ACG.</b> Derived from network meta-analysis, which ACG explicitly declines to use for stratifying individual patients. Useful as a starting orientation, not as a rule. <span class="tagl aga">living guidelines</span></div>
+  <div class="blk">
+    <h4>Crohn's &mdash; biologic-naive</h4>
+    <div class="tierrow"><span class="tk hi">Higher efficacy</span><span class="tv">infliximab &middot; adalimumab &middot; vedolizumab &middot; ustekinumab &middot; risankizumab &middot; mirikizumab &middot; guselkumab</span></div>
+    <div class="tierrow"><span class="tk lo">Lower efficacy</span><span class="tv"><b>certolizumab pegol &middot; upadacitinib</b></span></div></div>
+<div class="blk">
+    <h4>Crohn's &mdash; biologic-exposed</h4>
+    <div class="tierrow"><span class="tk hi">Higher efficacy</span><span class="tv">adalimumab &middot; risankizumab &middot; guselkumab &middot; <b>upadacitinib</b></span></div>
+    <div class="tierrow"><span class="tk lo">Intermediate &middot; Lower</span><span class="tv">ustekinumab, mirikizumab &middot; vedolizumab, certolizumab pegol</span></div></div>
+<div class="blk">
+    <h4>UC &mdash; overall</h4>
+    <div class="tierrow"><span class="tk hi">Higher efficacy</span><span class="tv">infliximab &middot; vedolizumab &middot; ozanimod &middot; etrasimod &middot; upadacitinib &middot; risankizumab &middot; guselkumab</span></div>
+    <div class="tierrow"><span class="tk lo">Intermediate &middot; Lower</span><span class="tv">golimumab, ustekinumab, tofacitinib, filgotinib, mirikizumab &middot; adalimumab</span></div></div>
+<div class="blk">
+    <h4>UC &mdash; biologic-exposed</h4>
+    <div class="tierrow"><span class="tk hi">Higher efficacy</span><span class="tv">tofacitinib &middot; upadacitinib &middot; ustekinumab</span></div>
+    <div class="tierrow"><span class="tk lo">Intermediate</span><span class="tv">filgotinib &middot; mirikizumab &middot; risankizumab &middot; guselkumab</span></div></div>
+  <div class="notice"><b>Two upadacitinib observations worth carrying into clinic.</b> AGA places it in the <b>lower</b> efficacy tier in biologic-naive Crohn's and the <b>higher</b> tier once anti-TNF has failed. It was also highly effective in isolated colonic disease with <b>no significant efficacy signal in ileal Crohn's</b>. <span class="tagl aga">CD living guideline</span></div>
+  <div class="notice"><b>US label change, October 2025.</b> Upadacitinib in UC and Crohn's may now be used after at least one approved systemic therapy <b>where TNF blockers are clinically inadvisable</b> &mdash; prior anti-TNF failure is no longer an absolute requirement. The EMA restriction is separate and unchanged: in patients <b>65 or over</b>, with cardiovascular or malignancy risk, or current/long-term former smokers, use a JAK only if no suitable alternative exists, and the EU maintenance dose in Crohn's for the over-65s is <b>15 mg, not 30 mg</b>. <span class="tagl src">FDA label</span> <span class="tagl src">EMA Article 20</span></div>
+
+  <h3 class="sub">The head-to-head trials</h3>
+  <p class="lede">Only three exist in Crohn's and one in UC. Everything else is placebo-controlled and compared indirectly.</p>
+  <div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>SEQUENCE</h4><div class="cond">Risankizumab vs ustekinumab &middot; Crohn's</div><p>n=520, all with prior anti-TNF failure. Clinical remission at week 24 <b>58.6% vs 39.5%</b> &mdash; non-inferiority met. Endoscopic remission at week 48 <b>31.8% vs 16.2%, superior, p&lt;0.001</b>. Serious adverse events 10.3% vs 17.4%.</p>
+    <div class="verdict"><b>Risankizumab wins on endoscopy.</b> This is the trial behind ACG Rec 19.</div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>GALAXI 2 and 3</h4><div class="cond">Guselkumab vs ustekinumab &middot; Crohn's</div><p>n=1,021, treat-through, triple-dummy. Pooled 48 weeks, guselkumab 200 mg q4w vs ustekinumab: endoscopic response <b>52.7% vs 37.1%</b> (p&lt;0.001), endoscopic remission <b>37.2% vs 24.7%</b> (p=0.001), deep remission 33.8% vs 22.3% (p=0.002). <b>Clinical remission alone 70.3% vs 62.9% &mdash; not significant (p=0.058).</b></p>
+    <div class="verdict"><b>Guselkumab wins on every endoscopic endpoint but not on symptoms alone.</b> A clean illustration of why the endpoint you choose decides the answer.</div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>VIVID-1</h4><div class="cond">Mirikizumab vs ustekinumab &middot; Crohn's</div><p>Treat-through, randomised 6:3:2. Versus placebo at week 52: endoscopic response 38.0% vs 9.0%, CDAI remission 45.4% vs 19.6%. Versus ustekinumab: <b>non-inferiority demonstrated</b> for CDAI remission at week 52; in biologic-exposed patients numerically higher but <b>not significant</b>.</p>
+    <div class="verdict"><b>A tie, not a win.</b> Mirikizumab is non-inferior to ustekinumab &mdash; do not read it as superior.</div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>SEAVUE</h4><div class="cond">Ustekinumab vs adalimumab &middot; Crohn's</div><p>Biologic-naive, 56 weeks, double-dummy. Week 52 clinical remission <b>65% vs 61%</b> and endoscopic remission <b>29% vs 31%</b> &mdash; <b>no significant difference on either</b>. Ustekinumab had numerically fewer infections and longer persistence.</p>
+    <div class="verdict"><b>A genuine draw.</b> Indirect comparison had predicted adalimumab superiority; SEAVUE refuted it. A standing warning about network meta-analyses.</div></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>VARSITY</h4><div class="cond">Vedolizumab vs adalimumab &middot; UC</div><p>n=769, 52 weeks, double-dummy. Clinical remission <b>31.3% vs 22.5%</b> (p=0.006); endoscopic improvement <b>39.7% vs 27.7%</b> (p&lt;0.001). But <b>corticosteroid-free remission 12.6% vs 21.8%, numerically favouring adalimumab</b>. Infections 23.4 vs 34.6 per 100 patient-years.</p>
+    <div class="verdict"><b>Vedolizumab wins the primary endpoint and loses the steroid-free one.</b> Critical caveat: the double-dummy design forbade dose optimisation of either drug, which limits real-world transfer.</div></div>
+  <div class="notice"><b>LUCENT, ELEVATE, QUASAR and ARTEMIS are not head-to-head trials</b> &mdash; all are placebo-controlled. As of August 2026 <b>VARSITY remains the only completed head-to-head biologic trial in ulcerative colitis</b>, which is why UC positioning leans on network meta-analysis in a way Crohn's positioning need not.</div>
+
+  <h3 class="sub">What the guidelines recommend against</h3>
+  <p class="lede">The negative recommendations are the ones that change behaviour, because they name things people still do.</p>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Oral mesalamine in Crohn's disease</h4><div class="cond">Induction or maintenance in mild-to-moderate CD</div><p>The carve-out: <b>sulfasalazine 3&ndash;6 g/day may be modestly effective in mild colonic or ileocolonic Crohn's</b> &mdash; but not in isolated small bowel disease.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 4 &middot; STRONG, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Thiopurines for induction</h4><div class="cond">Azathioprine 1.5&ndash;2.5 mg/kg/day or 6-MP 0.75&ndash;1.5 mg/kg/day for induction in moderate-severe CD</div><p>They remain <b>maintenance</b> agents after steroid-induced remission (Rec 9, conditional). Check TPMT before starting (Rec 10, strong).</p>
+    <div class="tags"><span class="tagl acg">CD Rec 8 &middot; STRONG, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Budesonide for maintenance</h4><div class="cond">Ileal-release budesonide to maintain remission</div><p>It is an induction drug: 9 mg daily for mild-to-moderate ileocaecal Crohn's (Rec 5, strong).</p>
+    <div class="tags"><span class="tagl acg">CD Rec 6 &middot; STRONG, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Antibiotics for luminal Crohn's</h4><div class="cond">As primary therapy for inflammatory luminal disease</div><p><b>"Antibiotics are not an effective treatment for luminal inflammatory CD and should not be used as primary therapy."</b> Metronidazole and ciprofloxacin are both no better than placebo for induction. They keep their place in perianal disease and post-operative prophylaxis.</p>
+    <div class="tags"><span class="tagl acg">CD key concept</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Corticosteroids beyond 3 months</h4><div class="cond">Continuous steroids without a steroid-sparing agent</div><p><b>"The use of corticosteroids should not exceed 3 continuous months without attempting to introduce corticosteroid-sparing agents."</b> Tapers should also not exceed 3 months, and prednisone above 60 mg/day is not recommended.</p>
+    <div class="tags"><span class="tagl acg">CD key concept</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Steroids of any kind for maintenance in UC</h4><div class="cond">Systemic, budesonide MMX or topical</div><p>Separate recommendations against systemic steroids and against budesonide MMX or topical steroids for maintenance.</p>
+    <div class="tags"><span class="tagl acg">UC Rec 20, 35 &middot; STRONG, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Thiopurine or methotrexate monotherapy for induction in UC</h4><div class="cond">Moderate-to-severe disease</div><p>And methotrexate is recommended against for <b>maintenance</b> in UC too (Rec 37, conditional).</p>
+    <div class="tags"><span class="tagl acg">UC Rec 23 &middot; STRONG, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Switching 5-ASA formulation as a strategy</h4><div class="cond">Changing brand or delivery system when the first fails</div><p>Also recommended against: <b>adding 5-ASA to a biologic or JAK inhibitor</b> (Recs 32, 34).</p>
+    <div class="tags"><span class="tagl acg">UC Rec 14 &middot; conditional, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Serologic antibody testing</h4><div class="cond">ASCA, pANCA for diagnosis or prognosis in UC</div><p>Two separate strong recommendations against &mdash; one for diagnosis, one for prognosis.</p>
+    <div class="tags"><span class="tagl acg">UC Rec 2&ndash;3 &middot; STRONG, very low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>5-ASA, budesonide or probiotics after Crohn's surgery</h4><div class="cond">Post-operative prophylaxis</div><p>AGA recommends against all three for preventing post-operative recurrence.</p>
+    <div class="tags"><span class="tagl aga">post-op guideline</span></div></div>
+</section>
+
+<section class="pane" id="p-t2t">
+  <h2>Treat to target</h2>
+  <p class="lede">STRIDE-II, the IOIBD target framework. Three horizons, each with its own endpoint. There is no STRIDE-III as of August 2026.</p>
+  <div class="tdm">
+  <div class="r"><div class="ag">Under 3 months</div>
+    <div class="kv"><span>Target</span><span><b>Clinical response</b></span></div>
+    <div class="kv"><span>Means</span><span>CD: at least a 50% reduction in PRO2 &mdash; abdominal pain plus stool frequency.<br>UC: resolution of rectal bleeding and normalisation of bowel habit.</span></div></div><div class="r"><div class="ag">3 to 6 months</div>
+    <div class="kv"><span>Target</span><span><b>Clinical remission + normalised biomarkers</b></span></div>
+    <div class="kv"><span>Means</span><span>CD: PRO2 abdominal pain &le;1 <b>and</b> stool frequency &le;3, or HBI &lt;5. <b>CRP within the normal range</b> and <b>faecal calprotectin 100&ndash;250 &micro;g/g</b>.</span></div></div><div class="r"><div class="ag">6 to 12 months and beyond</div>
+    <div class="kv"><span>Target</span><span><b>Endoscopic healing</b></span></div>
+    <div class="kv"><span>Means</span><span>CD: <b>SES-CD &le;2</b> (or CDEIS &lt;3) with <b>no ulcers</b>.<br>UC: STRIDE-II sets <b>Mayo endoscopic subscore 0</b>; <b>ACG 2025 uses the more practical MES 0 or 1</b>.<br>Plus normalised quality of life and absence of disability.</span></div></div>
+  </div>
+  <div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Not targets</h4><p><b>Histological remission is not a treatment target in Crohn's disease.</b> <b>Transmural healing is not a target</b> either &mdash; it is an adjunct to endoscopic remission. In UC, ACG 2025 says histologic remission <b>"has not yet been validated prospectively as a preferred target."</b> The VERDICT trial is the study designed to settle whether chasing histology is worth it.</p></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Where the two ACG guidelines diverge</h4><p><b>The ACG UC guideline endorses STRIDE-II and sets endoscopic improvement as a graded recommendation (Rec 4, strong).</b> The ACG Crohn's guideline <b>never mentions STRIDE or treat-to-target at all</b> &mdash; it states mucosal healing is "a goal of therapy" and that objective evaluation should be done "periodically", with no interval and no numeric biomarker target. That asymmetry is real, not an oversight in this page.</p></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>The assessment window</h4><p><b>"Clinical evidence of improvement should be evident within 2&ndash;4 weeks, and the maximal improvement should occur by 12&ndash;16 weeks."</b> Judge a drug at 12&ndash;16 weeks, not at 4.</p></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Why symptoms are not enough</h4><p><b>"Symptoms of CD do not correlate well with the presence of active inflammation."</b> And conversely, biomarkers <b>"should not exclusively serve as a treatment endpoint because normalization of the biomarker may occur in the presence of active mucosal inflammation/ulceration."</b> Neither symptoms nor calprotectin alone will do.</p></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>The evidence it rests on</h4><p><b>CALM:</b> tight control targeting biomarkers plus symptoms achieved <b>46% endoscopic healing at 48 weeks</b>, an adjusted risk difference of +16.1% over symptom-driven management (p=0.01), with fewer hospitalisations &mdash; 13.2 vs 28.0 per 100 patient-years.</p></div>
+</section>
+
+<section class="pane" id="p-postop">
+  <h2>After Crohn's surgery</h2>
+  <p class="lede">Roughly half of patients have symptomatic recurrence within five years, and endoscopic recurrence comes first &mdash; which is the whole reason for scoping at 6 to 12 months rather than waiting for symptoms.</p>
+
+  <div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>Scope them at 6 to 12 months</h4><div class="cond">Ileocolonoscopy after ileocolic resection</div><p><b>"In patients with surgically induced remission of CD, we suggest postoperative endoscopic assessment at 6&ndash;12 months over no monitoring."</b> Every current source agrees on this window &mdash; ACG, AGA and the Crohn's and Colitis Canada pathway. Later assessment correlates with worse outcomes.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 30 &middot; conditional, moderate</span><span class="tagl aga">post-op</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Who is high risk</h4><div class="cond">This list is not the same as the disease-progression risk list</div><p><b>Active smoking</b> (roughly doubles the risk) &middot; <b>more than one prior resection</b> &middot; <b>penetrating or fistulising behaviour</b> &middot; <b>short disease duration before surgery</b> &middot; age under 30 at diagnosis &middot; positive resection margins.<br>Lower risk: non-smoker, first surgery, short resected segment, longer established disease, age over 50.</p>
+    <div class="tags"><span class="tagl acg">CD</span><span class="tagl src">Crohn's and Colitis Canada 2025</span></div></div>
+<div class="blk bl" style="--bc:var(--c-tnf)">
+    <h4>High risk → anti-TNF</h4><div class="cond">The only strong recommendation here</div><p><b>"In patients with high-risk CD, we recommend anti-TNF therapy to prevent postoperative endoscopic recurrence."</b> PREVENT: infliximab cut endoscopic recurrence to <b>22.4% vs 51.3%</b> (p&lt;0.001). The Canadian pathway suggests starting <b>within 1&ndash;2 months</b> of surgery; ACG specifies no interval.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 33 &middot; STRONG, moderate</span></div></div>
+<div class="blk bl" style="--bc:var(--c-integrin)">
+    <h4>High risk → vedolizumab is now an option</h4><div class="cond">New in ACG 2025</div><p><b>REPREVIO</b>: vedolizumab 300 mg IV at weeks 0, 8, 16 and 24 after ileocolonic resection. Probability of a lower modified Rutgeerts score <b>77.8%</b> (p&lt;0.0001); severe endoscopic recurrence (&ge; i2b) <b>23.3% vs 62.2%</b> (p=0.0004).</p>
+    <div class="tags"><span class="tagl acg">CD Rec 34 &middot; conditional, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-asa)">
+    <h4>Low risk → watch</h4><div class="cond">Observation rather than immediate drugs</div><p><b>"In patients with CD with low postoperative risk of recurrence, we suggest continued observation as compared with immediate initiation of medical therapy."</b> AGA leans the other way, suggesting early prophylaxis over endoscopy-guided treatment in patients in surgical remission.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 31 &middot; conditional, very low</span><span class="tagl conflict">societies differ</span></div></div>
+<div class="blk bl" style="--bc:var(--c-jak)">
+    <h4>Nitroimidazole antibiotics</h4><div class="cond">A modest, cheap option</div><p><b>Metronidazole 1&ndash;2 g/day after small intestinal resection</b> to prevent recurrence. One of the few places antibiotics keep a role in Crohn's.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 32 &middot; conditional, low</span></div></div>
+<div class="blk bl" style="--bc:var(--c-steroid)">
+    <h4>What has no evidence here</h4><div class="cond">Do not reach for these</div><p><b>Ustekinumab, the IL-23 inhibitors and the JAK inhibitors have insufficient evidence</b> for post-operative prophylaxis &mdash; no guideline recommendation exists. AGA recommends <b>against</b> mesalamine, budesonide and probiotics.</p>
+    <div class="tags"><span class="tagl aga">post-op</span><span class="tagl src">2026 review</span></div></div>
+<div class="blk bl" style="--bc:var(--c-il23)">
+    <h4>Non-invasive monitoring between scopes</h4><div class="cond">Calprotectin and ultrasound</div><p>Faecal calprotectin at a cut-off of <b>100&ndash;150 &micro;g/g</b> gives 70&ndash;89% sensitivity, 58&ndash;69% specificity and a <b>negative predictive value above 90%</b> for endoscopic recurrence. Intestinal ultrasound is emerging as a radiation-free alternative in expert hands. A raised calprotectin should bring the colonoscopy forward.</p>
+    <div class="tags"><span class="tagl src">2026 review</span></div></div>
+<div class="blk bl" style="--bc:var(--c-immuno)">
+    <h4>Intra-abdominal abscess</h4><div class="cond">Drain before you immunosuppress</div><p><b>"We suggest that an intra-abdominal abscess (&gt;2 cm) be treated with antibiotics and a drainage procedure, and immunosuppression held until drainage is achieved."</b> Radiologically or surgically.</p>
+    <div class="tags"><span class="tagl acg">CD Rec 35 &middot; conditional, low</span></div></div>
+
+  <h3 class="sub">Rutgeerts score</h3>
+  <p class="lede">Scored at the neoterminal ileum. ACG 2025 names the score but does not define the grades or set an action threshold &mdash; the definitions below and the threshold debate come from the primary literature.</p>
+  <div class="tdm">
+  <div class="r"><div class="ag" style="color:var(--c-asa)">i0</div>
+    <div class="kv"><span>Means</span><span>No lesions</span></div></div><div class="r"><div class="ag" style="color:var(--c-integrin)">i1</div>
+    <div class="kv"><span>Means</span><span>&le; 5 aphthous lesions</span></div></div><div class="r"><div class="ag" style="color:var(--c-jak)">i2a</div>
+    <div class="kv"><span>Means</span><span>Lesions confined to the anastomosis</span></div></div><div class="r"><div class="ag" style="color:var(--c-il23)">i2b</div>
+    <div class="kv"><span>Means</span><span>&gt; 5 aphthous ulcers in the neoterminal ileum, normal intervening mucosa, &plusmn; anastomotic involvement</span></div></div><div class="r"><div class="ag" style="color:var(--c-immuno)">i3</div>
+    <div class="kv"><span>Means</span><span>Diffuse aphthous ileitis with diffusely inflamed mucosa</span></div></div><div class="r"><div class="ag" style="color:var(--c-immuno)">i4</div>
+    <div class="kv"><span>Means</span><span>Diffuse inflammation with larger ulcers, nodules and/or narrowing</span></div></div>
+  </div>
+  <div class="notice"><b>Which grade triggers treatment is genuinely contested.</b> Some pathways act at <b>i2 or above</b>; others reserve intervention for <b>i2b or above</b>. The decisive evidence favours treating all i2: an individual-patient-data meta-analysis found <b>no significant difference between i2a and i2b</b> &mdash; clinical recurrence at 3 years 25% vs 33%, hazard ratio 1.27 (95% CI 0.91&ndash;1.76, p=0.16); surgical recurrence hazard ratio 0.94 (0.44&ndash;2.00, p=0.87). The authors concluded the same strategy should apply to <b>all</b> i2 patients. <span class="tagl src">JCC 2023 IPD meta-analysis</span></div>
+</section>
+
 <section class="pane" id="p-lor">
   <h2>No response or loss of response</h2>
   <p class="lede">The decisive question is never "is the patient better?" but "is there active inflammation, and is there enough drug on board to explain it?"</p>
@@ -1006,6 +1212,9 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
   <h3 class="sub">TDM targets</h3>
   <p class="lede">Trough concentrations associated with mucosal healing. Population-level associations, not hard cut-offs — read them alongside objective inflammation.</p>
   <div class="tdm"><div class="r"><div class="ag">Infliximab</div><div class="kv"><span>Post-induction</span><span><b>≥ 7 µg/mL (wk 14)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 5 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Perianal fistula 10–15 · ASUC ≥ 15–20 µg/mL early</span></div></div><div class="r"><div class="ag">Adalimumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 12 µg/mL (wk 4)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 7.5 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Perianal fistula 10–15 µg/mL</span></div></div><div class="r"><div class="ag">Certolizumab pegol</div><div class="kv"><span>Post-induction</span><span><b>≥ 32 µg/mL (wk 6)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 20 µg/mL</b></span></div></div><div class="r"><div class="ag">Golimumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 2.5 µg/mL (wk 6)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 1–2 µg/mL</b></span></div></div><div class="r"><div class="ag">Vedolizumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 18–20 µg/mL (wk 6)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 10–12 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Immunogenicity rare (&lt; 4%) — a low level almost always means under-dosing, not antibodies</span></div></div><div class="r"><div class="ag">Ustekinumab</div><div class="kv"><span>Post-induction</span><span><b>≥ 3–4.5 µg/mL (wk 8)</b></span></div><div class="kv"><span>Maintenance</span><span><b>≥ 1–4.5 µg/mL</b></span></div><div class="kv"><span>Note</span><span>Limited evidence — escalate on clinical grounds</span></div></div><div class="r"><div class="ag">Risankizumab · Mirikizumab · Guselkumab</div><div class="kv"><span>Note</span><span>No validated thresholds. Escalate on objective disease activity.</span></div></div><div class="r"><div class="ag">Thiopurines</div><div class="kv"><span>Maintenance</span><span><b>6-TGN 235–450 pmol/8×10⁸ RBC</b></span></div><div class="kv"><span>Note</span><span>High 6-MMP with low 6-TGN = hypermethylator shunting → add allopurinol 100 mg/day and reduce the thiopurine to 25–33%</span></div></div><div class="r"><div class="ag">JAK inhibitors · S1P modulators</div><div class="kv"><span>Note</span><span>Small molecules, no TDM. Failure at the maximum tolerated dose is a mechanistic failure; switch class.</span></div></div></div>
+  <div class="notice"><b>ACG 2025 prints three anti-TNF troughs</b> and frames three failure modes exactly as above: <b>infliximab &gt; 5</b>, <b>adalimumab &gt; 7.5</b>, <b>certolizumab pegol &gt; 20</b> µg/mL. It gives <b>no</b> target for ustekinumab or vedolizumab, and neither does any society — the published thresholds for those two are association data only, and empiric dose escalation without a level is a defensible alternative. <span class="tagl acg">CD key concepts</span></div>
+  <div class="notice"><b>Proactive versus reactive TDM is unsettled, and it moved in 2026.</b> Reactive TDM at loss of response is universally endorsed. Proactive TDM in stable remission is <i>not</i> supported by AGA 2017, the ECCO Crohn's guideline (2024) or ACG UC 2025 — which says there is "insufficient evidence supporting a benefit for proactive therapeutic drug monitoring in all unselected patients with UC in remission". But the <b>ECCO topical review of January 2026 now recommends proactive TDM plus short-term combination with an immunomodulator for anti-TNF agents</b>. Treat this as a live disagreement, not a settled rule. <span class="tagl ecco">topical review 2026</span> <span class="tagl conflict">societies differ</span></div>
+  <div class="notice"><b>When combination therapy is worth it.</b> ACG 2025 recommends <b>IV infliximab plus a thiopurine</b> over either alone in patients naive to both (Rec 13, strong, moderate) — note it is specific to infliximab, with no equivalent statement for the other classes. AGA adds three triggers that favour combination: <b>prior immunogenicity to a TNF antagonist, re-exposure after a drug holiday, and carriage of HLA-DQA1*05</b>. <span class="tagl acg">CD Rec 13</span> <span class="tagl aga">CD living guideline</span></div>
 </section>
 
 <section class="pane" id="p-asuc">
@@ -1022,10 +1231,15 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
     <li>This is the moment to commit to rescue therapy — not day 7.</li>
     <li>Confirm the surgical plan in parallel; rescue is not an alternative to a surgeon.</li></ul></div>
   <div class="blk"><div class="dh" style="color:var(--c-tnf)">Day 3–5 · Rescue</div>
-    <ul><li><b>Infliximab 5 mg/kg IV.</b> Accelerated dosing — 2nd and 3rd doses within days rather than weeks 2 and 6 — is used with high inflammatory burden or albumin &lt; 30 g/L. Retrospective data only.</li>
-    <li><b>Ciclosporin 2 mg/kg/day</b> IV continuous infusion, target trough 150–250 ng/mL, then oral 4–8 mg/kg/day bridging to a thiopurine. Equivalent to infliximab in CYSIF and CONSTRUCT. Avoid if cholesterol &lt; 3 mmol/L or magnesium is low.</li>
-    <li><b>Tofacitinib 10 mg three times daily</b> and <b>upadacitinib 45 mg</b> have positive cohort data as rescue — <span class="tagl off">off-label</span></li>
+    <ul><li><b>ACG 2025 makes this a strong recommendation:</b> "In patients with ASUC failing to adequately respond to IV corticosteroids by 3 days, we recommend medical rescue therapy with <b>infliximab or cyclosporine</b>." <span class="tagl acg">UC Rec 51 · STRONG, moderate</span></li>
+    <li><b>Infliximab 5 mg/kg IV.</b> Accelerated dosing — 2nd and 3rd doses within days rather than weeks 2 and 6 — is used with high inflammatory burden or albumin &lt; 30 g/L. Retrospective data only.</li>
+    <li><b>Ciclosporin 2 mg/kg/day</b> IV continuous infusion, target trough 150–250 ng/mL, then oral 4–8 mg/kg/day. Equivalent to infliximab in CYSIF and CONSTRUCT. Avoid if cholesterol &lt; 3 mmol/L or magnesium is low.</li>
+    <li><b>JAK inhibitors are not endorsed here.</b> ACG 2025 is explicit: in ASUC failing IV steroids by day 3, or failing infliximab induction, "there are <b>insufficient data to routinely recommend</b> treatment with tofacitinib or upadacitinib." Cohort data are positive but this remains <span class="tagl off">off-label</span> and outside the guideline. <span class="tagl acg">UC</span></li>
     <li>Sequential rescue carries high infection risk — specialist centres only.</li></ul></div>
+  <div class="blk"><div class="dh" style="color:var(--c-integrin)">After a successful rescue</div>
+    <ul><li><b>Infliximab responders → maintain on infliximab.</b> <span class="tagl acg">UC Rec 52 · strong, moderate</span></li>
+    <li><b>Ciclosporin responders → bridge to a thiopurine</b> <span class="tagl acg">UC Rec 53 · conditional, low</span> <b>or to vedolizumab</b> <span class="tagl acg">UC Rec 54 · conditional, very low</span></li>
+    <li>Ciclosporin is a bridge, never a maintenance drug. Decide the destination before you start the infusion.</li></ul></div>
   <div class="blk"><div class="dh" style="color:var(--c-immuno)">Day 5–7 · Decide</div>
     <ul><li>No clear response to rescue by <b>day 5–7</b> → <b>colectomy</b>. Delay past this point increases postoperative morbidity and mortality.</li>
     <li>Colectomy is a treatment, not a failure — frame it that way with the patient early.</li>
@@ -1066,15 +1280,20 @@ details[open] > summary .chev{transform:rotate(45deg);margin-top:6px}
     <div><b>VTE</b> — venous thromboembolism</div>
   </div>
   <h3 class="sub">Sources</h3>
-  <p class="lede">FDA prescribing information and EMA SmPCs for each agent, the 2025 ACG ulcerative colitis guideline, AGA guidance on therapeutic drug monitoring, and published dose-escalation cohort data. Content current to August 2026.</p>
+  <p class="lede"><b>ACG Clinical Guideline: Management of Crohn's Disease in Adults</b>, Am J Gastroenterol 2025;120:1225&ndash;1264 (35 recommendations, 59 key concepts) &middot; <b>ACG Clinical Guideline Update: Ulcerative Colitis in Adults</b>, Am J Gastroenterol 2025;120:1187&ndash;1224 (54 recommendations) &middot; <b>AGA living guidelines</b> on moderate-to-severe ulcerative colitis (2024) and Crohn's disease (November 2025), and the AGA guideline on Crohn's after surgical resection &middot; ECCO therapeutics guidelines for Crohn's disease (2024) and the ECCO topical review on therapy optimisation (January 2026) &middot; AGA guideline on therapeutic drug monitoring (2017) &middot; STRIDE-II, Gastroenterology 2021 &middot; head-to-head trials SEQUENCE, GALAXI 2/3, VIVID-1, SEAVUE, VARSITY &middot; REPREVIO and PREVENT for post-operative prophylaxis &middot; FDA prescribing information and EMA SmPCs for each agent. Content current to August 2026.</p>
+  <div class="notice"><b>Where the societies disagree, this page says so rather than picking one.</b> Tags mark the source of each statement: <span class="tagl acg">ACG</span> <span class="tagl aga">AGA</span> <span class="tagl ecco">ECCO</span> <span class="tagl src">other</span>. The most consequential divergence is that <b>ACG declines to rank the advanced therapies in Crohn's while AGA publishes efficacy tiers</b> &mdash; see the Choose tab.</div>
+  <div class="notice"><b>Doses on this page do not come from the guidelines.</b> ACG 2025 prints doses only for conventional drugs &mdash; budesonide, prednisone, thiopurines, methotrexate, sulfasalazine and metronidazole. It names every biologic and JAK inhibitor without a dose. All biologic and small-molecule dosing here is taken from the FDA label and EU SmPC.</div>
 </section>
 </main>
 
 <nav class="tabbar">
   <label for="t-drugs"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l7-7a5 5 0 0 1 7 7z"/><path d="M7 10l7 7"/></svg>Drugs</label>
-  <label for="t-lor"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>No response</label>
+  <label for="t-pos"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Choose</label>
+  <label for="t-lor"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 4 6-8"/><path d="M21 6h-4M21 6v4"/></svg>Escalate</label>
+  <label for="t-t2t"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-8.8-1.6A5 5 0 0 0 3.2 6.6c-1 3 1.4 6 8.8 12 7.4-6 9.8-9 8.8-12z"/></svg>Target</label>
   <label for="t-asuc"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>ASUC</label>
-  <label for="t-pipe"><svg viewBox="0 0 24 24"><path d="M12 3v4"/><path d="M8.5 7h7l1.5 11a3 3 0 0 1-3 3.4h-4A3 3 0 0 1 7 18z"/><path d="M7.6 14h8.8"/></svg>Pipeline</label>
+  <label for="t-postop"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 10.4A6 6 0 0 1 6 13.4C6 9.4 12 3 12 3z"/></svg>Post-op</label>
+  <label for="t-pipe"><svg viewBox="0 0 24 24"><path d="M12 3v4"/><path d="M8.5 7h7l1.5 11a3 3 0 0 1-3 3.4h-4A3 3 0 0 1 7 18z"/><path d="M7.6 14h8.8"/></svg>New</label>
   <label for="t-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>Info</label>
 </nav>
 
